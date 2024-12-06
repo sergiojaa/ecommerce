@@ -33,35 +33,36 @@ export default function Registration() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent form submission from reloading the page
+
+    console.log(user.password.length)
+
     if (!emailRegex.test(user.email)) {
       setError("Invalid email format.");
     } else if (!passwordRegex.test(user.password)) {
       setError("Password is not strong enough.");
     } else {
       setError("");
-      console.log("Form submitted successfully", user);
     }
 
-    if(error === ''){
-    axios.post("localhost:3001/auth/sign-up",{
-      body: {
-        "email": user.email,
-        "username": user.userName,
-        "password": user.password
-      }
-    }).then((res) => {
-      console.log(res)
-    }).catch((err) => {
-      console.log(err)
-    })
+    if (error === '') {
+      axios.post("http://localhost:3001/auth/sign-up", {
+        email: user.email,
+        username: user.userName,
+        password: user.password
+      })
+        .then((res) => {
+          console.log(res)
+        }).catch((err) => {
+          console.log(err)
+        })
     }
   };
   return (
-    
+
     <div>
       registration page
       <form onSubmit={handleSubmit}>
-      <input
+        <input
           name="userName"
           onChange={inputValue}
           value={user.userName}
