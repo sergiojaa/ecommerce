@@ -1,9 +1,11 @@
 'use client'
 import axios from "axios"
-
+import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation'
 import React, { useState } from 'react'
 
 export default function Registration() {
+  const router = useRouter()
   const [user, setUser] = useState({
     email: "",
     userName: "",
@@ -51,6 +53,7 @@ export default function Registration() {
         password: user.password
       })
         .then((res) => {
+          router.push('/login')
           console.log(res)
         }).catch((err) => {
           console.log(err)
