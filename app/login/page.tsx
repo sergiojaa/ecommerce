@@ -1,5 +1,6 @@
 'use client'
 import axios from "axios"
+import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { redirect } from 'next/navigation'
 import React, { useState } from 'react'
@@ -61,29 +62,36 @@ export default function login() {
   };
   return (
 
-    <div>
-      login page
-      <form onSubmit={handleSubmit}>
-
+    <div className="flex justify-center flex-col items-center ">
+      <h1>Login to your account</h1>
+      <form className="flex flex-col" onSubmit={handleSubmit}>
+        <p>Email</p>
         <input
           name="email"
           onChange={inputValue}
           value={user.email}
           type="text"
           placeholder="Enter email"
-        />
+          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
 
+        />
+        <p>Password</p>
         <input
           name="password"
           onChange={inputValue}
           value={user.password}
           type="password"
           placeholder="Enter password"
+          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+
         />
-        <button type="submit">Submit</button>
+        <button
+         className="border-solid border-2 border-[D0D5DD] bg-blue-600 px-[16px] py-[12px] rounder-xl w-[396px]	"
+
+        type="submit">Log in</button>
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message */}
-      <button>login</button>
+      <Link href='/registration'>go to registration</Link>
     </div>
   )
 }

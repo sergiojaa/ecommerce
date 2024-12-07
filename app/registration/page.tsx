@@ -1,5 +1,6 @@
 'use client'
 import axios from "axios"
+import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { redirect } from 'next/navigation'
 import React, { useState } from 'react'
@@ -62,15 +63,17 @@ export default function Registration() {
   };
   return (
 
-    <div>
+    <div className="flex justify-center flex-col items-center ">
       registration page
-      <form onSubmit={handleSubmit}>
+      <form  className="flex flex-col" onSubmit={handleSubmit}>
         <input
           name="userName"
           onChange={inputValue}
           value={user.userName}
           type="text"
           placeholder="Enter userName"
+          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+
         />
         <input
           name="email"
@@ -78,6 +81,8 @@ export default function Registration() {
           value={user.email}
           type="text"
           placeholder="Enter email"
+          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+
         />
 
         <input
@@ -86,11 +91,16 @@ export default function Registration() {
           value={user.password}
           type="password"
           placeholder="Enter password"
+          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+
         />
-        <button type="submit">Submit</button>
+        <button
+                 className="border-solid border-2 border-[D0D5DD] bg-blue-600 px-[16px] py-[12px] rounder-xl w-[396px]	"
+
+        type="submit">Submit</button>
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message */}
-      <button>login</button>
+      <Link href={'/login'}>go to login</Link>
     </div>
   )
 }
