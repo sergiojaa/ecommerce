@@ -52,8 +52,8 @@ export default function login() {
         password: user.password
       })
         .then((res) => {
-          router.push('/')
-          console.log(res)
+          // router.push('/')
+          console.log(res.data)
         }).catch((err) => {
           console.log(err)
         })
@@ -64,7 +64,7 @@ export default function login() {
     <div>
       login page
       <form onSubmit={handleSubmit}>
-        
+
         <input
           name="email"
           onChange={inputValue}
