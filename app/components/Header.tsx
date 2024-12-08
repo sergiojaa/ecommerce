@@ -2,6 +2,7 @@
 import  { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass,faCartShopping  } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 export default function Header({ isOpen, open }: { isOpen: boolean; open: () => void }) {
     
@@ -45,10 +46,13 @@ export default function Header({ isOpen, open }: { isOpen: boolean; open: () => 
  
 </div>
 <div className="flex items-center">
+  <Link href={'/cart'}>
   <FontAwesomeIcon
     icon={faCartShopping}
     className="text-white text-xl cursor-pointer"
     />
+  </Link>
+  
   </div>
 
 

@@ -2,6 +2,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 
 export default function Products() {
@@ -13,6 +14,7 @@ export default function Products() {
     if (!token) {
       router.push('/login'); // Assuming `/login` is your login page
     }
+    
 
     axios.post("http://localhost:3001/products/add-to-cart",
       { product: id },  // The product ID to add to the cart
@@ -52,6 +54,7 @@ export default function Products() {
           <img className="w-full h-[150px] object-cover rounded" src={product.image} alt={product.name} />
           <p className="text-sm text-gray-600">{product.description}</p>
           <p className="font-semibold">${product.price}</p>
+          
           <button
             onClick={() => addtocart(product._id)}
             className='bg-gray-300 px-4 py-2 rounded'>
