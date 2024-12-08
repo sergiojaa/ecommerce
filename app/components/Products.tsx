@@ -14,7 +14,19 @@ export default function Products() {
       router.push('/login'); // Assuming `/login` is your login page
     }
 
-    // axios request
+    axios.post("http://localhost:3001/products/add-to-cart",
+      { product: id },  // The product ID to add to the cart
+      {
+        headers: {
+          Authorization: `Bearer ${token}`  // Bearer token
+        }
+      })
+      .then((res) => {
+        console.log("Product added to cart:", res.data);
+      })
+      .catch((err) => {
+        console.error("Error adding product to cart:", err);
+      });
   }
 
   const [products, setProducts] = useState<
