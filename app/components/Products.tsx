@@ -3,6 +3,12 @@
     import React, { useEffect, useState } from 'react'
 
     export default function Products() {
+      
+      const addtocart = (e: React.MouseEvent<HTMLButtonElement>)=>{
+        console.log(e)
+      }
+
+
         const [products, setProducts] = useState<
         { _id: string; image: string; name: string; description: string; price: number; category: string }[]
     >([]);    useEffect(()=> {
@@ -24,6 +30,7 @@
       <img className="w-full h-[150px] object-cover rounded" src={product.image} alt={product.name} />
       <p className="text-sm text-gray-600">{product.description}</p>
       <p className="font-semibold">${product.price}</p>
+      <button onClick={addtocart} className='bg-gray-300'>add to cart</button>
     </div>
   ))}
 </div>

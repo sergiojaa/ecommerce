@@ -1,7 +1,7 @@
 "use client"
 import  { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass,faCartShopping  } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header({ isOpen, open }: { isOpen: boolean; open: () => void }) {
     
@@ -31,7 +31,7 @@ export default function Header({ isOpen, open }: { isOpen: boolean; open: () => 
         <div>
   {/* Button for screens smaller than 768px */}
   <button onClick={open} className="md:hidden">
-    <div className="flex m-[10px] flex-col items-center justify-center space-y-1 w-6 cursor-pointer">
+    <div className="flex m-[6px] flex-col items-center justify-center space-y-1 w-6 cursor-pointer">
       <div className="h-1 w-full bg-white rounded"></div>
       <div className="h-1 w-full bg-white rounded"></div>
       <div className="h-1 w-full bg-white rounded"></div>
@@ -39,10 +39,17 @@ export default function Header({ isOpen, open }: { isOpen: boolean; open: () => 
   </button>
 
   {/* Div for screens 768px and larger */}
-  <div className="hidden md:block">
-    after 768px
-  </div>
+    {/* <div className="hidden md:block">
+      after 768px
+    </div> */}
+ 
 </div>
+<div className="flex items-center">
+  <FontAwesomeIcon
+    icon={faCartShopping}
+    className="text-white text-xl cursor-pointer"
+    />
+  </div>
 
 
       </div>

@@ -53,7 +53,9 @@ export default function login() {
         password: user.password
       })
         .then((res) => {
-          // router.push('/')
+         
+          localStorage.setItem("token", res.data)
+          router.push('/')
           console.log(res.data)
         }).catch((err) => {
           console.log(err)
