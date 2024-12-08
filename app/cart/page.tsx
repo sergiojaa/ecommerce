@@ -27,6 +27,7 @@ export default function Page() {
   const router = useRouter();
   const [products, setProducts] = useState<CartItem[]>([]); // Initialize as empty array
   const [price, setPrice] = useState(0);
+  const [totalItems, setTotalItems] = useState(0); // State for the total number of items
   const [loading, setLoading] = useState(true); // Add a loading state
 
   useEffect(() => {
@@ -47,6 +48,12 @@ export default function Page() {
       .then((res) => {
         setProducts(res.data.cartItems); // Set products from API response
         setPrice(res.data.totalPrice); // Set total price from response
+        // Calculate total number of items (sum of quantities)
+        const totalQuantity = res.data.cartItems.reduce(
+          (acc, item) => acc + item.quantity,
+          0
+        );
+        setTotalItems(totalQuantity);
         setLoading(false); // Set loading to false once data is fetched
       })
       .catch((err) => {
@@ -79,6 +86,7 @@ export default function Page() {
       </div>
       <div className="mt-4">
         <p>Total Price: ${price}</p>
+        <p>Total Items: {totalItems}</p> {/* Display total number of items */}
       </div>
     </div>
   );
