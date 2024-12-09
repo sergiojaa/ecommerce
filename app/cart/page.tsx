@@ -65,120 +65,28 @@ export default function Page() {
   if (loading) {
     return <div>Loading...</div>; // Show loading state
   }
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const productId = e.currentTarget.id; // Get the product ID from the button's id attribute
-    const token = localStorage.getItem("token"); // Retrieve token from local storage
-  
-    if (!token) {
-      console.error("No token found. User might not be logged in.");
-      return;
-    }
-  
-    axios
-      .post(
-        "http://localhost:3001/products/remove-from-cart",
-        { productId }, // Include productId in the request body
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Send token in Authorization header
-            "Content-Type": "application/json", // Optional: Ensure content type is JSON
-          },
-        }
-      )
-      .then((res) => {
-        console.log("Product removed successfully:", res.data);
-  
-        // Update the UI after successful deletion
-        setProducts((prevProducts) => {
-          const updatedProducts = prevProducts.filter(
-            (item) => item.product._id !== productId
-          );
-          updateTotalPriceAndItems(updatedProducts); // Update total price and item count
-          return updatedProducts;
-        });
-      })
-      .catch((err) => {
-        console.error("Error removing product from cart:", err.response?.data || err.message);
-      });
-  };
-  
-  // Function to update total price and total items
-  const updateTotalPriceAndItems = (updatedProducts: CartItem[]) => {
-    const updatedPrice = updatedProducts.reduce(
-      (acc, item) => acc + item.totalPrice,
-      0
-    ); // Sum of all totalPrice in the cart
-    const updatedTotalItems = updatedProducts.reduce(
-      (acc, item) => acc + item.quantity,
-      0
-    ); // Sum of all quantities in the cart
-  
-    setPrice(updatedPrice); // Update total price state
-    setTotalItems(updatedTotalItems); // Update total items state
-  };
-  
-  const updateQuantity = (productId: string, operation: "increment" | "decrement") => {
-    setProducts((prevProducts) => {
-      const updatedProducts = prevProducts.map((item) => {
-        if (item.product._id === productId) {
-          // Determine updated quantity based on the operation
-          const updatedQuantity =
-            operation === "increment" ? item.quantity + 1 : Math.max(0, item.quantity - 1);
-  
-          return {
-            ...item,
-            quantity: updatedQuantity,
-            totalPrice: updatedQuantity * item.product.price, // Update total price for this item
-          };
-        }
-        return item;
-      });
-  
-      updateTotalPriceAndItems(updatedProducts); // Update total price and item count
-      return updatedProducts;
-    });
-  };
-  
-  
+
   return (
     <div>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
-      {products.map((item) => (
-  <div key={item.product._id} className="border p-4 rounded shadow">
-    <h2 className="font-bold">{item.product.name}</h2>
-    <img
-      className="w-full h-[150px] object-cover rounded"
-      src={item.product.image}
-      alt={item.product.name}
-    />
-    <p className="text-sm text-gray-600">{item.product.description}</p>
-    <p className="font-semibold">
-      ${item.product.price} x {item.quantity} = ${item.totalPrice}
-    </p>
-    <button id={item.product._id} onClick={handleDelete}>
-      Delete
-    </button>
-    <button
-      onClick={() => updateQuantity(item.product._id, "increment")}
-      className="p-5 bg-red-500"
-    >
-      +
-    </button>
-    <button
-      onClick={() => updateQuantity(item.product._id, "decrement")}
-      className="p-5 bg-yellow-500"
-    >
-      -
-    </button>
-  </div>
-))}
-
+        {products.map((item) => (
+          <div key={item.product._id} className="border p-4 rounded shadow">
+            <h2 className="font-bold">{item.product.name}</h2>
+            <img
+              className="w-full h-[150px] object-cover rounded"
+              src={item.product.image}
+              alt={item.product.name}
+            />
+            <p className="text-sm text-gray-600">{item.product.description}</p>
+            <p className="font-semibold">
+              ${item.product.price} x {item.quantity} = ${item.totalPrice}
+            </p>
+          </div>
+        ))}
       </div>
       <div className="mt-4">
         <p>Total Price: ${price}</p>
         <p>Total Items: {totalItems}</p> {/* Display total number of items */}
-      </div>
-      <div>
       </div>
     </div>
   );
