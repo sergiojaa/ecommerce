@@ -1,12 +1,44 @@
 "use client";
+import { useEffect, useState } from "react";
 
-export default async function Product({ params }: { params: { id: string } }) {
-  const products = await fetch(`http://localhost:3001/products/${params.id}`).then((res) => res.json());
-  
+type ProductType = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+};
+
+export default function Product({ params }: { params: Promise<{ id: string }> }) {
+  const [product, setProduct] = useState<ProductType | null>(null);
+  const [id, setId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Unwrap the promise
+    params.then((resolvedParams) => {
+      setId(resolvedParams.id);
+    });
+  }, [params]);
+
+  useEffect(() => {
+    if (id) {
+      fetch(`http://localhost:3001/products/${id}`)
+        .then((res) => res.json())
+        .then((data) => setProduct(data))
+        .catch((err) => console.error("Error fetching product:", err));
+    }
+  }, [id]);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
-      <h1>{products.name}</h1>
-      <p>{products.description}</p>
+      <img src={product.image} alt={product.name} />
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+      <p>${product.price.toFixed(2)}</p>
     </div>
   );
 }
