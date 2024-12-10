@@ -33,6 +33,7 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
   }
 
   return (
+<<<<<<< Updated upstream
     <div className="w-full max-w-5xl mx-auto text-2xl font-bold py-12 flex flex-col px-5 md:px-0">
       <h1 className="md:block hidden text-left ml-4">{product.name}</h1>
 
@@ -75,6 +76,13 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
         </div>
 
       </div>
+=======
+    <div>
+      <img className="w-[300px]" src={product.image} alt={product.name} />
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+      <p>${product.price.toFixed(2)}</p>
+>>>>>>> Stashed changes
     </div>
   );
 }
