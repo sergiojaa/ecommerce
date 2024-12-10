@@ -4,37 +4,38 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface Product {
-  _id: string; // Mongoose ObjectId is usually a string when it's serialized to JSON
-  image: string; // Image URL as a string
-  name: string; // Product name as a string
-  description: string; // Product description as a string
-  price: number; // Product price as a number
-  category: "vodka" | "whiskey" | "beer"; // Enum of valid categories
+  _id: string;
+  image: string;
+  name: string;
+  description: string;
+  price: number;
+  category: "vodka" | "whiskey" | "beer";
 }
 
 interface CartItem {
-  product: Product; // The product details
-  quantity: number; // Quantity of the product in the cart
-  totalPrice: number; // The total price for that quantity (price * quantity)
+  product: Product;
+  quantity: number;
+  totalPrice: number;
 }
 
 interface CartResponse {
-  cartItems: CartItem[]; // List of products in the cart
-  totalPrice: number; // Total price of all items in the cart
+  cartItems: CartItem[];
+  totalPrice: number;
 }
 
 export default function Page() {
   const router = useRouter();
-  const [products, setProducts] = useState<CartItem[]>([]); // Initialize as empty array
+  const [products, setProducts] = useState<CartItem[]>([]);
   const [price, setPrice] = useState(0);
-  const [totalItems, setTotalItems] = useState(0); // State for the total number of items
-  const [loading, setLoading] = useState(true); // Add a loading state
+  const [totalItems, setTotalItems] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [loadingProductId, setLoadingProductId] = useState<string | null>(null);
 
   const getProducts = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      router.push("/login"); // Redirect to login if no token
+      router.push("/login");
       return;
     }
 
@@ -45,67 +46,85 @@ export default function Page() {
         },
       })
       .then((res) => {
-        setProducts(res.data.cartItems); // Set products from API response
-        setPrice(res.data.totalPrice); // Set total price from response
-        // Calculate total number of items (sum of quantities)
+        setProducts(res.data.cartItems);
+        setPrice(res.data.totalPrice);
         const totalQuantity = res.data.cartItems.reduce(
           (acc, item) => acc + item.quantity,
           0
         );
         setTotalItems(totalQuantity);
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
+        console.log('hello')
       })
-      .catch((err) => {
-        console.error("Error fetching data:", err);
-        setLoading(false); // Set loading to false even on error
+      .catch(() => {
+        console.log("Cart Empty");
+        setLoading(false);
       });
-  }
+  };
 
-  const handleQuantityChange = (productId: string, operation: 'increment' | 'decrement') => {
-    axios.post('http://localhost:3001/products/change-quantity',
-      {
-        productId,
-        operation
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
+  const handleQuantityChange = (productId: string, operation: "increment" | "decrement") => {
+    setLoadingProductId(productId);
+    const MIN_LOADING_TIME = 1000;
+    const startTime = Date.now();
+
+    axios
+      .post(
+        "http://localhost:3001/products/change-quantity",
+        { productId, operation },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
-      }
-    )
+      )
       .then((res) => {
-        getProducts()
+        setProducts(res.data);
       })
-      .catch(err => console.log(err))
-  }
+      .catch((err) => console.log(err))
+      .finally(() => {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+        setTimeout(() => setLoadingProductId(null), remainingTime);
+
+        getProducts()
+      });
+  };
+
+  const removeItem = (productId: string) => {
+    setLoadingProductId(productId);
+    const MIN_LOADING_TIME = 1000;
+    const startTime = Date.now();
+
+    axios
+      .post(
+        "http://localhost:3001/products/remove-from-cart",
+        { productId },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then(() => {
+        getProducts();
+      })
+      .catch((err) => console.error("Error removing item:", err))
+      .finally(() => {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+        setTimeout(() => setLoadingProductId(null), remainingTime);
+      });
+  };
+
   useEffect(() => {
-    getProducts()
+    getProducts();
   }, []);
 
-
-
   if (loading) {
-    return <div>Loading...</div>; // Show loading state
+    return <div>Loading...</div>;
   }
-  const removeItem = (productId: string) => {
-    axios.post(
-      'http://localhost:3001/products/remove-from-cart',
-      {
-        productId
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }
-      }
-    )
-    getProducts()
-   
-
-  }
-
 
   return (
     <div>
@@ -122,15 +141,36 @@ export default function Page() {
             <p className="font-semibold">
               ${item.product.price} x {item.quantity} = ${item.totalPrice}
             </p>
-            <button onClick={() => handleQuantityChange(item.product._id, 'increment')} className='bg-red-500 w-[40px]'>+</button>
-            <button onClick={() => handleQuantityChange(item.product._id, 'decrement')} className='bg-yellow-500 w-[40px] ml-3'>-</button>
-            <button onClick={()=> removeItem(item.product._id)} className="bg-purple-600 ml-3 ">remove</button>
+            <button
+              onClick={() => handleQuantityChange(item.product._id, "increment")}
+              disabled={loadingProductId === item.product._id}
+              className={`bg-red-500 w-[40px] ${loadingProductId === item.product._id ? "opacity-50" : ""
+                }`}
+            >
+              {loadingProductId === item.product._id ? "Adding..." : "+"}
+            </button>
+            <button
+              onClick={() => handleQuantityChange(item.product._id, "decrement")}
+              disabled={loadingProductId === item.product._id}
+              className={`bg-yellow-500 w-[40px] ml-3 ${loadingProductId === item.product._id ? "opacity-50" : ""
+                }`}
+            >
+              {loadingProductId === item.product._id ? "Updating..." : "-"}
+            </button>
+            <button
+              onClick={() => removeItem(item.product._id)}
+              disabled={loadingProductId === item.product._id}
+              className={`bg-purple-600 ml-3 ${loadingProductId === item.product._id ? "opacity-50" : ""
+                }`}
+            >
+              {loadingProductId === item.product._id ? "Removing..." : "Remove"}
+            </button>
           </div>
         ))}
       </div>
       <div className="mt-4">
         <p>Total Price: ${price}</p>
-        <p>Total Items: {totalItems}</p> {/* Display total number of items */}
+        <p>Total Items: {totalItems}</p>
       </div>
     </div>
   );
