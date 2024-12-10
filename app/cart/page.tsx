@@ -88,6 +88,24 @@ export default function Page() {
   if (loading) {
     return <div>Loading...</div>; // Show loading state
   }
+  const removeItem = (productId: string) => {
+    axios.post(
+      'http://localhost:3001/products/remove-from-cart',
+      {
+        productId
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    )
+    getProducts()
+   
+
+  }
+
 
   return (
     <div>
@@ -106,6 +124,7 @@ export default function Page() {
             </p>
             <button onClick={() => handleQuantityChange(item.product._id, 'increment')} className='bg-red-500 w-[40px]'>+</button>
             <button onClick={() => handleQuantityChange(item.product._id, 'decrement')} className='bg-yellow-500 w-[40px] ml-3'>-</button>
+            <button onClick={()=> removeItem(item.product._id)} className="bg-purple-600 ml-3 ">remove</button>
           </div>
         ))}
       </div>
