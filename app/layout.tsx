@@ -13,13 +13,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [isOpen, setIsOpen] = useState(false)
-  const open = ()=>{
+  const open = () => {
     setIsOpen(!isOpen)
     console.log(isOpen)
-}
+  }
   return (
     <html lang="en">
-      
+      <head>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        </style>
+      </head>
       <body
       >
 
@@ -39,7 +43,7 @@ export default function RootLayout({
               cart
             </li>
           </ul>
-          </div>}
+        </div>}
         {children}
         {/* <Footer/> */}
       </body>
