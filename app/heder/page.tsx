@@ -30,6 +30,7 @@ export default function page({
             </div>
           </button>
         </div>
+
         <div>
           <h1 className="  text-2xl text-yellow-200  ml-[20px]   font-bold">
             <Link href={"/"}>
@@ -37,18 +38,28 @@ export default function page({
             </Link>
           </h1>
         </div>
+
+
+
       </div>
-      <div className="flex items-center gap-3">
-      <div className=" md:bg-white md:flex items-center md:p-2 rounded-xl    ">
+
+      <div className="flex-[0.5] hidden md:flex relative">
+        <input
+          placeholder="რას ეძებ?"
+          type="search"
+          className=" flex-1 rounded-xl outline-none border-none pl-2 py-2 w-full"
+        />
+        <FontAwesomeIcon
+          icon={faMagnifyingGlass}
+          className="w-6 text-black text-lg absolute cursor-pointer right-2 top-[50%] translate-y-[-50%]"
+        />
+      </div>
+
+      <div className="flex items-center">
+        <div className="  md:hidden flex items-center rounded-xl mr-[9px] mb-[3px]">
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
-            className=" md:text-gray-500  w-6 text-white text-lg "
-          />
-
-          <input
-            placeholder="რას ეძებ?"
-            type="search"
-            className="hidden md:flex flex-1 rounded-xl outline-none border-none pl-2"
+            className="w-6 text-white text-lg "
           />
         </div>
         <div className="flex items-center gap-3">
