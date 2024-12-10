@@ -42,9 +42,12 @@ export default function Products() {
         setProducts(res.data)
       })
       .catch((err) => {
-        console.error("Error fetching data:", err);
+        router.push('/login')
       });
   }, [])
+  const addQuantity = ()=> {
+    
+  }
 
   return (
     <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
@@ -54,7 +57,9 @@ export default function Products() {
           <img className="w-full h-[150px] object-cover rounded" src={product.image} alt={product.name} />
           <p className="text-sm text-gray-600">{product.description}</p>
           <p className="font-semibold">${product.price}</p>
-          
+          <button className='bg-red-500 w-[40px]'>+</button>
+          <button className='bg-yellow-500 w-[40px] ml-3'>-</button>
+
           <button
             onClick={() => addtocart(product._id)}
             className='bg-gray-300 px-4 py-2 rounded'>
