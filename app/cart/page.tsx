@@ -30,9 +30,8 @@ export default function Page() {
   const [totalItems, setTotalItems] = useState(0); // State for the total number of items
   const [loading, setLoading] = useState(true); // Add a loading state
 
-  useEffect(() => {
+  const getProducts = () => {
     const token = localStorage.getItem("token");
-    console.log(token);
 
     if (!token) {
       router.push("/login"); // Redirect to login if no token
@@ -60,7 +59,31 @@ export default function Page() {
         console.error("Error fetching data:", err);
         setLoading(false); // Set loading to false even on error
       });
+  }
+
+  const handleQuantityChange = (productId: string, operation: 'increment' | 'decrement') => {
+    axios.post('http://localhost:3001/products/change-quantity',
+      {
+        productId,
+        operation
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    )
+      .then((res) => {
+        getProducts()
+      })
+      .catch(err => console.log(err))
+  }
+  useEffect(() => {
+    getProducts()
   }, []);
+
+
 
   if (loading) {
     return <div>Loading...</div>; // Show loading state
@@ -81,6 +104,8 @@ export default function Page() {
             <p className="font-semibold">
               ${item.product.price} x {item.quantity} = ${item.totalPrice}
             </p>
+            <button onClick={() => handleQuantityChange(item.product._id, 'increment')} className='bg-red-500 w-[40px]'>+</button>
+            <button onClick={() => handleQuantityChange(item.product._id, 'decrement')} className='bg-yellow-500 w-[40px] ml-3'>-</button>
           </div>
         ))}
       </div>

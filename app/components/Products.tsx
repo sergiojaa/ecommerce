@@ -14,7 +14,7 @@ export default function Products() {
     if (!token) {
       router.push('/login'); // Assuming `/login` is your login page
     }
-    
+
 
     axios.post("http://localhost:3001/products/add-to-cart",
       { product: id },  // The product ID to add to the cart
@@ -45,8 +45,8 @@ export default function Products() {
         router.push('/login')
       });
   }, [])
-  const addQuantity = ()=> {
-    
+  const addQuantity = () => {
+
   }
 
   return (
@@ -57,8 +57,7 @@ export default function Products() {
           <img className="w-full h-[150px] object-cover rounded" src={product.image} alt={product.name} />
           <p className="text-sm text-gray-600">{product.description}</p>
           <p className="font-semibold">${product.price}</p>
-          <button className='bg-red-500 w-[40px]'>+</button>
-          <button className='bg-yellow-500 w-[40px] ml-3'>-</button>
+
 
           <button
             onClick={() => addtocart(product._id)}
