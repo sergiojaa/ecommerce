@@ -11,9 +11,12 @@ export default function Header({ isOpen, open }: { isOpen: boolean; open: () => 
       <div className="flex items-center justify-between px-3 gap-3  bg-[#1570EF] ">
         <div className="">
         <h1 className="text-2xl text-white font-bold">
+<Link href={'/'}>
   <span className="block sm:hidden">E</span>
   <span className="hidden sm:block">Eccommerce</span>
+  </Link>
 </h1>
+        
         </div>
         <div className="flex  items-center border my-2 bg-white rounded-md p-2 w-full max-w-[600px]">
           {/* Icon */}

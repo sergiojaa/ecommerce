@@ -61,6 +61,7 @@ export default function Products() {
     <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
       {products.map((product) => (
         <div key={product._id} className="border p-4 rounded shadow">
+          <Link href={`/products/${product._id}`}>
           <h2 className="font-bold">{product.name}</h2>
           <img
             className="w-full h-[150px] object-cover rounded"
@@ -69,7 +70,7 @@ export default function Products() {
           />
           <p className="text-sm text-gray-600">{product.description}</p>
           <p className="font-semibold">${product.price}</p>
-
+          </Link>
           <button
             onClick={() => addtocart(product._id)}
             className={`px-4 py-2 rounded ${loadingProduct === product._id ? 'bg-gray-500' : 'bg-gray-300'
