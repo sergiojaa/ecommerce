@@ -82,7 +82,7 @@ export default function page(
             </span> */}
           </div>
           <div className='mr-5'>
-            <Link href={'/login'}>
+            <Link href={'/profile'}>
               <FaRegUserCircle size={25} className="text-black" />
 
             </Link>
