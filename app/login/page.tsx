@@ -26,9 +26,9 @@ export default function login() {
     }));
 
     if (name === "email" && !emailRegex.test(value)) {
-      setError("Invalid email format.");
+      setError("შეიყვანეთ სწორი ელ. ფოსტა.");
     } else if (name === "password" && !passwordRegex.test(value)) {
-      setError("Password must contain at least 8 characters, one letter, one number, and one special character.");
+      setError("პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს, მინიმუმ 1 ციფრსა და ასოს და ერთ განსაკუთრებულ სიმბოლოს.");
     } else {
       setError(""); // Clear the error when input is valid
     }
@@ -65,9 +65,9 @@ export default function login() {
   return (
 
     <div className="flex justify-center flex-col items-center h-screen-minus-header">
-      <div className="w-full sm:w-auto rounded-xl shadow-none sm:shadow-lg border-none sm:border-gray-200 px-10 py-[60px] flex flex-col gap-5">
-        <h1 className="text-xl font-bold">შედით ანგარიშზე</h1>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <div className="w-full sm:w-auto rounded-xl shadow-none sm:shadow-lg border-none sm:border-gray-200 px-10 py-[40px] flex flex-col gap-5">
+        <h1 className="text-xl font-bold">ანგარიშზე შესვლა</h1>
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
           <div>
             <p>ელ. ფოსტა</p>
             <input
@@ -76,29 +76,31 @@ export default function login() {
               value={user.email}
               type="text"
               placeholder="Enter email"
-              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-full sm:w-[396px] mt-[10px]	"
+              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]	"
 
             />
           </div>
           <div>
-            <p>პაროლი</p>
+            <p >პაროლი</p>
             <input
               name="password"
               onChange={inputValue}
               value={user.password}
               type="password"
               placeholder="Enter password"
-              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-full sm:w-[396px]	mt-[10px]"
+              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px]	mt-[3px]"
 
             />
           </div>
           <button
-            className="border-solid border-2 border-[D0D5DD] cursor-pointer text-white font-bold bg-blue-500 px-[16px] py-[12px] rounder-xl w-full sm:w-[396px]	"
+            className="cursor-pointer text-white font-bold bg-blue-500 px-[16px] py-[14px] rounder-xl w-full sm:w-[396px]	"
 
             type="submit">შესვლა</button>
         </form>
-        {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message */}
-        <Link className="text-right " href='/registration'>რეგისტრაცია</Link>
+        <div className="w-full sm:w-[396px]">
+          {error && <p className="text-red-600 text-sm font-[300]">{error}</p>} {/* Display error message */}
+        </div>
+        <Link className="text-right text-sm font-[300]" href='/registration'>რეგისტრაცია</Link>
       </div>
     </div>
   )

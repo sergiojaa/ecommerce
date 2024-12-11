@@ -26,9 +26,9 @@ export default function Registration() {
     }));
 
     if (name === "email" && !emailRegex.test(value)) {
-      setError("Invalid email format.");
+      setError("შეიყვანეთ სწორი ელ. ფოსტა.");
     } else if (name === "password" && !passwordRegex.test(value)) {
-      setError("Password must contain at least 8 characters, one letter, one number, and one special character.");
+      setError("პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს, მინიმუმ 1 ციფრსა და ასოს და ერთ განსაკუთრებულ სიმბოლოს.");
     } else {
       setError(""); // Clear the error when input is valid
     }
@@ -63,44 +63,57 @@ export default function Registration() {
   };
   return (
 
-    <div className="flex justify-center flex-col items-center ">
-      registration page
-      <form  className="flex flex-col" onSubmit={handleSubmit}>
-        <input
-          name="userName"
-          onChange={inputValue}
-          value={user.userName}
-          type="text"
-          placeholder="Enter userName"
-          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+    <div className="flex justify-center flex-col items-center h-screen-minus-header">
+      <div className="w-full sm:w-auto rounded-xl shadow-none sm:shadow-lg border-none sm:border-gray-200 px-10 py-[40px] flex flex-col gap-5">
+        <h1 className="text-xl font-bold">რეგისტრაცია</h1>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <div>
+            <p>მომხმარებლის სახელი</p>
+            <input
+              name="userName"
+              onChange={inputValue}
+              value={user.userName}
+              type="text"
+              placeholder="შეიყვანეთ მეტსახელი"
+              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
 
-        />
-        <input
-          name="email"
-          onChange={inputValue}
-          value={user.email}
-          type="text"
-          placeholder="Enter email"
-          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+            />
+          </div>
+          <div>
+            <p>ელ. ფოსტა</p>
+            <input
+              name="email"
+              onChange={inputValue}
+              value={user.email}
+              type="text"
+              placeholder="შეიყვანეთ ელ. ფოსტა"
+              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
 
-        />
+            />
+          </div>
 
-        <input
-          name="password"
-          onChange={inputValue}
-          value={user.password}
-          type="password"
-          placeholder="Enter password"
-          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+          <div>
+            <p>პაროლი</p>
+            <input
+              name="password"
+              onChange={inputValue}
+              value={user.password}
+              type="password"
+              placeholder="შეიყვანეთ პაროლი"
+              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
 
-        />
-        <button
-                 className="border-solid border-2 border-[D0D5DD] bg-blue-600 px-[16px] py-[12px] rounder-xl w-[396px]	"
+            />
+          </div>
+          <button
+            className="cursor-pointer text-white font-bold bg-blue-500 px-[16px] py-[12px] rounder-xl w-full sm:w-[396px]"
 
-        type="submit">Submit</button>
-      </form>
-      {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message */}
-      <Link href={'/login'}>go to login</Link>
+            type="submit">რეგისტრაცია</button>
+        </form>
+        <div className="w-full sm:w-[396px]">
+          {error && <p className="text-red-600 text-sm font-[300]">{error}</p>} {/* Display error message */}
+        </div>
+        <Link className="text-right text-sm font-[300]" href={'/login'}>უკვე გაქვთ ანგარიში?</Link>
+      </div>
     </div>
   )
 }
