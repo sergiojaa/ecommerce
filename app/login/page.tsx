@@ -53,7 +53,7 @@ export default function login() {
         password: user.password
       })
         .then((res) => {
-         
+
           localStorage.setItem("token", res.data)
           router.push('/')
           console.log(res.data)
@@ -64,36 +64,42 @@ export default function login() {
   };
   return (
 
-    <div className="flex justify-center flex-col items-center ">
-      <h1>Login to your account</h1>
-      <form className="flex flex-col" onSubmit={handleSubmit}>
-        <p>Email</p>
-        <input
-          name="email"
-          onChange={inputValue}
-          value={user.email}
-          type="text"
-          placeholder="Enter email"
-          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+    <div className="flex justify-center flex-col items-center h-screen-minus-header">
+      <div className="w-full sm:w-auto rounded-xl shadow-none sm:shadow-lg border-none sm:border-gray-200 px-10 py-[60px] flex flex-col gap-5">
+        <h1 className="text-xl font-bold">შედით ანგარიშზე</h1>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <div>
+            <p>ელ. ფოსტა</p>
+            <input
+              name="email"
+              onChange={inputValue}
+              value={user.email}
+              type="text"
+              placeholder="Enter email"
+              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-full sm:w-[396px] mt-[10px]	"
 
-        />
-        <p>Password</p>
-        <input
-          name="password"
-          onChange={inputValue}
-          value={user.password}
-          type="password"
-          placeholder="Enter password"
-          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+            />
+          </div>
+          <div>
+            <p>პაროლი</p>
+            <input
+              name="password"
+              onChange={inputValue}
+              value={user.password}
+              type="password"
+              placeholder="Enter password"
+              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-full sm:w-[396px]	mt-[10px]"
 
-        />
-        <button
-         className="border-solid border-2 border-[D0D5DD] bg-blue-600 px-[16px] py-[12px] rounder-xl w-[396px]	"
+            />
+          </div>
+          <button
+            className="border-solid border-2 border-[D0D5DD] cursor-pointer text-white font-bold bg-blue-500 px-[16px] py-[12px] rounder-xl w-full sm:w-[396px]	"
 
-        type="submit">Log in</button>
-      </form>
-      {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message */}
-      <Link href='/registration'>go to registration</Link>
+            type="submit">შესვლა</button>
+        </form>
+        {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message */}
+        <Link className="text-right " href='/registration'>რეგისტრაცია</Link>
+      </div>
     </div>
   )
 }
