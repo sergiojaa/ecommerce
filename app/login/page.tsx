@@ -14,8 +14,6 @@ export default function login() {
   });
   const [error, setError] = useState("");
 
-  const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,28 +22,12 @@ export default function login() {
       ...prevUser,
       [name]: value // Dynamically update the correct field
     }));
-
-    if (name === "email" && !emailRegex.test(value)) {
-      setError("შეიყვანეთ სწორი ელ. ფოსტა.");
-    } else if (name === "password" && !passwordRegex.test(value)) {
-      setError("პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს, მინიმუმ 1 ციფრსა და ასოს და ერთ განსაკუთრებულ სიმბოლოს.");
-    } else {
-      setError(""); // Clear the error when input is valid
-    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent form submission from reloading the page
 
     console.log(user.password.length)
-
-    if (!emailRegex.test(user.email)) {
-      setError("Invalid email format.");
-    } else if (!passwordRegex.test(user.password)) {
-      setError("Password is not strong enough.");
-    } else {
-      setError("");
-    }
 
     if (error === '') {
       axios.post("http://localhost:3001/auth/sign-in", {
@@ -58,7 +40,7 @@ export default function login() {
           router.push('/')
           console.log(res.data)
         }).catch((err) => {
-          console.log(err)
+          setError(err.response.data.message)
         })
     }
   };

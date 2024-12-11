@@ -57,7 +57,7 @@ export default function Registration() {
           router.push('/login')
           console.log(res)
         }).catch((err) => {
-          console.log(err)
+          setError(err.response.data.message)
         })
     }
   };
