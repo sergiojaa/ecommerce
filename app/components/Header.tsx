@@ -31,7 +31,7 @@ export default function page(
 
 
   return (
-    <div className='mt-[50px]  '>
+    <div className='mt-[17px]  '>
       <div className='flex items-center justify-between md:justify-between'>
         <div className='flex items-center gap-2' >
           <button onClick={open} className="md:hidden">
