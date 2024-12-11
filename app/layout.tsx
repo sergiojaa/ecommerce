@@ -17,6 +17,7 @@ export default function RootLayout({
     setIsOpen(!isOpen)
     console.log(isOpen)
   }
+
   return (
     <html lang="en">
       <head>
@@ -27,21 +28,18 @@ export default function RootLayout({
       <body
       >
 
-        <Header open={open} isOpen={isOpen} />
+        <Header  open={open} isOpen={isOpen} />
         {isOpen && <div className="bg-red-600 w-[500px] h-[100vh] right-0 absolute top-[50px]     ">
           <ul className="flex  w-full flex-col items-end justify-end">
-            <li >
-              cart
-            </li>
-            <li>
-              cart
-            </li>
-            <li>
-              cart
-            </li>
-            <li>
-              cart
-            </li>
+          <li>home</li>
+                        <li>about</li>
+                        <li>service</li>
+
+                        <li>products</li>
+                        <li>drinks</li>
+                        <li>contact</li>
+                        <li onClick={()=> {setIsOpen(false)}}>X</li>
+
           </ul>
         </div>}
         {children}

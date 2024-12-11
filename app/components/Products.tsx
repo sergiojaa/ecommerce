@@ -3,15 +3,20 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-
+type ProductsProps = {
+  cartCount: number;
+  setCartCount: React.Dispatch<React.SetStateAction<number>>;
+};
 export default function Products() {
   const router = useRouter();
+
   const [loadingProduct, setLoadingProduct] = useState<string | null>(null); // Track the loading product
   const [products, setProducts] = useState<
     { _id: string; image: string; name: string; description: string; price: number; category: string }[]
   >([]);
 
   const addtocart = (id: string) => {
+
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -34,7 +39,10 @@ export default function Products() {
       }
     )
       .then((res) => {
+        // setCartCount((prevCount) => prevCount + 1);
+
         console.log("Product added to cart:", res.data);
+        
       })
       .catch((err) => {
         console.error("Error adding product to cart:", err);
