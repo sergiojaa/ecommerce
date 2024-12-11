@@ -200,50 +200,6 @@ export default function Page() {
 
         {/* Right side */}
 
-        {/* <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
-        {products.map((item) => (
-          <div key={item.product._id} className="border p-4 rounded shadow">
-            <h2 className="font-bold">{item.product.name}</h2>
-            <img
-              className="w-full h-[150px] object-cover rounded"
-              src={item.product.image}
-              alt={item.product.name}
-            />
-            <p className="text-sm text-gray-600">{item.product.description}</p>
-            <p className="font-semibold">
-              ${item.product.price} x {item.quantity} = ${item.totalPrice}
-            </p>
-            <button
-              onClick={() => handleQuantityChange(item.product._id, "increment")}
-              disabled={loadingProductId === item.product._id}
-              className={`bg-red-500 w-[40px] ${loadingProductId === item.product._id ? "opacity-50" : ""
-                }`}
-            > 
-              {loadingProductId === item.product._id ? "Adding..." : "+"}
-            </button>
-            <button
-              onClick={() => handleQuantityChange(item.product._id, "decrement")}
-              disabled={loadingProductId === item.product._id}
-              className={`bg-yellow-500 w-[40px] ml-3 ${loadingProductId === item.product._id ? "opacity-50" : ""
-                }`}
-            >
-              {loadingProductId === item.product._id ? "Updating..." : "-"}
-            </button>
-            <button
-              onClick={() => removeItem(item.product._id)}
-              disabled={loadingProductId === item.product._id}
-              className={`bg-purple-600 ml-3 ${loadingProductId === item.product._id ? "opacity-50" : ""
-                }`}
-            >
-              {loadingProductId === item.product._id ? "Removing..." : "Remove"}
-            </button>
-          </div>
-        ))}
-      </div>
-      <div className="mt-4">
-        <p>Total Price: ${price}</p>
-        <p>Total Items: {totalItems}</p>
-      </div> */}
       </div>
     </div>
   );
