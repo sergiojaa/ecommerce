@@ -126,38 +126,46 @@ export default function Page() {
   }
 
   return (
-    <div className="px-[50px] pb-[100px]">
+    <div className="md:px-[50px] pb-[100px]">
 
-      <h1 className="text-3xl font-bold my-[50px]">შენს კალათაში {totalItems} ნივთია</h1>
+      <h1 className="mx-[20px] text-3xl font-bold my-[50px]">შენს კალათაში {totalItems} ნივთია</h1>
 
-      <div className="flex w-full h-screen-minus-header gap-[50px]">
+      <div className="flex w-full h-screen-minus-header gap-[50px] flex-col xl:flex-row">
 
         {/* Left side */}
 
         <div className="flex-[2]">
           <div className="flex flex-col w-full h-full overflow-scroll gap-[25px]">
             {products.map((product) => (
-              <div key={product.product._id} className="px-4 pt-[10px] pb-[10px] rounded-xl shadow-md border border-gray-200 flex justify-between items-center">
+              <div key={product.product._id} className="px-4 pt-[10px] pb-[10px] rounded-xl md:shadow-md border md:border-gray-200 flex justify-between items-center">
 
                 <img className="w-[100px] h-[100px]" src={product.product.image} />
 
-                <h1>{product.product.name}</h1>
+                <div className="flex flex-col items-start xl:flex-row w-full">
+                  <h1 className="">{product.product.name}</h1>
 
-                <div className="flex gap-5 border-solid border-[1px] px-[13px] py-[5px] rounded-2xl">
-                  <button
-                    onClick={() => handleQuantityChange(product.product._id, "decrement")}
-                    className="cursor-pointer">
-                    -
-                  </button>
-                  <p>{product.quantity}</p>
-                  <button
-                    onClick={() => handleQuantityChange(product.product._id, "increment")}
-                    className="cursor-pointer">
-                    +
-                  </button>
+                  <div className="flex items-center justify-start gap-5 w-full ">
+
+                    <div className="flex justify-center gap-5 border-solid border-[1px] px-[13px] py-[5px] rounded-2xl">
+                      <button
+                        onClick={() => handleQuantityChange(product.product._id, "decrement")}
+                        className="cursor-pointer">
+                        -
+                      </button>
+                      <p>{product.quantity}</p>
+                      <button
+                        onClick={() => handleQuantityChange(product.product._id, "increment")}
+                        className="cursor-pointer">
+                        +
+                      </button>
+                    </div>
+
+                    <h1 className="text-[17px] font-bold">${product.totalPrice}</h1>
+                  </div>
                 </div>
 
-                <h1 className="text-[17px] font-bold">${product.totalPrice}</h1>
+
+
 
                 <button className="scale-125" onClick={() => removeItem(product.product._id)} disabled={loadingProductId === product.product._id}
                 >
