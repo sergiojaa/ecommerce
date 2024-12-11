@@ -137,7 +137,7 @@ export default function Page() {
         <div className="flex-[2]">
           <div className="flex flex-col w-full h-full overflow-scroll gap-[25px]">
             {products.map((product) => (
-              <div key={product.product._id} className="px-4 pt-[40px] pb-[10px] rounded-xl shadow-md border border-gray-200 flex justify-between items-center">
+              <div key={product.product._id} className="px-4 pt-[10px] pb-[10px] rounded-xl shadow-md border border-gray-200 flex justify-between items-center">
 
                 <img className="w-[100px] h-[100px]" src={product.product.image} />
 
