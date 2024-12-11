@@ -14,8 +14,6 @@ export default function login() {
   });
   const [error, setError] = useState("");
 
-  const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,14 +22,6 @@ export default function login() {
       ...prevUser,
       [name]: value // Dynamically update the correct field
     }));
-
-    if (name === "email" && !emailRegex.test(value)) {
-      setError("Invalid email format.");
-    } else if (name === "password" && !passwordRegex.test(value)) {
-      setError("Password must contain at least 8 characters, one letter, one number, and one special character.");
-    } else {
-      setError(""); // Clear the error when input is valid
-    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,61 +29,61 @@ export default function login() {
 
     console.log(user.password.length)
 
-    if (!emailRegex.test(user.email)) {
-      setError("Invalid email format.");
-    } else if (!passwordRegex.test(user.password)) {
-      setError("Password is not strong enough.");
-    } else {
-      setError("");
-    }
-
     if (error === '') {
       axios.post("http://localhost:3001/auth/sign-in", {
         email: user.email,
         password: user.password
       })
         .then((res) => {
-         
+
           localStorage.setItem("token", res.data)
           router.push('/')
           console.log(res.data)
         }).catch((err) => {
-          console.log(err)
+          setError(err.response.data.message)
         })
     }
   };
   return (
 
-    <div className="flex justify-center flex-col items-center ">
-      <h1>Login to your account</h1>
-      <form className="flex flex-col" onSubmit={handleSubmit}>
-        <p>Email</p>
-        <input
-          name="email"
-          onChange={inputValue}
-          value={user.email}
-          type="text"
-          placeholder="Enter email"
-          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+    <div className="flex justify-center flex-col items-center h-screen-minus-header">
+      <div className="w-full sm:w-auto rounded-xl shadow-none sm:shadow-lg border-none sm:border-gray-200 px-10 py-[40px] flex flex-col gap-5">
+        <h1 className="text-xl font-bold">ანგარიშზე შესვლა</h1>
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+          <div>
+            <p>ელ. ფოსტა</p>
+            <input
+              name="email"
+              onChange={inputValue}
+              value={user.email}
+              type="text"
+              placeholder="Enter email"
+              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]	"
 
-        />
-        <p>Password</p>
-        <input
-          name="password"
-          onChange={inputValue}
-          value={user.password}
-          type="password"
-          placeholder="Enter password"
-          className="border-solid border-2 border-[D0D5DD] px-[16px] py-[12px] rounder-xl w-[396px]	"
+            />
+          </div>
+          <div>
+            <p >პაროლი</p>
+            <input
+              name="password"
+              onChange={inputValue}
+              value={user.password}
+              type="password"
+              placeholder="Enter password"
+              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px]	mt-[3px]"
 
-        />
-        <button
-         className="border-solid border-2 border-[D0D5DD] bg-blue-600 px-[16px] py-[12px] rounder-xl w-[396px]	"
+            />
+          </div>
+          <button
+            className="cursor-pointer text-white font-bold bg-blue-500 px-[16px] py-[14px] rounder-xl w-full sm:w-[396px]	"
 
-        type="submit">Log in</button>
-      </form>
-      {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message */}
-      <Link href='/registration'>go to registration</Link>
+            type="submit">შესვლა</button>
+        </form>
+        <div className="w-full sm:w-[396px]">
+          {error && <p className="text-red-600 text-sm font-[300]">{error}</p>} {/* Display error message */}
+        </div>
+        <Link className="text-right text-sm font-[300]" href='/registration'>რეგისტრაცია</Link>
+      </div>
     </div>
   )
 }
