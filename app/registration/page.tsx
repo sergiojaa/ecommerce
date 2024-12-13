@@ -10,12 +10,15 @@ export default function Registration() {
   const [user, setUser] = useState({
     email: "",
     userName: "",
+    mobileNumber: "",
     password: ""
   });
   const [error, setError] = useState("");
 
   const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const mobileRegex = /^5\d{8}$/;
+
 
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,11 +27,13 @@ export default function Registration() {
       ...prevUser,
       [name]: value // Dynamically update the correct field
     }));
-
+    
     if (name === "email" && !emailRegex.test(value)) {
       setError("შეიყვანეთ სწორი ელ. ფოსტა.");
     } else if (name === "password" && !passwordRegex.test(value)) {
       setError("პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს, მინიმუმ 1 ციფრსა და ასოს და ერთ განსაკუთრებულ სიმბოლოს.");
+    }else if(name === 'mobileNumber'&& !mobileRegex.test(value)){
+      setError('შეიყვანეთ ვალიდური ტელეფონის ნომერი')
     } else {
       setError(""); // Clear the error when input is valid
     }
@@ -51,6 +56,7 @@ export default function Registration() {
       axios.post("http://localhost:3001/auth/sign-up", {
         email: user.email,
         username: user.userName,
+        mobileNumber: user.mobileNumber,
         password: user.password
       })
         .then((res) => {
@@ -74,7 +80,7 @@ export default function Registration() {
               onChange={inputValue}
               value={user.userName}
               type="text"
-              placeholder="შეიყვანეთ მეტსახელი"
+              placeholder="შეიყვანეთ სახელი და გვარი"
               className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
 
             />
@@ -87,6 +93,18 @@ export default function Registration() {
               value={user.email}
               type="text"
               placeholder="შეიყვანეთ ელ. ფოსტა"
+              className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
+
+            />
+          </div>
+          <div>
+            <p>მობილურის ნომერი</p>
+            <input
+              name="mobileNumber"
+              onChange={inputValue}
+              value={user.mobileNumber}
+              type="text  "
+              placeholder="შეიყვანეთ ნომერი"
               className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
 
             />
