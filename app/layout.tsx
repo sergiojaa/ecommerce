@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import { useState } from "react";
 // import Footer from "./components/Footer";
+import { Bebas_Neue, Inter } from 'next/font/google'
 
 
 export default function RootLayout({
@@ -19,10 +20,11 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html lang="en" >
       <head>
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
         </style>
       </head>
       <body
