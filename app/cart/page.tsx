@@ -142,10 +142,10 @@ export default function Page() {
 
                 <img className="w-[100px] h-[100px]" src={product.product.image} />
 
-                <div className="flex flex-col items-start xl:flex-row w-full">
+                <div className="flex flex-col items-start xl:flex-row w-full p-3">
                   <h1 className="">{product.product.name}</h1>
 
-                  <div className="flex items-center justify-start gap-5 w-full ">
+                  <div className="flex items-center justify-start gap-5 w-full md:ml-6">
 
                     <div className="flex justify-center gap-5 border-solid border-[1px] px-[13px] py-[5px] rounded-2xl">
                       <button
