@@ -3,11 +3,14 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation'; // Correct import
 import React, { useEffect, useState } from 'react';
 import { checkTokenValidity } from '../components/utils/checkTokenValidity';
+import { HiH1 } from 'react-icons/hi2';
 
 export default function Page() {
-  const [userData, setUserData] = useState({ userName: '', email: '' });
+  const [userData, setUserData] = useState({ userName: '', email: '', mobileNumber: "",
+    password: "" });
   const [error, setError] = useState('');
   const router = useRouter();
+  const [isFirstButtonActive, setIsFirstButtonActive] = useState(true);
 
   const logOut = () => {
     localStorage.removeItem('token');
@@ -27,9 +30,11 @@ export default function Page() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        setUserData({
+         setUserData({
           userName: res.data.username,
           email: res.data.email,
+          mobileNumber: res.data.mobileNumber,
+          password: res.data.password
         });
       })
       .catch((err) => {
@@ -93,68 +98,78 @@ export default function Page() {
             <h2 className='font-bold text-[20px]'>პარამეტრები</h2>
            
             <div className='flex'>
-            <button className='border bg-blue-600 p-3 rounded-2xl'>პირადი ინფორმაცია</button>
+            <button onClick={()=> setIsFirstButtonActive(true)} className={`border p-3 rounded-2xl ${
+              isFirstButtonActive ? "bg-blue-500":"bg-white"
+            }`}>პირადი ინფორმაცია</button>
             <button 
+            onClick={()=> setIsFirstButtonActive(false)}
             // className='border bg-blue-600 p-3 rounded-2xl'
-            className='border p-3 rounded-2xl'
+            className={`border p-3 rounded-2xl ${!isFirstButtonActive? "bg-blue-500": "bg-white"} ` }
             >
                პაროლის შეცვლა</button>
                
             </div>
+            {isFirstButtonActive ? 
+       <>
+       <div>
+        
+       </div>
+       <div className='flex md:justify-between   font-bold items-center'>
+          <div>
+            <h3>მეილი</h3>
+            <h4>{userData.email}</h4>
+          </div>
+          <div>
+            <h4 className='text-blue-500 cursor-pointer font-bold items-center xl:mr-[20rem] mr-[2rem] '
+            >შეცვლა</h4>
+          </div>
+
+
+        </div><hr className='w-[270px] md:w-[450px] lg:w-[700px] xl:w-[800px] ' /><div className='font-bold flex md:justify-between items-center'>
+            <div>
+              <h2 className='font-bold '>სახელი,გვარი</h2>
+              <h2>{userData.userName}</h2>
+            </div>
+
+            <div>
+              <h3 className='text-blue-500 cursor-pointer xl:mr-[20rem] mr-[2rem] '>შეცვლა</h3>
+            </div>
+
+          </div><hr className='w-[270px] md:w-[450px] lg:w-[700px] xl:w-[800px] ' /><div className='flex  md:justify-between font-bold items-center'>
+            <div>
+              <h3>მობილურის ნომერი</h3>
+              <h4>{userData.mobileNumber}</h4>
+            </div>
+            <div>
+              <h4 className='text-blue-500 cursor-pointer xl:mr-[20rem] mr-[2rem] '>შეცვლა</h4>
+
+            </div>
+
+          </div><hr className='w-[270px] md:w-[450px] lg:w-[700px] xl:w-[800px] ' /></>
+      :    <div className='flex  md:justify-between font-bold items-center'>
+      <div>
+      <h3>პაროლი</h3>
+      <h4>{userData.password}</h4>
+      </div>
+      <div>
+      <h4 className='text-blue-500 cursor-pointer xl:mr-[20rem] mr-[2rem] '>შეცვლა</h4>
+
+      </div>
+      
+    </div> }
             
 
             </div>
-            <div className='flex md:justify-between   font-bold items-center'>
-              <div>
-              <h3>მეილი</h3>
-              <h4>{userData.email}</h4>
-              </div>
-              <div>
-              <h4 className='text-blue-500 cursor-pointer font-bold items-center xl:mr-[20rem] mr-[2rem] '
-              >შეცვლა</h4>
-              </div>
-              
-              
-            </div>
-            <hr className='w-[270px] md:w-[450px] lg:w-[700px] xl:w-[800px] ' />
-
-            <div className='font-bold flex md:justify-between items-center'>
-              <div>
-              <h2 className='font-bold '>სახელი,გვარი</h2>
-              <h2>სერგი ქალიაშვილი</h2>
-              </div>
-              
-              <div>
-                <h3 className='text-blue-500 cursor-pointer xl:mr-[20rem] mr-[2rem] '>შეცვლა</h3>
-              </div>
-              
-            </div>
-            <hr className='w-[270px] md:w-[450px] lg:w-[700px] xl:w-[800px] ' />
-            <div className='flex  md:justify-between font-bold items-center'>
-              <div>
-              <h3>მობილურის ნომერი</h3>
-              <h4>555 25 92 94</h4>
-              </div>
-              <div>
-              <h4 className='text-blue-500 cursor-pointer xl:mr-[20rem] mr-[2rem] '>შეცვლა</h4>
-
-              </div>
-              
-            </div>
-            <hr className='w-[270px] md:w-[450px] lg:w-[700px] xl:w-[800px] ' />
-
-            {/* <h1>Email: {userData.email}</h1> */}
+           
+        
           </div>
           </div>
           
-         
+          
         </div>
       )}
-      <div>
-        {/* <button onClick={logOut} className="bg-blue-400 p-[10px] w-[100px]">
-          Log Out
-        </button> */}
-      </div>
+     
+     
     </div>
   );
 }
