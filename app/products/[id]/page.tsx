@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
 import { useRouter } from "next/navigation";
+import { checkTokenValidity } from "@/app/components/utils/checkTokenValidity";
 
 type ProductType = {
   _id: string;
@@ -40,9 +41,9 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
   const addToCart = () => {
     const token = localStorage.getItem('token');
 
-    if (!token) {
-      router.push('/login'); // Redirect to login if no token
-      return;
+
+    if (checkTokenValidity(String(token)) !== true) {
+      router.push('/login')
     }
 
     setLoadingProduct(id); // Start loading for the selected product
