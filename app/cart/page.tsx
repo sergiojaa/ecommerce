@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { checkTokenValidity } from "../components/utils/checkTokenValidity";
 
 interface Product {
   _id: string;
@@ -32,11 +33,11 @@ export default function Page() {
   const [loadingProductId, setLoadingProductId] = useState<string | null>(null);
 
   const getProducts = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
-    if (!token) {
-      router.push("/login");
-      return;
+
+    if (checkTokenValidity(String(token)) !== true) {
+      router.push('/login')
     }
 
     axios
