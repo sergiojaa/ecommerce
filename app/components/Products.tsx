@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { checkTokenValidity } from './utils/checkTokenValidity';
 type ProductsProps = {
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
@@ -19,9 +20,9 @@ export default function Products() {
 
     const token = localStorage.getItem('token');
 
-    if (!token) {
-      router.push('/login'); // Redirect to login if no token
-      return;
+
+    if (checkTokenValidity(String(token)) !== true) {
+      router.push('/login')
     }
 
     setLoadingProduct(id); // Start loading for the selected product
@@ -42,7 +43,7 @@ export default function Products() {
         // setCartCount((prevCount) => prevCount + 1);
 
         console.log("Product added to cart:", res.data);
-        
+
       })
       .catch((err) => {
         console.error("Error adding product to cart:", err);
@@ -70,14 +71,14 @@ export default function Products() {
       {products.map((product) => (
         <div key={product._id} className="border p-4 rounded shadow">
           <Link href={`/products/${product._id}`}>
-          <h2 className="font-bold">{product.name}</h2>
-          <img
-            className="w-full h-[150px] object-cover rounded"
-            src={product.image}
-            alt={product.name}
-          />
-          <p className="text-sm text-gray-600">{product.description}</p>
-          <p className="font-semibold">${product.price}</p>
+            <h2 className="font-bold">{product.name}</h2>
+            <img
+              className="w-full h-[150px] object-cover rounded"
+              src={product.image}
+              alt={product.name}
+            />
+            <p className="text-sm text-gray-600">{product.description}</p>
+            <p className="font-semibold">${product.price}</p>
           </Link>
           <button
             onClick={() => addtocart(product._id)}
