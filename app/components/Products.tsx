@@ -11,7 +11,6 @@ import Link from 'next/link';
 import { checkTokenValidity } from './utils/checkTokenValidity';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, } from "@fortawesome/free-solid-svg-icons";
-import CategorySlider from './CategorySlider';
 type ProductsProps = {
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
@@ -77,8 +76,6 @@ export default function Products() {
   return (
     <div>
       <div className='mx-[2rem] lg:mx-[6rem]'>
-
-        <CategorySlider />
 
         <div className='flex justify-start items-center mt-[2rem]'>
           <h1 className='text-[20px] text-black'>ახალი პროდუქცია</h1>
