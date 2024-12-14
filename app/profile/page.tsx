@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation'; // Correct import
 import React, { useEffect, useState } from 'react';
 import { checkTokenValidity } from '../components/utils/checkTokenValidity';
 import { HiH1 } from 'react-icons/hi2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEyeLowVision } from '@fortawesome/free-solid-svg-icons';
+import { faEye } from "@fortawesome/free-regular-svg-icons";
 
 export default function Page() {
   const [newPassword, setNewPassword] = useState({
@@ -11,6 +14,14 @@ export default function Page() {
     newPassword:"",
     repeatNewPassword:''
   })
+  const [passwordVisible, setPassowrdVisible] = useState(true)
+  const [hidden, setHidden] = useState(true)
+  const toggleHiddenVisible = ()=> {
+    setHidden(!hidden)
+  }
+  const togglePasswordVisible = ()=>{
+    setPassowrdVisible(!passwordVisible)
+  }
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   const [passwordError,setPasswordError] = useState<string>('')
@@ -229,29 +240,94 @@ export default function Page() {
         </div>
         <div>
           <form  className='flex flex-col gap-6' >
-            <input
-            className="border-solid rounded-xl border-2 border-[D0D5DD] px-[10px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
-            name='oldPassword'
-            onChange={(e) => newPasswordValue(e.target.name, e.target.value)}
+          <div className="flex items-center border-solid rounded-xl border-2 border-[#D0D5DD] px-[10px] py-[10px] w-full sm:w-[396px] mt-[3px]">
+              <input
+                className="flex-1 outline-none"
+                onChange={(e) => newPasswordValue(e.target.name, e.target.value)}
+                name="oldPassword"
+                placeholder="ძველი პაროლი"
+                type={passwordVisible ? 'password' : 'text  '}
+                id=""
+              />
+             {
+        passwordVisible ? (
+          <FontAwesomeIcon
+            onClick={togglePasswordVisible} // On click, toggle password visibility
+            icon={faEyeLowVision} // "Eye" icon when password is visible
+            className="ml-2 text-gray-500 cursor-pointer"
+          />
+        ) : (
+          <FontAwesomeIcon
+            onClick={togglePasswordVisible} // On click, toggle password visibility
+            icon={faEye} // "Eye-slash" icon when password is hidden
+            className="ml-2 text-gray-500 cursor-pointer"
+          />
+        )
+      }
+            </div>
 
-            placeholder='ძველი პაროლი'
+                        
+
+            <div className="flex items-center border-solid rounded-xl border-2 border-[#D0D5DD] px-[10px] py-[10px] w-full sm:w-[396px] mt-[3px]">
+              <input
+                className="flex-1 outline-none"
+                onChange={(e) => newPasswordValue(e.target.name, e.target.value)}
+                name="newPassword"
+                placeholder="ახალი პაროლი"
+                type={passwordVisible ? 'password' : 'text  '}
+
+
+                id=""
+              />
+           {
+        passwordVisible ? (
+          <FontAwesomeIcon
+            onClick={togglePasswordVisible} // On click, toggle password visibility
+            icon={faEyeLowVision} // "Eye" icon when password is visible
+            className="ml-2 text-gray-500 cursor-pointer"
+          />
+        ) : (
+          <FontAwesomeIcon
+            onClick={togglePasswordVisible} // On click, toggle password visibility
+            icon={faEye} // "Eye-slash" icon when password is hidden
+            className="ml-2 text-gray-500 cursor-pointer"
+          />
+        )
+      }
             
-            type="password"  id="" />
-             <input
-            className="border-solid rounded-xl border-2 border-[D0D5DD] px-[10px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
-           
-            onChange={(e) => newPasswordValue(e.target.name, e.target.value)}
+             
 
-            name='newPassword'
-            placeholder='ახალი პაროლი'
-            type="password"  id="" />
-             <input
-            className="border-solid rounded-xl border-2 border-[D0D5DD] px-[10px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
-            name='repeatNewPassword'
-            onChange={(e) => newPasswordValue(e.target.name, e.target.value)}
+            </div>
 
-            placeholder='გაიმეორეთ ახალი პაროლი'
-            type="password"  id="" />
+            <div className="flex items-center border-solid rounded-xl border-2 border-[#D0D5DD] px-[10px] py-[10px] w-full sm:w-[396px] mt-[3px]">
+                <input
+                  className="flex-1 outline-none"
+                  name="repeatNewPassword"
+                  onChange={(e) => newPasswordValue(e.target.name, e.target.value)}
+                  placeholder="გაიმეორეთ ახალი პაროლი"
+                  type={passwordVisible ? 'password' : 'text  '}
+
+
+                  id=""
+                />
+               {
+        passwordVisible ? (
+          <FontAwesomeIcon
+            onClick={togglePasswordVisible} // On click, toggle password visibility
+            icon={faEyeLowVision} // "Eye" icon when password is visible
+            className="ml-2 text-gray-500 cursor-pointer"
+          />
+        ) : (
+          <FontAwesomeIcon
+            onClick={togglePasswordVisible} // On click, toggle password visibility
+            icon={faEye} // "Eye-slash" icon when password is hidden
+            className="ml-2 text-gray-500 cursor-pointer"
+          />
+        )
+      }
+              </div>
+
+
             <p>{passwordError}</p>
             <button 
             className='border bg-black text-white p-3 rounded-lg max-w-max' 
@@ -260,7 +336,7 @@ export default function Page() {
           
               განაახლე პაროლი
               </button>
-              
+
           </form>
         </div>
       
