@@ -8,9 +8,10 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { checkTokenValidity } from './utils/checkTokenValidity';
+import { checkTokenValidity } from '../utils/checkTokenValidity';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, } from "@fortawesome/free-solid-svg-icons";
+import ProductCard from './ProductCard';
 type ProductsProps = {
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
@@ -133,34 +134,7 @@ export default function Products() {
 
       <div className="lg:mx-[6rem] mx-[2rem] grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 font-[Bebas Neue]">
         {products.map((product) => (
-          <div key={product._id} className=" border  p-4 rounded shadow flex flex-col justify-between">
-            <Link href={`/products/${product._id}`}>
-              <img
-                className="w-full h-[150px] object-cover rounded"
-                src={product.image}
-                alt={product.name}
-              />
-              <h2 className="font-bold text-[15px] mt-[0.5rem]">{product.name}</h2> {/* Truncates long names */}
-              <p className="text-sm text-gray-600 mt-[0.5rem] line-clamp-2">{product.description}</p> {/* Limits description */}
-            </Link>
-            <div className="flex items-center justify-between  ">
-              <p className="font-semibold">${product.price}</p>
-              <button
-                onClick={() => addtocart(product._id)}
-                className={`px-4 py-2 rounded ${loadingProduct === product._id ? 'bg-blue-300' : 'bg-blue-500'
-                  }`}
-                disabled={loadingProduct === product._id}
-              >
-                <Link href={"/cart"}>
-                  <FontAwesomeIcon
-                    icon={faCartShopping}
-                    className="text-white text-xl cursor-pointer"
-                  />
-                </Link>
-                {loadingProduct === product._id && 'Adding...'}
-              </button>
-            </div>
-          </div>
+          <ProductCard key={product._id} product={product} loadingProduct={loadingProduct} addtocart={addtocart} />
         ))}
       </div>
 
