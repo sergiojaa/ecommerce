@@ -16,7 +16,7 @@ export default function Page() {
   })
   const [passwordVisible, setPassowrdVisible] = useState(true)
   const [hidden, setHidden] = useState(true)
-  const toggleHiddenVisible = ()=> {
+  const toggleHiddenVisible = (id:string)=> {
     setHidden(!hidden)
   }
   const togglePasswordVisible = ()=>{
@@ -252,15 +252,18 @@ export default function Page() {
              {
         passwordVisible ? (
           <FontAwesomeIcon
-            onClick={togglePasswordVisible} // On click, toggle password visibility
+          onClick={()=>togglePasswordVisible((e:any)=> e.target.id)} // On click, toggle password visibility
+          // On click, toggle password visibility
             icon={faEyeLowVision} // "Eye" icon when password is visible
             className="ml-2 text-gray-500 cursor-pointer"
+            id='oldPassword'
           />
         ) : (
           <FontAwesomeIcon
-            onClick={togglePasswordVisible} // On click, toggle password visibility
+            onClick={()=>togglePasswordVisible((e:any)=> e.target.id)} // On click, toggle password visibility
             icon={faEye} // "Eye-slash" icon when password is hidden
             className="ml-2 text-gray-500 cursor-pointer"
+            id='oldPassword'
           />
         )
       }
