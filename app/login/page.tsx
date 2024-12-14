@@ -9,7 +9,6 @@ export default function login() {
   const router = useRouter()
   const [user, setUser] = useState({
     email: "",
-    userName: "",
     password: ""
   });
   const [error, setError] = useState("");
@@ -18,32 +17,39 @@ export default function login() {
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
+    // Clear error on input change
+    setError("");
+
     setUser((prevUser) => ({
       ...prevUser,
-      [name]: value // Dynamically update the correct field
+      [name]: value,
     }));
   };
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent form submission from reloading the page
 
-    console.log(user.password.length)
+    // Clear the error state before making a new request
+    setError("");
 
-    if (error === '') {
-      axios.post("http://localhost:3001/auth/sign-in", {
+    console.log(user);
+
+    axios
+      .post("http://localhost:3001/auth/sign-in", {
         email: user.email,
-        password: user.password
+        password: user.password,
       })
-        .then((res) => {
-
-          localStorage.setItem("token", res.data)
-          router.push('/')
-          console.log(res.data)
-        }).catch((err) => {
-          setError(err.response.data.message)
-        })
-    }
+      .then((res) => {
+        localStorage.setItem("token", res.data);
+        router.push("/");
+        console.log(res.data);
+      })
+      .catch((err) => {
+        setError(err.response?.data?.message || "An error occurred");
+      });
   };
+
   return (
 
     <div className="flex justify-center flex-col items-center h-screen-minus-header">
