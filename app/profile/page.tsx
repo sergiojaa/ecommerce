@@ -24,10 +24,11 @@ export default function Page() {
   useEffect(() => {
     const token = localStorage.getItem('token');
 
-    if (!token || checkTokenValidity(token) !== true) {
-      router.push('/login');
-      return;
-    }
+    checkTokenValidity(String(token)).then((isValid) => {
+      if (!isValid) {
+        router.push('/login')
+      }
+    });
 
     axios
       .get('http://localhost:3001/auth/account', {

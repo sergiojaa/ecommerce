@@ -15,6 +15,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.7.9",
+    "jsonwebtoken": "^9.0.2",
     "leaflet": "^1.9.4",
     "next": "15.0.4",
     "react": "^19.0.0",
@@ -23,6 +24,7 @@
     "swiper": "^11.1.15"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/leaflet": "^1.9.15",
     "@types/node": "^20",
     "@types/react": "^19",

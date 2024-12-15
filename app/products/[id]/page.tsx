@@ -16,6 +16,7 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
   const [product, setProduct] = useState<ProductType | null>(null);
   const [id, setId] = useState<string | null>(null);
   const [loadingProduct, setLoadingProduct] = useState<string | null>(null); // Track the loading product
+  const [tokenValidity, setTokenValidity] = useState(false)
 
   const router = useRouter()
 
@@ -34,17 +35,27 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
     }
   }, [id]);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    checkTokenValidity(String(token)).then((isValid) => {
+      if (!isValid) {
+        setTokenValidity(false)
+      } else {
+        setTokenValidity(true)
+      }
+    });
+
+  }, [])
+
   if (!product) {
     return <div>Loading...</div>;
   }
 
-  const addToCart = () => {
+  const addToCart = async () => {
+    if (tokenValidity === false) return router.push('/login')
+
     const token = localStorage.getItem('token');
-
-
-    if (checkTokenValidity(String(token)) !== true) {
-      router.push('/login')
-    }
 
     setLoadingProduct(id); // Start loading for the selected product
 
