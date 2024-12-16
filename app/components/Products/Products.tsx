@@ -23,13 +23,28 @@ export default function Products() {
   const [products, setProducts] = useState<
     { _id: string; image: string; name: string; description: string; price: number; category: string }[]
   >([]);
+  const [tokenValidity, setTokenValidity] = useState(false)
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    checkTokenValidity(String(token)).then((isValid) => {
+      if (!isValid) {
+        setTokenValidity(false)
+      } else {
+        setTokenValidity(true)
+      }
+    });
+
+  }, [])
 
   const addtocart = (id: string) => {
 
     const token = localStorage.getItem('token');
 
 
-    if (checkTokenValidity(String(token)) !== true) {
+    if (!tokenValidity) {
       router.push('/login')
     }
 
@@ -39,7 +54,7 @@ export default function Products() {
     const startTime = Date.now();
 
     axios.post(
-      "http://localhost:3001/products/add-to-cart",
+      "http://localhost:3001/cart/add-to-cart",
       { productId: id }, // The product ID to add to the cart
       {
         headers: {

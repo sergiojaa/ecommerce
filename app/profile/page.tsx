@@ -31,7 +31,7 @@ export default function Page() {
     });
 
     axios
-      .get('http://localhost:3001/auth/account', {
+      .get('http://localhost:3001/account', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

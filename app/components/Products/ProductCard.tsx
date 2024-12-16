@@ -39,12 +39,10 @@ export default function ProductCard({ product, addtocart, loadingProduct }: Prod
                         }`}
                     disabled={loadingProduct === product._id}
                 >
-                    <Link href={"/cart"}>
-                        <FontAwesomeIcon
-                            icon={faCartShopping}
-                            className="text-white text-xl cursor-pointer"
-                        />
-                    </Link>
+                    <FontAwesomeIcon
+                        icon={faCartShopping}
+                        className="text-white text-xl cursor-pointer"
+                    />
                     {loadingProduct === product._id && 'Adding...'}
                 </button>
             </div>

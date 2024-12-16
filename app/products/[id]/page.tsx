@@ -63,7 +63,7 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
     const startTime = Date.now();
 
     axios.post(
-      "http://localhost:3001/products/add-to-cart",
+      "http://localhost:3001/cart/add-to-cart",
       { productId: id }, // The product ID to add to the cart
       {
         headers: {

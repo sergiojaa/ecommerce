@@ -32,16 +32,22 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [loadingProductId, setLoadingProductId] = useState<string | null>(null);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    checkTokenValidity(String(token)).then((isValid) => {
+      if (!isValid) {
+        router.push('/login')
+      }
+    });
+
+  }, [])
+
   const getProducts = () => {
     const token = localStorage.getItem('token');
 
-
-    if (checkTokenValidity(String(token)) !== true) {
-      router.push('/login')
-    }
-
     axios
-      .get<CartResponse>("http://localhost:3001/products/cart", {
+      .get<CartResponse>("http://localhost:3001/cart", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,7 +75,7 @@ export default function Page() {
 
     axios
       .post(
-        "http://localhost:3001/products/change-quantity",
+        "http://localhost:3001/cart/change-quantity",
         { productId, operation },
         {
           headers: {
@@ -98,7 +104,7 @@ export default function Page() {
 
     axios
       .post(
-        "http://localhost:3001/products/remove-from-cart",
+        "http://localhost:3001/cart/remove-from-cart",
         { productId },
         {
           headers: {

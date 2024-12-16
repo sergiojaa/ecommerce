@@ -33,8 +33,6 @@ export default function login() {
     // Clear the error state before making a new request
     setError("");
 
-    console.log(user);
-
     axios
       .post("http://localhost:3001/auth/sign-in", {
         email: user.email,

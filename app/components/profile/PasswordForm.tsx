@@ -1,15 +1,17 @@
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEyeLowVision } from '@fortawesome/free-solid-svg-icons/faEyeLowVision';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { checkTokenValidity } from '../utils/checkTokenValidity';
 import axios from 'axios';
 
 export default function PasswordForm() {
     const router = useRouter()
+
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
+    const [tokenValidity, setTokenValidity] = useState(false)
     const [passwordError, setPasswordError] = useState<string>('')
     const [answer, setAnswer] = useState('')
 
@@ -25,6 +27,18 @@ export default function PasswordForm() {
         newPassword: false,
         repeatNewPassword: false,
     });
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        checkTokenValidity(String(token)).then((isValid) => {
+            if (!isValid) {
+                setTokenValidity(false)
+            } else {
+                setTokenValidity(true)
+            }
+        });
+    }, [])
 
     const togglePasswordVisibility = (id: string) => {
         setVisibleIcons((prev) => ({
@@ -55,13 +69,17 @@ export default function PasswordForm() {
     const updatePassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
 
+        setTimeout(() => {
+
+        }, 1000)
+
         const token = localStorage.getItem('token');
-        if (!token || checkTokenValidity(token) !== true) {
+        if (!token || !tokenValidity) {
             router.push('/login');
             return;
         }
 
-        axios.patch('http://localhost:3001/auth/edit ',
+        axios.patch('http://localhost:3001/account/edit ',
             {
                 change: "password",
                 changeTo: passwords.newPassword,
