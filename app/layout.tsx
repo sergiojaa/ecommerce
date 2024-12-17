@@ -7,7 +7,19 @@ import { useState } from "react";
 // import Footer from "./components/Footer";
 import { Bebas_Neue, Inter } from 'next/font/google'
 import Footer from "./components/Footer";
-
+const data = [
+  { name: "ავტომატები", url: "/categories/circuit-breakers" },
+  { name: "ელ. მაგნიტური გამშვი", url: "/categories/electric-magnetic-starter" },
+  { name: "ელ. სამონტაჟო ყუთები", url: "/categories/electrical-installation-boxes" },
+  { name: "ნათურები", url: "/categories/lightbulbs" },
+  { name: "რელე", url: "/categories/relays" },
+  { name: "სადენები", url: "/categories/wires" },
+  { name: "ტრანსფორმატორები", url: "/categories/transformers" },
+  { name: "ფანრები", url: "/categories/flashlights" },
+  { name: "ქუჩის სანათები", url: "/categories/street-lights" },
+  { name: "ჩამრთველები და როზეტები", url: "/categories/switches-and-sockets" },
+  { name: "ძაბვის სტაბილიზატორი", url: "/categories/voltage-stabilizer" },
+];
 
 export default function RootLayout({
   children,
@@ -28,19 +40,15 @@ export default function RootLayout({
 
         </style>
       </head>
-      <body
+      <body className={`${isOpen && 'overflow-hidden'}`}
       >
 
         <Header open={open} isOpen={isOpen} />
-        {isOpen && <div className="bg-red-600 w-[100%]   lg:hidden  h-[100vh] right-0 absolute top-[50px]     ">
+        {isOpen && <div className="bg-red-600 w-[100%] z-10  lg:hidden  h-[100vh] right-0 fixed top-[50px]     ">
           <ul className="flex  w-full flex-col items-center justify-center">
-            <li>home</li>
-            <li>about</li>
-            <li>service</li>
-
-            <li>products</li>
-            <li>drinks</li>
-            <li>contact</li>
+            {data.map((category)=> (
+              <li key={category.name}>{category.name}</li>
+            ))}
             <li onClick={() => { setIsOpen(false) }}>X</li>
 
           </ul>
