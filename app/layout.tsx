@@ -32,7 +32,7 @@ export default function RootLayout({
       >
 
         <Header open={open} isOpen={isOpen} />
-        {isOpen && <div className="bg-red-600 w-[100%] md:hidden h-[100vh] right-0 absolute top-[50px]     ">
+        {isOpen && <div className="bg-red-600 w-[100%]   lg:hidden  h-[100vh] right-0 absolute top-[50px]     ">
           <ul className="flex  w-full flex-col items-center justify-center">
             <li>home</li>
             <li>about</li>

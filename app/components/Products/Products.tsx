@@ -144,6 +144,7 @@ export default function Products() {
             </SwiperSlide>
           ))}
         </Swiper>
+        
 
       </div>
 

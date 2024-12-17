@@ -11,7 +11,7 @@ const changeUserNumber = async (mobileNumber: string) => {
   const res: responseType = {};
 
   if (!mobileRegex.test(mobileNumber)) {
-    res.error = "Invalid mobile number format. It should start with 5 and have 9 digits.";
+    res.error = "   მობილური ნომრის არასწორი ფორმატი. ის უნდა დაიწყოს 5-ით და იყოს 9 ციფრი.";
     return res;
   }
 

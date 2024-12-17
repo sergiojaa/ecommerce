@@ -1,4 +1,4 @@
-
+'use client'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +6,7 @@ import { faMobile } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons"; // Import the specific icon
 import { FaRegUserCircle } from "react-icons/fa";
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import {
   faMagnifyingGlass,
@@ -19,6 +20,7 @@ interface CartResponse {
   totalPrice: number;
 }
 
+
 export default function page(
   {
     isOpen,
@@ -27,14 +29,19 @@ export default function page(
     isOpen: boolean;
     open: () => void;
   },
-) {
-
-
+) 
+{
+const [inputOpen, setInputOpen] = useState(false) 
+  // Toggle the visibility of the input field
+  const toggleInputVisibility = () => {
+    setInputOpen(!inputOpen);
+  };
+ 
   return (
     <div className='mt-[17px]  '>
-      <div className='flex items-center justify-between md:justify-between'>
+      <div className={`flex items-center  md:justify-between ${!inputOpen && 'justify-between' } `}>
         <div className='flex items-center gap-2' >
-          <button onClick={open} className="md:hidden">
+          <button onClick={open} className="lg:hidden">
             <div className="ml-[10px] translate-y-[-10%] ">
               <div className="flex m-[6px] flex-col items-center justify-center space-y-1 w-6 cursor-pointer">
                 <div className="h-1 w-full bg-[#69707D] rounded"></div>
@@ -43,51 +50,70 @@ export default function page(
               </div>
             </div>
           </button>
-
-          <div className='w-[100px]  lg:w-[150px] md:ml-[20px]  '>
+{!inputOpen && 
+(
+  <div>
+  <div className='w-[100px]  lg:w-[150px] md:ml-[20px]  '>
             {/* <h1 className='font-bold text-gray-500 text-[30px]'>Beverage</h1> */}
             <Link href={'/'}>
-              <img className='lg:ml-[70px]' src="https://cdn.discordapp.com/attachments/1303694017724289055/1316439763095388263/image.png?ex=675b0d91&is=6759bc11&hm=24c660d4710e2bb38d0a4d447daa37422459c0ca4f4eeb5eee96b0fabc13d22d&" alt="" />
+              <img className='lg:ml-[150px]' src="https://cdn.discordapp.com/attachments/1303694017724289055/1316439763095388263/image.png?ex=675b0d91&is=6759bc11&hm=24c660d4710e2bb38d0a4d447daa37422459c0ca4f4eeb5eee96b0fabc13d22d&" alt="" />
 
             </Link>
           </div>
+  </div>
+)
+}
+        
 
         </div>
-        <div>
-          <div>
-            <ul className=' hidden md:flex gap-5 text-xl'>
-              <li>home</li>
-              <li>about</li>
-              <li>service</li>
+        <div className='flex items-center w-full gap-7 lg:pr-[70px]'>
+        <div className='relative lg:mr-[100px] w-full flex items-center'>
+  {/* Conditionally render the input field */}
+  <input
+    type="text"
+    placeholder="რას ეძებთ?"
+    className={`outline-none bg-red lg:ml-[200px]  text-sm border border-gray-300 rounded p-2 w-full pl-2 pr-10 
+      ${inputOpen || 'hidden'} md:block`} // Show the input on medium screens and larger
+  />
 
-              <li>products</li>
-              <li>drinks</li>
-              <li>contact</li>
+  {/* FontAwesome search icon */}
+  <FontAwesomeIcon
+    icon={faMagnifyingGlass}
+    className={`text-gray-500 text-xl  cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2  ${!inputOpen && "translate-x-12"}
+      ${inputOpen ? 'translate-x-0' : 'translate-x-6'} md:translate-x-0`} // Icon inside the input when opened, and always reset on md screens
+    onClick={toggleInputVisibility} // Toggle input visibility when clicked
+  />
+</div>
+<div className='md:hidden'>
+{inputOpen &&      <FontAwesomeIcon onClick={toggleInputVisibility}  icon={faXmark} className="text-2xl mr-5 ml-[-10px]" />
+  }
+</div>
+    
 
+        
+{!inputOpen && 
+ (
+ <div className='flex gap-3 lg:gap-7 lg:mr-[100px]'>
+ <div className='relative'>
+ <Link href={"/cart"}>
+   <FontAwesomeIcon
+     icon={faCartShopping}
+     className="text-black translate-y-[10%]  text-xl cursor-pointer"
+   />
+ </Link>
 
+</div>
+<div className='mr-5'>
+ <Link href={'/profile'}>
+   <FaRegUserCircle size={25} className="text-black" />
 
-            </ul>
-          </div>
-        </div>
-        <div className='flex items-center gap-7 lg:pr-[70px]'>
-          <div className='relative'>
-            <Link href={"/cart"}>
-              <FontAwesomeIcon
-                icon={faCartShopping}
-                className="text-black translate-y-[10%]  text-xl cursor-pointer"
-              />
-            </Link>
-            {/* <span className="absolute -top-2 -right-2 bg-gray-100 text-black text-xs w-5 h-5 flex items-center justify-center rounded-full">
-            
-            </span> */}
-          </div>
-          <div className='mr-5'>
-            <Link href={'/profile'}>
-              <FaRegUserCircle size={25} className="text-black" />
+ </Link>
 
-            </Link>
-
-          </div>
+</div>
+ </div>
+ )
+}
+         
         </div>
 
       </div>
