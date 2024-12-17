@@ -37,8 +37,14 @@ export default function ProfileInformation({
 
     if (numberChange.error) {
       setError(numberChange.error);
+      setTimeout(()=>{
+        setError('')
+      },5000)
     } else {
-      setMessage(numberChange.message || "Mobile number updated successfully.");
+      setMessage(numberChange.message || "მობილურის ნომერი შეიცვალა");
+      setTimeout(()=>{
+        setMessage('')
+      },5000)
       setIsEditing(false); // Exit edit mode on success
 
       // Update userData in the parent state
