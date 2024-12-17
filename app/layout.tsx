@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import { useState } from "react";
 // import Footer from "./components/Footer";
 import { Bebas_Neue, Inter } from 'next/font/google'
+import Footer from "./components/Footer";
 
 
 export default function RootLayout({
@@ -45,7 +46,7 @@ export default function RootLayout({
           </ul>
         </div>}
         {children}
-        {/* <Footer/> */}
+        <Footer />
       </body>
     </html>
   );
