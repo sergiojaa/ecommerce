@@ -44,7 +44,7 @@ export default function RootLayout({
       >
 
         <Header open={open} isOpen={isOpen} />
-        {isOpen && <div className="bg-red-600 w-[100%] z-10  lg:hidden  h-[100vh] right-0 fixed top-[50px]     ">
+        {isOpen && <div className="bg-red-600 w-[100%]  z-10  lg:hidden  h-[100vh] right-0 fixed top-[50px]     ">
           <ul className="flex  w-full flex-col items-center justify-center">
             {data.map((category)=> (
               <li key={category.name}>{category.name}</li>
