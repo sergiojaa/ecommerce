@@ -79,10 +79,12 @@ const [inputOpen, setInputOpen] = useState(false)
   {/* FontAwesome search icon */}
   <FontAwesomeIcon
     icon={faMagnifyingGlass}
-    className={`text-gray-500 text-xl  cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2  ${!inputOpen && "translate-x-12"}
-      ${inputOpen ? 'translate-x-0' : 'translate-x-6'} md:translate-x-0`} // Icon inside the input when opened, and always reset on md screens
-    onClick={toggleInputVisibility} // Toggle input visibility when clicked
+    className={`text-gray-500 text-xl block md:hidden  cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2  ${!inputOpen && "translate-x-12"}
+      ${inputOpen ? 'translate-x-0' : 'translate-x-6'} md:translate-x-0`} 
+    onClick={toggleInputVisibility} 
   />
+   
+    <FontAwesomeIcon className='hidden md:block cursor-pointer text-gray-500 text-cl absolute right-2 top-1/4 '   icon={faMagnifyingGlass} />
 </div>
 <div className='md:hidden'>
 {inputOpen &&      <FontAwesomeIcon onClick={toggleInputVisibility}  icon={faXmark} className="text-2xl mr-5 ml-[-10px]" />
