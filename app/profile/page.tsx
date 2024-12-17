@@ -32,7 +32,12 @@ export default function Page() {
 
     axios
       .get('http://localhost:3001/account', {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        },
       })
       .then((res) => {
         setUserData({
@@ -74,7 +79,7 @@ export default function Page() {
               </div>
 
               {isFirstButtonActive
-                ? <ProfileInformation userData={userData} />
+                ? <ProfileInformation setUserData={setUserData} userData={userData} />
                 :
                 <PasswordForm />}
             </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import changeUserNumber from "../utils/changeUserNumber";
 
 type userDataType = {
@@ -9,13 +9,19 @@ type userDataType = {
 
 export default function ProfileInformation({
   userData,
+  setUserData
 }: {
   userData: userDataType;
+  setUserData: React.Dispatch<React.SetStateAction<userDataType>>;
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [number, setNumber] = useState(userData.mobileNumber);
+  const [number, setNumber] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    setNumber(userData.mobileNumber)
+  }, [userData.mobileNumber])
 
   const onEdit = () => {
     setIsEditing(!isEditing);
@@ -34,6 +40,9 @@ export default function ProfileInformation({
     } else {
       setMessage(numberChange.message || "Mobile number updated successfully.");
       setIsEditing(false); // Exit edit mode on success
+
+      // Update userData in the parent state
+      setUserData((prev) => ({ ...prev, mobileNumber: number }));
     }
   };
 
