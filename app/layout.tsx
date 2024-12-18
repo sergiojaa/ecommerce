@@ -7,7 +7,12 @@ import { useState } from "react";
 // import Footer from "./components/Footer";
 import { Bebas_Neue, Inter } from 'next/font/google'
 import Footer from "./components/Footer";
-const data = [
+import Link from "next/link";
+export type Category = {
+  name: string;
+  url: string;
+};
+export  const data = [
   { name: "ავტომატები", url: "/categories/circuit-breakers" },
   { name: "ელ. მაგნიტური გამშვი", url: "/categories/electric-magnetic-starter" },
   { name: "ელ. სამონტაჟო ყუთები", url: "/categories/electrical-installation-boxes" },
@@ -44,15 +49,23 @@ export default function RootLayout({
       >
 
         <Header open={open} isOpen={isOpen} />
-        {isOpen && <div className="bg-red-600 w-[100%]  z-10  lg:hidden  h-[100vh] right-0 fixed top-[50px]     ">
-          <ul className="flex  w-full flex-col items-center justify-center">
-            {data.map((category)=> (
-              <li key={category.name}>{category.name}</li>
-            ))}
-            <li onClick={() => { setIsOpen(false) }}>X</li>
+        {isOpen && (
+  <div className="bg-white top-[50px] w-full mt-6 text-black z-10 lg:hidden h-[100vh] right-0 fixed">
+    <ul className="flex gap-1 font-bold cursor-pointer w-full flex-col items-start justify-center">
+      {data.map((category) => (
+        <Link key={category.name} href={category.url}>
+          <li
+            className="border-b  w-[1000%]  p-2 box-border"
+            key={category.name}
+          >
+            {category.name}
+          </li>
+        </Link>
+      ))}
+    </ul>
+  </div>
+)}
 
-          </ul>
-        </div>}
         {children}
         <Footer />
       </body>
