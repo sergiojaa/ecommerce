@@ -1,12 +1,14 @@
 'use client'
 import React, { useState } from 'react';
 import axios from 'axios';
+import CategoryDropDownMenu from '../components/CategoryDropDownMenu';
 
 export default function Page() {
   const [image, setImage] = useState<File | null>(null); // Store the image as a File
   const [productName, setProductName] = useState<string>('');
   const [productDescription, setProductDescription] = useState<string>('');
   const [productPrice, setProductPrice] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -18,7 +20,7 @@ export default function Page() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
 
     // Create FormData object
     const formData = new FormData();
@@ -28,14 +30,14 @@ export default function Page() {
     formData.append('name', productName);
     formData.append('description', productDescription);
     formData.append('price', productPrice);
-    formData.append('category', 'circuit-breakers'); // You can change this based on your form
+    formData.append('category', selectedCategory || ''); // Use selectedCategory from the dropdown
 
     try {
       // Send a POST request to the backend with FormData
       const response = await axios.post('http://localhost:3001/products/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Important to set this for file uploads
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
         },
       });
 
@@ -48,6 +50,12 @@ export default function Page() {
   return (
     <div>
       <form className="flex items-center mt-6 justify-center gap-3 flex-col" onSubmit={handleSubmit}>
+        {/* Pass setSelectedCategory as a prop to CategoryDropDownMenu */}
+        <CategoryDropDownMenu 
+          selectedCategory={selectedCategory} 
+          setSelectedCategory={setSelectedCategory} // Correctly passing setSelectedCategory here
+        />
+
         <label htmlFor="product-name">პროდუქციის სახელი</label>
         <input
           id="product-name"
