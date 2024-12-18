@@ -6,17 +6,17 @@ interface CategoryDropDownMenuProps {
 }
 
 export const data = [
-  { name: "ავტომატები", url: "/categories/circuit-breakers" },
-  { name: "ელ. მაგნიტური გამშვი", url: "/categories/electric-magnetic-starter" },
-  { name: "ელ. სამონტაჟო ყუთები", url: "/categories/electrical-installation-boxes" },
-  { name: "ნათურები", url: "/categories/lightbulbs" },
-  { name: "რელე", url: "/categories/relays" },
-  { name: "სადენები", url: "/categories/wires" },
-  { name: "ტრანსფორმატორები", url: "/categories/transformers" },
-  { name: "ფანრები", url: "/categories/flashlights" },
-  { name: "ქუჩის სანათები", url: "/categories/street-lights" },
-  { name: "ჩამრთველები და როზეტები", url: "/categories/switches-and-sockets" },
-  { name: "ძაბვის სტაბილიზატორი", url: "/categories/voltage-stabilizer" },
+  { name: "circuit-breakers", url: "/categories/circuit-breakers" },
+  { name: "electric-magnetic-starter", url: "/categories/electric-magnetic-starter" },
+  { name: "electrical-installation-boxes", url: "/categories/electrical-installation-boxes" },
+  { name: "lightbulbs", url: "/categories/lightbulbs" },
+  { name: "relays", url: "/categories/relays" },
+  { name: "wires", url: "/categories/wires" },
+  { name: "transformers", url: "/categories/transformers" },
+  { name: "flashlights", url: "/categories/flashlights" },
+  { name: "street-lights", url: "/categories/street-lights" },
+  { name: "switches-and-sockets", url: "/categories/switches-and-sockets" },
+  { name: "voltage-stabilizer", url: "/categories/voltage-stabilizer" },
 ];
 
 const CategoryDropDownMenu: React.FC<CategoryDropDownMenuProps> = ({ selectedCategory, setSelectedCategory }) => {
