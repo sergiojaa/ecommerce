@@ -192,6 +192,21 @@ export default function ProductCreator() {
                         />
                     </div>
                 </div>
+
+                <div className='flex justify-between'>
+                    <div className='flex-1'>
+                        <h1 className='font-bold text-md'>პროდუქციის ფასი</h1>
+                        <p className='text-gray-500 text-xs'>ჩაწერეთ პროდუქტის ფასი</p>
+                    </div>
+                    <div className='flex-[2] flex items-center'>
+                        <input className='text-sm px-[5px] py-[10px] rounded-md w-[80%] border-[1px] border-solid border-gray-500' name='name' type="number" placeholder='პროდუქტის ფასი' />
+                    </div>
+                </div>
+
+
+                <div className='flex items-center justify-center w-full'>
+                    <button className='bg-blue-500 tex-twhite rounded-md h-full px-[20px] py-[10px] text-white' type='submit'>შექმნა</button>
+                </div>
             </div>
             <div className='flex-1 bg-red-900 h-screen'>
             </div>
