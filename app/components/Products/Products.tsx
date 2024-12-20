@@ -114,16 +114,16 @@ export default function Products() {
           {categoryData.map((product) => (
             <SwiperSlide key={product.id}>
 
-              <div className="border p-6 rounded shadow flex flex-col justify-between">
+              <div className="border p-6  rounded shadow flex flex-col justify-between">
 
                 <Link href={`/category?category=${product.name}`}>
 
                   <img
-                    className="w-full h-[200px] object-cover rounded mb-4" // Bigger image
+                    className="w-full h-[300px] object-cover rounded mb-4" // Bigger image
                     src={product.image}
                     alt={product.name}
                   />
-                  <h2 className="font-bold text-[18px] mt-2">{product.name}</h2> {/* Larger font */}
+                  <h2 className="font-bold  text-[15px]  mt-1">{product.name}</h2> {/* Larger font */}
                   {/* <p className="text-sm text-gray-600 mt-2 line-clamp-2">{product.description}</p> */}
                 </Link>
                 <div className="flex items-center justify-between mt-4">
