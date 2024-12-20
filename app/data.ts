@@ -1,6 +1,6 @@
 export const categoryData =  [
     { 
-        name: "ავტომატები", 
+        name: "circuit-breakers", 
         url: "/categories/circuit-breakers",
         image: 'https://www.keremont.ge/uploads/products/1588525024_full.jpg',
         id:1
