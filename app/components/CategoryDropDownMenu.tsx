@@ -2,7 +2,7 @@ import React from 'react';
 
 interface CategoryDropDownMenuProps {
   selectedCategory: string | null;
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const data = [
@@ -26,7 +26,6 @@ const CategoryDropDownMenu: React.FC<CategoryDropDownMenuProps> = ({ selectedCat
 
   return (
     <div>
-      <label htmlFor="category-select" className="block text-lg mb-2">აირჩიე კატეგორია</label>
       <select
         id="category-select"
         value={selectedCategory || ''}

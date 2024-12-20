@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import CategoryDropDownMenu from '../CategoryDropDownMenu';
 import axios from 'axios';
-import CategoryList from './CategoryList';
+import CategoryList from './DescriptionList';
 
 export default function ProductCreator() {
     const [image, setImage] = useState<File | null>(null); // Store the image as a File
     const [productName, setProductName] = useState<string>('');
-    const [productDescription, setProductDescription] = useState<string>('');
+    const [selectedDescription, setSelectedDescription] = useState<string[]>([]);
     const [productPrice, setProductPrice] = useState<string>('');
-    const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<string>('');
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -27,7 +27,7 @@ export default function ProductCreator() {
             formData.append('singleFile', image);
         }
         formData.append('name', productName);
-        formData.append('description', productDescription);
+        formData.append('description', selectedDescription[0]);
         formData.append('price', productPrice);
         // formData.append('category', selectedCategory.toString());
 
@@ -132,7 +132,7 @@ export default function ProductCreator() {
                     </div>
                 </div>
 
-                <CategoryList selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+                <CategoryList selectedDescription={selectedDescription} setSelectedDescription={setSelectedDescription} />
 
                 <div className='flex'>
                     <div className='flex-1'>
@@ -178,6 +178,19 @@ export default function ProductCreator() {
                         )}
                     </div>
 
+                </div>
+
+                <div className='flex'>
+                    <div className='flex-1'>
+                        <h1 className='font-bold text-md'>პროდუქციის კატეგორია</h1>
+                        <p className='text-gray-500 text-xs'>ჩაწერეთ პროდუქტის კატეგორია</p>
+                    </div>
+                    <div className='flex-[2] flex items-center'>
+                        <CategoryDropDownMenu
+                            selectedCategory={selectedCategory}
+                            setSelectedCategory={setSelectedCategory}
+                        />
+                    </div>
                 </div>
             </div>
             <div className='flex-1 bg-red-900 h-screen'>
