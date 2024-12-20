@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { checkTokenValidity } from '../utils/checkTokenValidity';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, } from "@fortawesome/free-solid-svg-icons";
-import ProductCard from './ProductCardd';
+import ProductCard from './ProductCard';
 import { categoryData } from '@/app/data';
 type ProductsProps = {
   cartCount: number;
@@ -116,7 +116,7 @@ export default function Products() {
 
               <div className="border p-6 rounded shadow flex flex-col justify-between">
 
-                <Link href={`/category`}>
+                <Link href={`/category?category=${product.name}`}>
 
                   <img
                     className="w-full h-[200px] object-cover rounded mb-4" // Bigger image
@@ -127,13 +127,13 @@ export default function Products() {
                   {/* <p className="text-sm text-gray-600 mt-2 line-clamp-2">{product.description}</p> */}
                 </Link>
                 <div className="flex items-center justify-between mt-4">
-                 
+
                 </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-        
+
 
       </div>
 

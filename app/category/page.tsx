@@ -1,28 +1,30 @@
+'use client';
+
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { productType } from '../components/products/ProductCardd';
+import { useSearchParams } from 'next/navigation';
+import { productType } from '../components/products/ProductCard';
 
 export default function CategoryPage() {
-    const [products, setProducts] = useState<productType[]>([]);
-    const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [products, setProducts] = useState<productType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const router = useRouter();
-  const { category } = router.query; // Get the dynamic category from the URL
+  const searchParams = useSearchParams();
+  const category = searchParams.get('category'); // Extract `category` from the query string
 
   useEffect(() => {
     if (category) {
-      // Only fetch data after the `category` is available
       axios
         .get(`http://localhost:3001/products?category=${category}`)
         .then((response) => {
+          console.log(response)
           setProducts(response.data);
           setLoading(false);
         })
         .catch((err) => {
           console.error('Error fetching products:', err);
-        //   setError('Failed to load products.');
+          setError('Failed to load products.');
           setLoading(false);
         });
     }
