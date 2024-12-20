@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react'
 
 
-type productType = {
+export type productType = {
     _id: string;
     image: string;
     name: string;

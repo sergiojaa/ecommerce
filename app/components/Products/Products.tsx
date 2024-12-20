@@ -11,7 +11,8 @@ import Link from 'next/link';
 import { checkTokenValidity } from '../utils/checkTokenValidity';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, } from "@fortawesome/free-solid-svg-icons";
-import ProductCard from './ProductCard';
+import ProductCard from './ProductCardd';
+import { categoryData } from '@/app/data';
 type ProductsProps = {
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
@@ -94,7 +95,7 @@ export default function Products() {
       <div className='mx-[2rem] lg:mx-[6rem]'>
 
         <div className='flex justify-start items-center mt-[2rem]'>
-          <h1 className='text-[20px] text-black'>ახალი პროდუქცია</h1>
+          <h1 className='text-[20px] text-black'>კატეგორია  </h1>
         </div>
         <Swiper
           modules={[Navigation, Pagination]}
@@ -110,12 +111,12 @@ export default function Products() {
           }}
           className="my-8 "
         >
-          {products.slice(3, 13).map((product) => (
-            <SwiperSlide key={product._id}>
+          {categoryData.map((product) => (
+            <SwiperSlide key={product.id}>
 
               <div className="border p-6 rounded shadow flex flex-col justify-between">
 
-                <Link href={`/products/${product._id}`}>
+                <Link href={`/category`}>
 
                   <img
                     className="w-full h-[200px] object-cover rounded mb-4" // Bigger image
@@ -123,22 +124,10 @@ export default function Products() {
                     alt={product.name}
                   />
                   <h2 className="font-bold text-[18px] mt-2">{product.name}</h2> {/* Larger font */}
-                  <p className="text-sm text-gray-600 mt-2 line-clamp-2">{product.description}</p>
+                  {/* <p className="text-sm text-gray-600 mt-2 line-clamp-2">{product.description}</p> */}
                 </Link>
                 <div className="flex items-center justify-between mt-4">
-                  <p className="font-semibold text-lg">${product.price}</p> {/* Larger price */}
-                  <button
-                    onClick={() => addtocart(product._id)}
-                    className={`px-4 py-2 rounded ${loadingProduct === product._id ? 'bg-blue-300' : 'bg-blue-500'
-                      }`}
-                    disabled={loadingProduct === product._id}
-                  >
-                    <FontAwesomeIcon
-                      icon={faCartShopping}
-                      className="text-white text-xl cursor-pointer"
-                    />
-                    {loadingProduct === product._id && 'Adding...'}
-                  </button>
+                 
                 </div>
               </div>
             </SwiperSlide>
