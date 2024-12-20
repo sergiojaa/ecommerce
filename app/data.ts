@@ -5,7 +5,7 @@ export const categoryData =  [
         image: 'https://www.keremont.ge/uploads/products/1588525024_full.jpg',
         id:1
     },
-    { name: "ელ. მაგნიტური გამშვი", url: "/categories/electric-magnetic-starter",
+    { name: "ელ. მაგნიტური გამშვები", url: "/categories/electric-magnetic-starter",
         image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuueeBqo0nIB6WiJhTa2u6OjyCE7X_XVDv-Q&s'
         ,id:2 },
     { name: "ელ. სამონტაჟო ყუთები",
