@@ -119,7 +119,7 @@ export default function Products() {
                 <Link href={`/category?category=${product.name}`}>
 
                   <img
-                    className="w-full h-[300px] object-cover rounded mb-4" // Bigger image
+                    className="w-full h-[450px]  object-cover rounded mb-4" // Bigger image
                     src={product.image}
                     alt={product.name}
                   />

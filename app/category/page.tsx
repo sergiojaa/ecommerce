@@ -36,7 +36,7 @@ export default function CategoryPage() {
   return (
     <div>
       <h1>კატეგორია: {category}</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 mx-[100px] gap-4 mt-4">
         {products.map((product) => (
           <div key={product._id} className="border p-4 rounded shadow">
             <img
