@@ -82,42 +82,43 @@ export default function ProductCreator() {
         //             type="text"
         //         />
 
-        //         <input
-        //             id="file-upload"
-        //             className="hidden"
-        //             type="file"
-        //             onChange={handleFileChange}
-        //         />
-        //         <label
-        //             htmlFor="file-upload"
-        //             className="cursor-pointer border bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-        //         >
-        //             ფაილის ატვირთვა
-        //         </label>
+        // <input
+        //     id="file-upload"
+        //     className="hidden"
+        //     type="file"
+        //     onChange={handleFileChange}
+        // />
+        // <label
+        //     htmlFor="file-upload"
+        //     className="cursor-pointer border bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+        // >
+        //     ფაილის ატვირთვა
+        // </label>
 
-        //         {image && (
-        //             <div className="mt-4">
-        //                 <h3 className="text-center">ატვირთული ფოტო</h3>
-        //                 <img
-        //                     src={URL.createObjectURL(image)}
-        //                     alt="Uploaded"
-        //                     className="w-[300px] h-auto border rounded shadow-md"
-        //                 />
-        //                 <button
-        //                     type="button"
-        //                     onClick={() => setImage(null)}
-        //                     className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-        //                 >
-        //                     წაშლა
-        //                 </button>
-        //             </div>
-        //         )}
+        // {image && (
+        //     <div className="mt-4">
+        //         <h3 className="text-center">ატვირთული ფოტო</h3>
+        //         <img
+        //             src={URL.createObjectURL(image)}
+        //             alt="Uploaded"
+        //             className="w-[300px] h-auto border rounded shadow-md"
+        //         />
+        //         <button
+        //             type="button"
+        //             onClick={() => setImage(null)}
+        //             className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+        //         >
+        //             წაშლა
+        //         </button>
+        //     </div>
+        // )}
 
         //         <button type="submit" className="border w-[200px] text-white bg-red-400">
         //             დამატება
         //         </button>
         //     </form>
         // </div>
+
         <form className='flex gap-[50px] px-[50px] py-[50px]'>
             <div className='flex-[3] flex flex-col gap-[50px]'>
 
@@ -132,6 +133,52 @@ export default function ProductCreator() {
                 </div>
 
                 <CategoryList selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+
+                <div className='flex'>
+                    <div className='flex-1'>
+                        <h1 className='font-bold text-md'>პროდუქციის ფოტო</h1>
+                        <p className='text-gray-500 text-xs'>აირჩიეთ პროდუქტის ფოტოსურათი (jpg, jpeg, png ფორმატით)</p>
+                    </div>
+
+                    <div className='flex-[2] flex items-start justify-between'>
+
+                        <input
+                            id="file-upload"
+                            className="hidden"
+                            type="file"
+                            onChange={handleFileChange}
+                        />
+
+                        <div>
+                            <label
+                                htmlFor="file-upload"
+                                className="cursor-pointer border bg-blue-500 text-white px-4 py-[10px] rounded hover:bg-blue-600"
+                            >
+                                ფაილის ატვირთვა
+                            </label>
+
+                            <button
+                                type="button"
+                                onClick={() => setImage(null)}
+                                className="px-4 py-[8px] ml-2 bg-red-500 text-white rounded hover:bg-red-600"
+                            >
+                                წაშლა
+                            </button>
+                        </div>
+
+                        {image && (
+                            <div className="max-w-[300px]">
+                                <img
+                                    src={URL.createObjectURL(image)}
+                                    alt="Uploaded"
+                                    className="w-[300px] h-auto border rounded shadow-md"
+                                />
+
+                            </div>
+                        )}
+                    </div>
+
+                </div>
             </div>
             <div className='flex-1 bg-red-900 h-screen'>
             </div>
