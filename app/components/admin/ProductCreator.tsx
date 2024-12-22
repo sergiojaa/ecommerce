@@ -17,6 +17,14 @@ export default function ProductCreator() {
         }
     };
 
+    const handlePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setProductPrice(e.target.value)
+    }
+
+    const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setProductName(e.target.value)
+    }
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -27,9 +35,13 @@ export default function ProductCreator() {
             formData.append('singleFile', image);
         }
         formData.append('name', productName);
-        formData.append('description', selectedDescription[0]);
+        formData.append('description', selectedDescription.join(','));
         formData.append('price', productPrice);
-        // formData.append('category', selectedCategory.toString());
+        formData.append('category', selectedCategory);
+
+        formData.forEach(data => {
+            console.log(data)
+        })
 
         try {
             const response = await axios.post('http://localhost:3001/products/create', formData, {
@@ -46,80 +58,7 @@ export default function ProductCreator() {
     };
 
     return (
-        // <div>
-        //     <form className="flex items-center mt-6 justify-center gap-3 flex-col" onSubmit={handleSubmit}>
-        //         <CategoryDropDownMenu
-        //             selectedCategory={selectedCategory}
-        //             setSelectedCategory={setSelectedCategory}
-        //         />
-
-        //         <label htmlFor="product-name">პროდუქციის სახელი</label>
-        //         <input
-        //             id="product-name"
-        //             value={productName}
-        //             onChange={(e) => setProductName(e.target.value)}
-        //             placeholder="შეიყვანე პროდუქციის სახელი"
-        //             className="border"
-        //             type="text"
-        //         />
-
-        //         <label htmlFor="product-description">პროდუქციის აღწერა</label>
-        //         <textarea
-        //             id="product-description"
-        //             value={productDescription}
-        //             onChange={(e) => setProductDescription(e.target.value)}
-        //             className="border w-[300px] h-[100px]"
-        //             placeholder="ჩაწერე"
-        //         />
-
-        //         <label htmlFor="product-price">ფასი</label>
-        //         <input
-        //             id="product-price"
-        //             value={productPrice}
-        //             onChange={(e) => setProductPrice(e.target.value)}
-        //             placeholder="პროდუქციის ფასი"
-        //             className="border"
-        //             type="text"
-        //         />
-
-        // <input
-        //     id="file-upload"
-        //     className="hidden"
-        //     type="file"
-        //     onChange={handleFileChange}
-        // />
-        // <label
-        //     htmlFor="file-upload"
-        //     className="cursor-pointer border bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-        // >
-        //     ფაილის ატვირთვა
-        // </label>
-
-        // {image && (
-        //     <div className="mt-4">
-        //         <h3 className="text-center">ატვირთული ფოტო</h3>
-        //         <img
-        //             src={URL.createObjectURL(image)}
-        //             alt="Uploaded"
-        //             className="w-[300px] h-auto border rounded shadow-md"
-        //         />
-        //         <button
-        //             type="button"
-        //             onClick={() => setImage(null)}
-        //             className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-        //         >
-        //             წაშლა
-        //         </button>
-        //     </div>
-        // )}
-
-        //         <button type="submit" className="border w-[200px] text-white bg-red-400">
-        //             დამატება
-        //         </button>
-        //     </form>
-        // </div>
-
-        <form className='flex gap-[50px] px-[50px] py-[50px]'>
+        <form className='flex gap-[50px] px-[50px] py-[50px]' onSubmit={handleSubmit}>
             <div className='flex-[3] flex flex-col gap-[50px]'>
 
                 <div className='flex justify-between'>
@@ -128,7 +67,7 @@ export default function ProductCreator() {
                         <p className='text-gray-500 text-xs'>ჩაწერეთ პროდუქტის დასახელება (3-50 ასომდე)</p>
                     </div>
                     <div className='flex-[2] flex items-center'>
-                        <input className='text-sm px-[5px] py-[10px] rounded-md w-[80%] border-[1px] border-solid border-gray-500' name='name' type="text" placeholder='პროდუქტის სახელი' />
+                        <input onChange={handleName} className='text-sm px-[5px] py-[10px] rounded-md w-[80%] border-[1px] border-solid border-gray-500' name='name' type="text" placeholder='პროდუქტის სახელი' />
                     </div>
                 </div>
 
@@ -199,7 +138,7 @@ export default function ProductCreator() {
                         <p className='text-gray-500 text-xs'>ჩაწერეთ პროდუქტის ფასი</p>
                     </div>
                     <div className='flex-[2] flex items-center'>
-                        <input className='text-sm px-[5px] py-[10px] rounded-md w-[80%] border-[1px] border-solid border-gray-500' name='name' type="number" placeholder='პროდუქტის ფასი' />
+                        <input onChange={handlePrice} className='text-sm px-[5px] py-[10px] rounded-md w-[80%] border-[1px] border-solid border-gray-500' name='name' type="number" placeholder='პროდუქტის ფასი' />
                     </div>
                 </div>
 

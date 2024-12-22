@@ -7,7 +7,7 @@ import { checkTokenValidity } from "@/app/components/utils/checkTokenValidity";
 type ProductType = {
   _id: string;
   name: string;
-  description: string;
+  description: string[];
   price: number;
   image: string;
 };
@@ -30,7 +30,9 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
     if (id) {
       fetch(`http://localhost:3001/products/${id}`)
         .then((res) => res.json())
-        .then((data) => setProduct(data))
+        .then((data) => {
+          setProduct(data)
+        })
         .catch((err) => console.error("Error fetching product:", err));
     }
   }, [id]);
@@ -45,7 +47,6 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
         setTokenValidity(true)
       }
     });
-
   }, [])
 
   if (!product) {
@@ -104,15 +105,11 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
         {/* Description List */}
         <div className="w-full flex-[3] xl:flex-[5] flex flex-col md:items-center">
           <ul className="md:list-disc font-normal space-y-2 ">
-            <li><p className="text-sm">{product.description}</p></li>
-            <li><p className="text-sm">ალკოჰოლის შემცველობა: 40%</p></li>
-            <li><p className="text-sm">ქვეყანა: შვედეთი</p></li>
-            <li><p className="text-sm">რეგიონი: აჰუსი</p></li>
-            <li><p className="text-sm">არომატი: მშრალი ხილი.</p></li>
-            <li><p className="text-sm">გემო: დაბალანსებული, სასიამოვნო.</p></li>
-            <li><p className="text-sm">ბოთლის ტიპი: შუშა.</p></li>
-            <li><p className="text-sm">ფერი: გამჭვირვალე.</p></li>
-            <li><p className="text-sm">მოცულობა: 700 მლ.</p></li>
+            {product.description.map((description) => (
+              <li key={description}>
+                <p className="text-sm">{description}</p>
+              </li>
+            ))}
           </ul>
         </div>
 
