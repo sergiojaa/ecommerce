@@ -4,11 +4,13 @@ import axios from 'axios';
 import CategoryList from './DescriptionList';
 
 export default function ProductCreator() {
-    const [image, setImage] = useState<File | null>(null); // Store the image as a File
+    const [image, setImage] = useState<File | null>(null);
     const [productName, setProductName] = useState<string>('');
     const [selectedDescription, setSelectedDescription] = useState<string[]>([]);
     const [productPrice, setProductPrice] = useState<string>('');
     const [selectedCategory, setSelectedCategory] = useState<string>('');
+    const [answer, setAnswer] = useState('')
+    const [error, setError] = useState('')
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -31,17 +33,15 @@ export default function ProductCreator() {
         const token = localStorage.getItem('token');
 
         const formData = new FormData();
-        if (image) {
-            formData.append('singleFile', image);
+        if (!image) {
+            return setError('გთხოვთ დაურთეთ ფოტო')
         }
+
+        formData.append('singleFile', image);
         formData.append('name', productName);
         formData.append('description', selectedDescription.join(','));
         formData.append('price', productPrice);
         formData.append('category', selectedCategory);
-
-        formData.forEach(data => {
-            console.log(data)
-        })
 
         try {
             const response = await axios.post('http://localhost:3001/products/create', formData, {
@@ -51,9 +51,17 @@ export default function ProductCreator() {
                 },
             });
 
-            console.log('File uploaded successfully', response.data);
-        } catch (error) {
-            console.error('Error uploading file:', error);
+            setAnswer('File uploaded successfully')
+            setTimeout(() => { setAnswer('') }, 3000)
+        } catch (error: any) {
+            if (error.response?.data) {
+                const errorMessage = typeof error.response.data === 'string'
+                    ? error.response.data
+                    : error.response.data.errors || 'An unknown error occurred';
+                setError(errorMessage);
+            } else {
+                setError('An unknown error occurred');
+            }
         }
     };
 
@@ -146,6 +154,9 @@ export default function ProductCreator() {
                 <div className='flex items-center justify-center w-full'>
                     <button className='bg-blue-500 tex-twhite rounded-md h-full px-[20px] py-[10px] text-white' type='submit'>შექმნა</button>
                 </div>
+
+                <p className='text-red-600'>{error}</p>
+                <p className='text-green-400'>{answer}</p>
             </div>
             <div className='flex-1 bg-red-900 h-screen'>
             </div>
