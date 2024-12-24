@@ -11,7 +11,9 @@ export default function CategoryPage() {
   const [error, setError] = useState('');
 
   const searchParams = useSearchParams();
-  const category = searchParams.get('category'); // Extract `category` from the query string
+  const category = searchParams.get('category');
+
+  console.log(category)
 
   useEffect(() => {
     if (category) {

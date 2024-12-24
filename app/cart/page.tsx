@@ -73,6 +73,10 @@ export default function Page() {
     const MIN_LOADING_TIME = 1000;
     const startTime = Date.now();
 
+    const token = localStorage.getItem("token")
+
+    if (!token) return
+
     axios
       .post(
         "http://localhost:3001/cart/change-quantity",
@@ -80,7 +84,7 @@ export default function Page() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )

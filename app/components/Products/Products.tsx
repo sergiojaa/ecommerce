@@ -116,7 +116,7 @@ export default function Products() {
 
               <div className="border p-6  rounded shadow flex flex-col justify-between">
 
-                <Link href={`/category?category=${product.name}`}>
+                <Link href={`${product.url}`}>
 
                   <img
                     className="w-full h-[450px]  object-cover rounded mb-4" // Bigger image
