@@ -31,14 +31,39 @@ export default function page(
   },
 ) 
 {
-const [inputOpen, setInputOpenn] = useState(false) 
+const [inputOpen, setInputOpen] = useState(false) 
   // Toggle the visibility of the input field
   const toggleInputVisibility = () => {
-    setInputOpenn(!inputOpen);
+    setInputOpen(!inputOpen);
   };
   const [hamburgerOpen, setHamburgerOpen] = useState(false)
   const toggleHamburgerOpen = ()=>{
     setHamburgerOpen(!hamburgerOpen)
+  }
+  const [products, setProducts] = useState([])
+  const [searchText, setSearchText] = useState('')
+  const fetchProducts = async (query: any)=>{
+    try{
+      const response = await fetch(`http://localhost:3001/products?name=${query}`)
+      if(response.ok){
+        const data = await response.json()
+        setProducts(data)
+        console.log(data)
+      }else{
+        console.log('failed to fetch products')
+      }
+    }catch(error){
+      console.log('error fetching products:', error)
+    }
+  }
+  const handleInputChange = (event:any)=>{
+    const value = event.target.value;
+    setSearchText(value)
+    if(value.trim()!==''){
+      fetchProducts(value)
+    }else{
+      fetchProducts([])
+    }
   }
 
   return (
@@ -86,6 +111,8 @@ const [inputOpen, setInputOpenn] = useState(false)
   {/* Conditionally render the input field */}
   <input
     type="text"
+    value={searchText}
+        onChange={handleInputChange}
     placeholder="რას ეძებთ?"
     className={`outline-none bg-red lg:ml-[200px]  text-sm border border-gray-300 rounded p-2 w-full pl-2 pr-10 
       ${inputOpen || 'hidden'} md:block`} // Show the input on medium screens and larger
