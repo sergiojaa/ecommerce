@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMobile, faMagnifyingGlass, faCartShopping, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FaRegUserCircle } from 'react-icons/fa';
 import Searchbar from './Searchbar';
+
+export interface Product {
+  id: number | string;
+  name: string;
+  price: number;
+}
 
 interface PageProps {
   isOpen: boolean;
   open: () => void;
-}
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
 }
 
 export default function Page({ isOpen, open }: PageProps) {
@@ -21,7 +18,6 @@ export default function Page({ isOpen, open }: PageProps) {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [searchText, setSearchText] = useState('');
-
   const toggleHamburgerOpen = () => {
     setHamburgerOpen(!hamburgerOpen);
   };
@@ -34,12 +30,12 @@ export default function Page({ isOpen, open }: PageProps) {
             <div className="ml-[10px] translate-y-[-10%]">
               <div className="flex m-[6px] flex-col items-center justify-center space-y-1 w-6 cursor-pointer">
                 {hamburgerOpen ? (
-                  <li
-                    className="text-xl border-b w-full list-none"
+                  <div
+                    className="text-xl border-b w-full cursor-pointer"
                     onClick={toggleHamburgerOpen}
                   >
                     X
-                  </li>
+                  </div>
                 ) : (
                   <div className="flex flex-col gap-1 items-center" onClick={toggleHamburgerOpen}>
                     <div className="h-1 w-6 bg-[#69707D] rounded"></div>
@@ -69,33 +65,8 @@ export default function Page({ isOpen, open }: PageProps) {
             setProducts={setProducts}
             inputOpen={inputOpen}
             setInputOpen={setInputOpen}
+            products={products}
           />
-          <div className="md:hidden">
-            {inputOpen && (
-              <FontAwesomeIcon
-                onClick={() => setInputOpen(false)}
-                icon={faXmark}
-                className="text-2xl mr-5 ml-[-10px]"
-              />
-            )}
-          </div>
-          {!inputOpen && (
-            <div className="flex gap-3 lg:gap-7 lg:mr-[100px]">
-              <div className="relative">
-                <Link href="/cart">
-                  <FontAwesomeIcon
-                    icon={faCartShopping}
-                    className="text-black translate-y-[10%] text-xl cursor-pointer"
-                  />
-                </Link>
-              </div>
-              <div className="mr-5">
-                <Link href="/profile">
-                  <FaRegUserCircle size={25} className="text-black" />
-                </Link>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
