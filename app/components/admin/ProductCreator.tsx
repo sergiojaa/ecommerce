@@ -55,10 +55,8 @@ export default function ProductCreator() {
             setTimeout(() => { setAnswer('') }, 3000)
         } catch (error: any) {
             if (error.response?.data) {
-                const errorMessage = typeof error.response.data === 'string'
-                    ? error.response.data
-                    : error.response.data.errors || 'An unknown error occurred';
-                setError(errorMessage);
+                console.log(error.response.data);
+                setError('Error');
             } else {
                 setError('An unknown error occurred');
             }
