@@ -1,6 +1,8 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
 interface Product {
     _id: number | string;
@@ -16,6 +18,7 @@ interface SearchbarProps {
     setInputOpen: React.Dispatch<React.SetStateAction<boolean>>;
     products: Product[];
 }
+
 
 const Searchbar: React.FC<SearchbarProps> = ({
     searchText,
@@ -40,6 +43,7 @@ const Searchbar: React.FC<SearchbarProps> = ({
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setHidden(true)
         const value = e.target.value;
         setSearchText(value);
         if (value.trim()) {
@@ -48,6 +52,12 @@ const Searchbar: React.FC<SearchbarProps> = ({
             setProducts([]); // Clear the products if the search text is empty
         }
     };
+const [hidden,setHidden] = useState(false)
+
+    const handleClick = ()=>{
+      setHidden(false)
+      setSearchText('')
+    }
 
     return (
         <div className="relative w-full">
@@ -66,12 +76,17 @@ const Searchbar: React.FC<SearchbarProps> = ({
                     onClick={() => setInputOpen(!inputOpen)}
                 />
             </div>
-            {products.length > 0 && (
+            {products.length > 0 && hidden  && (
                 <ul className="absolute top-full left-0 bg-white border border-gray-300 w-full z-10">
                     {products.map((product) => (
-                        <li key={product._id} className="p-2 hover:bg-gray-100">
+                      
+                      <Link onClick={handleClick} key={product._id} href={`/products/${product._id}`}>
+                        
+                       <li  className="p-2 hover:bg-gray-100">
                             {product.name}
                         </li>
+                      </Link>
+                       
                     ))}
                 </ul>
             )}
