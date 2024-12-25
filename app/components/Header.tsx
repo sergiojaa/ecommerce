@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Searchbar from './Searchbar';
 
 export interface Product {
-  id: number | string;
+  _id: number | string;
   name: string;
   price: number;
 }
