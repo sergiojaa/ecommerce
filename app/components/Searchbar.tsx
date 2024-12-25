@@ -66,14 +66,15 @@ const Searchbar: React.FC<SearchbarProps> = ({
                     onClick={() => setInputOpen(!inputOpen)}
                 />
             </div>
-            <div>
-                {products.map((product) => (
-                    <div key={product._id}>
-                        <h3>{product.name}</h3>
-                        <p>{product.price}</p>
-                    </div>
-                ))}
-            </div>
+            {products.length > 0 && (
+                <ul className="absolute top-full left-0 bg-white border border-gray-300 w-full z-10">
+                    {products.map((product) => (
+                        <li key={product._id} className="p-2 hover:bg-gray-100">
+                            {product.name}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 };
