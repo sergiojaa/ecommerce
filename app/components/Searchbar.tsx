@@ -43,7 +43,7 @@ const Searchbar: React.FC<SearchbarProps> = ({
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setHidden(true)
+        setHidden(true)
         const value = e.target.value;
         setSearchText(value);
         if (value.trim()) {
@@ -52,11 +52,11 @@ const Searchbar: React.FC<SearchbarProps> = ({
             setProducts([]); // Clear the products if the search text is empty
         }
     };
-const [hidden,setHidden] = useState(false)
+    const [hidden, setHidden] = useState(false)
 
-    const handleClick = ()=>{
-      setHidden(false)
-      setSearchText('')
+    const handleClick = () => {
+        setHidden(false)
+        setSearchText('')
     }
 
     return (
@@ -72,21 +72,25 @@ const [hidden,setHidden] = useState(false)
                 />
                 <FontAwesomeIcon
                     icon={faMagnifyingGlass}
-                    className="absolute right-4 text-gray-500 cursor-pointer"
+                    className="absolute right-4 text-gray-500 cursor-pointer md:block hidden"
+                />
+                <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    className="absolute right-4 text-gray-500 cursor-pointer md:hidden block"
                     onClick={() => setInputOpen(!inputOpen)}
                 />
             </div>
-            {products.length > 0 && hidden  && (
+            {products.length > 0 && hidden && (
                 <ul className="absolute top-full left-0 bg-white border border-gray-300 w-full z-10">
                     {products.map((product) => (
-                      
-                      <Link onClick={handleClick} key={product._id} href={`/products/${product._id}`}>
-                        
-                       <li  className="p-2 hover:bg-gray-100">
-                            {product.name}
-                        </li>
-                      </Link>
-                       
+
+                        <Link onClick={handleClick} key={product._id} href={`/products/${product._id}`}>
+
+                            <li className="p-2 hover:bg-gray-100">
+                                {product.name}
+                            </li>
+                        </Link>
+
                     ))}
                 </ul>
             )}

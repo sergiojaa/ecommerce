@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Searchbar from './Searchbar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 export interface Product {
   _id: number | string;
@@ -67,6 +70,28 @@ export default function Page({ isOpen, open }: PageProps) {
             setInputOpen={setInputOpen}
             products={products}
           />
+          {!inputOpen &&
+            (
+              <div className='flex gap-3 lg:gap-7 lg:mr-[100px]'>
+                <div className='relative'>
+                  <Link href={"/cart"}>
+                    <FontAwesomeIcon
+                      icon={faCartShopping}
+                      className="text-black translate-y-[10%]  text-xl cursor-pointer"
+                    />
+                  </Link>
+
+                </div>
+                <div className='mr-5'>
+                  <Link href={'/profile'}>
+                    <FaRegUserCircle size={25} className="text-black" />
+
+                  </Link>
+
+                </div>
+              </div>
+            )
+          }
         </div>
       </div>
     </div>
