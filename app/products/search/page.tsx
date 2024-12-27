@@ -15,7 +15,6 @@ type productType = {
 export default function Page() {
   const searchParams = useSearchParams();
 
-  // Extract query parameters
   const search = searchParams.get('search');
   const maxPrice = searchParams.get('maxPrice');
   const minPrice = searchParams.get('minPrice');
@@ -24,47 +23,18 @@ export default function Page() {
 
   const [products, setProducts] = useState<productType[]>([]);
   const [plus, setPlus] = useState(false);
-  const [minPricee, setMinPricee] = useState<number>(minPrice ? parseInt(minPrice, 10) : 0);  // Use number type here
-  const [maxPricee, setMaxPricee] = useState<number>(maxPrice ? parseInt(maxPrice, 10) : 0);  // Use number type here
-  const [getMinimalPrice, setGetMinimalPrice] = useState<number>(minPrice ? parseInt(minPrice, 10) : 0);
-  const [getMaximumPrice, setGetMaximumPrice] = useState<number>(maxPrice ? parseInt(maxPrice, 10) : 0);
-
-  const changeIcon = () => {
-    setPlus(!plus);
-  };
-
-  const fetchProducts = () => {
-    axios
-      .get('http://localhost:3001/products')
-      .then((res) => setProducts(res.data))
-      .catch((err) => console.log(err));
-  };
 
   useEffect(() => {
-    fetchProducts();
+    const fetchedProducts = fetchProducts();
+
+    fetchedProducts.then((data) => {
+      const maxPriceOfProducts = data.reduce((max: number, product: productType) => Math.max(max, product.price), 0)
+      setInputVals((prev) => ({ ...prev, maxPrice: maxPriceOfProducts }))
+    }
+    )
+
   }, []);
 
-  useEffect(() => {
-    if (products.length > 0) {
-      setMaxPricee(
-        products.reduce((max, product) => {
-          return product.price > max ? product.price : max;
-        }, 0)
-      );
-    }
-  }, [products]);
-
-  const getMaxPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value, 10);
-    setGetMaximumPrice(value || 0);
-    setMaxPricee(value || 0);  // Keep it as a number, not string
-  };
-
-  const getMinPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value, 10);
-    setGetMinimalPrice(value || 0);
-    setMinPricee(value || 0);  // Keep it as a number, not string
-  };
 
   useEffect(() => {
     console.log('Search queries:', {
@@ -75,6 +45,29 @@ export default function Page() {
       category,
     });
   }, [search, maxPrice, minPrice, sort, category]);
+
+  const [inputVals, setInputVals] = useState({
+    minPrice: 0,
+    maxPrice: 0,
+  });
+
+  const fetchProducts = async () => {
+    const response = await axios.get('http://localhost:3001/products');
+    setProducts(response.data);
+    return response.data;
+  }
+
+  const changeIcon = () => {
+    setPlus(!plus);
+  };
+
+  const handleInputChange = (event: any, key: string) => {
+    setInputVals({
+      ...inputVals,
+      [key]: event.target.value,
+    });
+  }
+
 
   return (
     <div className="p-4">
@@ -101,18 +94,19 @@ export default function Page() {
                 <div>
                   <input
                     className="border w-14 h-10"
-                    value={minPricee || ''} // Empty string if 0 or null
                     type="number"
-                    onChange={getMinPrice}
+                    value={inputVals.minPrice}
+                    onChange={(event) => handleInputChange(event, 'minPrice')}
                   />
                   <label htmlFor="">ლ</label>
                 </div>
                 <div>
                   <input
                     className="border w-14 h-10"
-                    value={maxPricee || ''} // Empty string if 0 or null
                     type="number"
-                    onChange={getMaxPrice}
+                    value={inputVals.maxPrice}
+                    onChange={(event) => handleInputChange(event, 'maxPrice')}
+
                   />
                   <label htmlFor="">ლ</label>
                 </div>
