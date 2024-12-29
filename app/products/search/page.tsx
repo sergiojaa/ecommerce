@@ -67,6 +67,11 @@ export default function Page() {
       [key]: event.target.value,
     });
   }
+  const  filterProductsByPrice = async  () =>{
+    const filteredProducts = (await axios.get(`http://localhost:3001/products?minPrice=${inputVals.minPrice}&maxPrice=${inputVals.maxPrice}`)).data
+
+    setProducts(filteredProducts)
+  }
 
 
   return (
@@ -113,7 +118,9 @@ export default function Page() {
               </form>
             </div>
             <div>
-              <h1 className="cursor-pointer bg-blue-500 p-2 w-[80px] text-white">
+              <h1 
+              onClick={filterProductsByPrice}
+              className="cursor-pointer bg-blue-500 p-2 w-[80px] text-white">
                 ძებნა
               </h1>
             </div>
