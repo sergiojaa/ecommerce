@@ -23,6 +23,7 @@ export default function Page() {
 
   const [products, setProducts] = useState<productType[]>([]);
   const [plus, setPlus] = useState(false);
+  const [searchPlus ,setSearchPlus] = useState(false)
 
   useEffect(() => {
     const fetchedProducts = fetchProducts();
@@ -60,6 +61,9 @@ export default function Page() {
   const changeIcon = () => {
     setPlus(!plus);
   };
+  const changeSearchIcon = () => {
+    setSearchPlus(!searchPlus);
+  };
 
   const handleInputChange = (event: any, key: string) => {
     setInputVals({
@@ -91,6 +95,33 @@ export default function Page() {
             </div>
           )}
         </div>
+        <div className='flex flex-col'>
+        <div className='flex gap-20 '>
+          <h2 className='text-[18px]'>ბრენდი</h2>
+          {searchPlus ? (
+            <div onClick={changeSearchIcon} className="text-[20px] cursor-pointer">
+              -
+            </div>
+          ) : (
+            <div onClick={changeSearchIcon} className="text-[20px] cursor-pointer">
+              +
+            </div>
+          )}
+          {searchPlus && (
+          <div>
+            <div>
+              <form action="">
+                <input 
+                placeholder='ბრენდი'
+                type="text" />
+              </form>
+            </div>
+          </div>
+          )}
+
+        </div>
+        </div>
+       
 
         {plus && (
           <div>
@@ -115,6 +146,7 @@ export default function Page() {
                   />
                   <label htmlFor="">ლ</label>
                 </div>
+              
               </form>
             </div>
             <div>
@@ -127,14 +159,15 @@ export default function Page() {
           </div>
         )}
       </div>
+      
 
-      <div>
+      {/* <div>
         {products.slice(0, 25).map((product) => (
           <div key={product._id}>
             {product.price} ლარი
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
