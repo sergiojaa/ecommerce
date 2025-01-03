@@ -21,31 +21,42 @@ type ProductCardProps = {
 
 export default function ProductCard({ product, addtocart, loadingProduct }: ProductCardProps) {
     return (
-        <div className=" border  p-4 rounded shadow flex flex-col justify-between">
-            <Link href={`/products/${product._id}`}>
-                <img
-                    className="w-full h-[200px] object-cover rounded"
-                    src={product.image}
-                    alt={product.name}
-                />
-                <h2 className="font-bold text-[15px] mt-[0.5rem]">{product.name}</h2> {/* Truncates long names */}
-                <p className="text-sm text-gray-600  mt-[0.5rem] line-clamp-2">{product.description}</p> {/* Limits description */}
-            </Link>
-            <div className="flex items-center justify-between  ">
-                <p className="font-semibold">${product.price}</p>
-                <button
-                    onClick={() => addtocart(product._id)}
-                    className={`px-4 py-2 rounded ${loadingProduct === product._id ? 'bg-blue-300' : 'bg-blue-500'
-                        }`}
-                    disabled={loadingProduct === product._id}
-                >
-                    <FontAwesomeIcon
-                        icon={faCartShopping}
-                        className="text-white text-xl cursor-pointer"
-                    />
-                    {loadingProduct === product._id && 'Adding...'}
-                </button>
+        <div className="flex flex-col justify-center items-center">
+        <div className="border w-[250px] p-4 rounded shadow  flex flex-col justify-between">
+          <Link href={`/products/${product._id}`}>
+            <div className="flex justify-center items-center">
+              <img
+                className="h-[200px] w-[200px] object-contain object-center rounded"
+                src={product.image}
+                alt={product.name}
+              />
             </div>
+            <h2 className="font-bold text-gray-500 text-[15px] mt-[0.5rem] w-full truncate overflow-hidden text-ellipsis">
+              {product.name}
+            </h2>
+            <p className="text-sm  text-green-500 mt-[0.5rem] line-clamp-2">
+              მარაგშია
+            </p>
+          </Link>
+          <div className="flex items-center justify-between">
+            <p className="font-semibold">${product.price}</p>
+            <button
+              onClick={() => addtocart(product._id)}
+              className={`px-4 py-2 rounded ${
+                loadingProduct === product._id ? 'bg-blue-300' : 'bg-blue-500'
+              }`}
+              disabled={loadingProduct === product._id}
+            >
+              <FontAwesomeIcon
+                icon={faCartShopping}
+                className="text-white text-xl cursor-pointer"
+              />
+              {loadingProduct === product._id && 'Adding...'}
+            </button>
+          </div>
         </div>
+      </div>
+      
+       
     )
 }

@@ -137,8 +137,10 @@ export default function Products() {
 
       </div>
 
-      <div className="lg:mx-[6rem] mx-[2rem] grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 font-[Bebas Neue]">
-        {products.map((product) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mx-[2rem] lg:mx-[6rem] font-[Bebas Neue]"
+
+       >
+        {products.slice(0,10).map((product) => (
           <ProductCard key={product._id} product={product} loadingProduct={loadingProduct} addtocart={addtocart} />
         ))}
       </div>
