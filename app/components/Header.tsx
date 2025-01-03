@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Searchbar from './Searchbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faX } from '@fortawesome/free-solid-svg-icons';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
@@ -20,12 +20,19 @@ interface PageProps {
 
 export default function Page({ isOpen, open }: PageProps) {
   const [inputOpen, setInputOpen] = useState(false);
-  const [hamburgerOpen, setHamburgerOpen] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [searchText, setSearchText] = useState('');
-  const toggleHamburgerOpen = () => {
-    setHamburgerOpen(!hamburgerOpen);
-  };
+
+  const handleInputOpen = () => {
+    if (inputOpen !== true) {
+      setInputOpen(true);
+    }
+  }
+
+  // const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  // const [products, setProducts] = useState<Product[]>([]);
+  // const [searchText, setSearchText] = useState('');
+  // const toggleHamburgerOpen = () => {
+  //   setHamburgerOpen(!hamburgerOpen);
+  // };
 
   return (
     // <div className="mt-[17px]">
@@ -95,13 +102,26 @@ export default function Page({ isOpen, open }: PageProps) {
     //     </div>
     //   </div>
     // </div>
-    <div className='w-full flex items-center justify-center py-6 px-[30px] md:px-0'>
+    <div className='w-full flex items-center justify-center h-[83px] px-[30px] md:px-0'>
       <div className='container flex items-center justify-between'>
 
-        <Link href={'/'}>
-          <Image src={'/logo.png'} alt='logo' width={100} height={100} />
-        </Link>
+        {/* Left Side */}
+        <div className='flex items-center gap-3'>
 
+          {/* Hamburger Menu */}
+          <div className='flex flex-col gap-1 md:hidden'>
+            <div className='w-[20px] h-[2px] bg-black'></div>
+            <div className='w-[20px] h-[2px] bg-black'></div>
+            <div className='w-[20px] h-[2px] bg-black'></div>
+          </div>
+
+          {/* Logo */}
+          <Link href={'/'} className={`${inputOpen ? 'hidden' : 'block'}`}>
+            <Image src={'/logo.png'} alt='logo' width={100} height={100} />
+          </Link>
+        </div>
+
+        {/* Input Desktop */}
         <div className='w-[70%] h-[40px] text-sm mx-[35px] relative md:block hidden'>
           <input type="text" className='w-full h-full px-3 border-none outline-none bg-[#F8F8F8] rounded-xl ' placeholder='რას ეძებთ?' />
           <FontAwesomeIcon
@@ -110,11 +130,28 @@ export default function Page({ isOpen, open }: PageProps) {
           />
         </div>
 
-        <div className='flex gap-3'>
+        {/* Input Mobile */}
+
+        <div className={`w-[100%] h-[40px] text-sm mx-[15px] relative md:hidden ${inputOpen ? 'block' : 'hidden'}`}>
+          <input type="text" className='w-full h-full px-3 border-none outline-none bg-[#F8F8F8] rounded-xl ' placeholder='რას ეძებთ?' />
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
-            className="text-secondary translate-y-[10%] text-xl cursor-pointer md:hidden block"
+            className="absolute right-4 text-[18px] top-[50%] transform translate-y-[-50%] text-gray-500 cursor-pointer"
           />
+        </div>
+
+        <div className={`${inputOpen ? 'block' : 'hidden'}`} onClick={() => setInputOpen(false)}>
+          <FontAwesomeIcon icon={faX} className="text-secondary translate-y-[10%] text-xl cursor-pointer md:hidden block" />
+        </div>
+
+        {/* Right side */}
+        <div className={`flex gap-3 ${inputOpen && 'hidden'}`}>
+          <div onClick={handleInputOpen}>
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="text-secondary translate-y-[10%] text-xl cursor-pointer md:hidden block"
+            />
+          </div>
 
           <Link href={"/cart"}>
             <FontAwesomeIcon
