@@ -56,16 +56,16 @@ export default function ProfileInformation({
     <>
       <div className="flex justify-between mt-[2rem] items-center">
         <div>
-          <h3>მეილი</h3>
-          <h4 className="text-[13px] mt-[0.5rem]">{userData.email}</h4>
+          <h3 className="text-lg">მეილი</h3>
+          <h4 className="text-md mt-[0.5rem]">{userData.email}</h4>
         </div>
       </div>
       <hr className="w-[270px] mt-[1rem] mb-[1rem] md:w-[450px] lg:w-[700px] xl:w-[800px]" />
 
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-[15px]">სახელი, გვარი</h2>
-          <h2 className="text-[13px] mt-[0.5rem]">{userData.userName}</h2>
+          <h2 className="text-xl">სახელი, გვარი</h2>
+          <h2 className="text-md mt-[0.5rem]">{userData.userName}</h2>
         </div>
       </div>
       <hr className="w-[270px] mt-[1rem] mb-[1rem] md:w-[450px] lg:w-[700px] xl:w-[800px]" />
@@ -73,14 +73,14 @@ export default function ProfileInformation({
       {/* Mobile Number Section */}
       <div className="flex justify-between items-center">
         <div>
-          <h3>მობილურის ნომერი</h3>
+          <h3 className="text-xl">მობილურის ნომერი</h3>
           <div className="flex flex-col items-start">
             {isEditing ? (
               <>
                 {/* Input Field */}
                 <input
                   onChange={(e) => setNumber(e.target.value)}
-                  className="border p-2"
+                  className="border p-2 text-md"
                   type="text"
                   value={number}
                 />
