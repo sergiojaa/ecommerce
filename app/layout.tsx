@@ -38,7 +38,7 @@ export default function RootLayout({
 
         <Header open={open} isOpen={isOpen} />
 
-        {isOpen && <MobileMenu />}
+        {isOpen && <MobileMenu open={open} />}
 
         {children}
         <Footer />
