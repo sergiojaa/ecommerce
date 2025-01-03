@@ -9,8 +9,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "#374A67",
+        secondary: '#A63446',
+        white: "#FBFEF9",
       },
       height: {
         'screen-minus-header': 'calc(100vh - 56px)',
