@@ -1,101 +1,34 @@
-'use client'
-import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
+import React from 'react'
 
-interface Product {
-    _id: number | string;
-    name: string;
-    price: number;
-}
-
-interface SearchbarProps {
-    searchText: string;
-    setSearchText: React.Dispatch<React.SetStateAction<string>>;
-    setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+interface IProps {
     inputOpen: boolean;
     setInputOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    products: Product[];
 }
 
-
-const Searchbar: React.FC<SearchbarProps> = ({
-    searchText,
-    setSearchText,
-    setProducts,
-    inputOpen,
-    setInputOpen,
-    products,
-}) => {
-    const handleSearch = async (query: string) => {
-        try {
-            const response = await fetch(`http://localhost:3001/products?name=${query}`);
-            if (response.ok) {
-                const data = await response.json();
-                setProducts(data);
-            } else {
-                console.error('Failed to fetch products');
-            }
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-    };
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setHidden(true)
-        const value = e.target.value;
-        setSearchText(value);
-        if (value.trim()) {
-            handleSearch(value);
-        } else {
-            setProducts([]); // Clear the products if the search text is empty
-        }
-    };
-    const [hidden, setHidden] = useState(false)
-
-    const handleClick = () => {
-        setHidden(false)
-        setSearchText('')
-    }
-
+export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
     return (
-        <div className="relative w-full">
-            <div className="flex items-center">
-                <input
-                    type="text"
-                    value={searchText}
-                    onChange={handleInputChange}
-                    placeholder="რას ეძებთ?"
-                    className={`outline-none bg-red lg:ml-[200px] text-sm border border-gray-300 rounded p-2 w-full pl-2 pr-10 ${inputOpen || 'hidden'
-                        } md:block`}
-                />
+        <>
+            <div className='w-[70%] h-[40px] text-sm mx-[35px] relative md:block hidden'>
+                <input type="text" className='w-full h-full px-3 border-none outline-none bg-[#F8F8F8] rounded-xl ' placeholder='რას ეძებთ?' />
                 <FontAwesomeIcon
                     icon={faMagnifyingGlass}
-                    className="absolute right-4 text-gray-500 cursor-pointer md:block hidden"
-                />
-                <FontAwesomeIcon
-                    icon={faMagnifyingGlass}
-                    className="absolute right-4 text-gray-500 cursor-pointer md:hidden block"
-                    onClick={() => setInputOpen(!inputOpen)}
+                    className="absolute right-4 text-[18px] top-[50%] transform translate-y-[-50%] text-gray-500 cursor-pointer"
                 />
             </div>
-            {products.length > 0 && hidden && (
-                <ul className="absolute top-full left-0 bg-white border border-gray-300 w-full z-10">
-                    {products.map((product) => (
+            <div className={`w-[100%] h-[40px] text-sm mx-[15px] relative md:hidden ${inputOpen ? 'block' : 'hidden'}`}>
+                <input type="text" className='w-full h-full px-3 border-none outline-none bg-[#F8F8F8] rounded-xl ' placeholder='რას ეძებთ?' />
+                <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    className="absolute right-4 text-[18px] top-[50%] transform translate-y-[-50%] text-gray-500 cursor-pointer"
+                />
+            </div>
 
-                        <Link onClick={handleClick} key={product._id} href={`/products/${product._id}`}>
-
-                            <li className="p-2 hover:bg-gray-100">
-                                {product.name}
-                            </li>
-                        </Link>
-
-                    ))}
-                </ul>
-            )}
-        </div>
-    );
-};
-
-export default Searchbar;
+            <div className={`${inputOpen ? 'block' : 'hidden'}`} onClick={() => setInputOpen(false)}>
+                <FontAwesomeIcon icon={faX} className="text-secondary translate-y-[10%] text-xl cursor-pointer md:hidden block" />
+            </div>
+        </>
+    )
+}
