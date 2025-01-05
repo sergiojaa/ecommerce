@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
+import MobileMenu from './MobileMenu';
 
 export interface Product {
   _id: number | string;
@@ -83,8 +84,9 @@ export default function Header({ isOpen, open }: PageProps) {
             <FaRegUserCircle className="text-secondary text-2xl" />
           </Link>
         </div>
-
+        
       </div>
+      {/* <MobileMenu open={open}/> */}
     </div>
   );
 }

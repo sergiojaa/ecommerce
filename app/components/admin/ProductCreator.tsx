@@ -77,7 +77,7 @@ export default function ProductCreator() {
         <div className='flex-[2]'>
             <form className='flex gap-[50px] px-[50px] ' onSubmit={handleSubmit}>
 
-                <div className='flex-[3] flex flex-col gap-[50px]'>
+                <div className='flex-[3]   flex flex-col gap-[50px]'>
 
                     <div className='flex justify-between'>
                         <div className='flex-1'>
