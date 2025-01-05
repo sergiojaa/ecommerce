@@ -1,31 +1,15 @@
 export const categoryData = [
     {
-        name: "ავტომატური ჩართვის დამცველები",
-        url: "/category?category=circuit-breakers",
-        image: 'https://www.keremont.ge/uploads/products/1588525024_full.jpg',
-        id: 1
-    },
-    {
-        name: "ელ. მაგნიტური გამშვები", url: "/category?category=electric-magnetic-starter",
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuueeBqo0nIB6WiJhTa2u6OjyCE7X_XVDv-Q&s'
-        , id: 2
-    },
-    {
-        name: "ელ. სამონტაჟო ყუთები",
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAnaUxabejtMS_GAIp-gaDT8frCEx-Id8qjg&s',
-        url: "/category?category=electrical-installation-boxes", id: 3
+        name: "რელე",
+        url: "/category?category=relays",
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb-ItGynOctzSpbq4ZXzowlI73Y1fhLNETeQ&s'
+        , id: 5
     },
     {
         name: "ნათურები",
         url: "/category?category=lightbulbs",
         image: 'https://sanda.com.ge/wp-content/uploads/2022/03/high-watt-led-bulb-1-500x500-1.jpg',
         id: 4
-    },
-    {
-        name: "რელე",
-        url: "/category?category=relays",
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb-ItGynOctzSpbq4ZXzowlI73Y1fhLNETeQ&s'
-        , id: 5
     },
     {
         name: "სადენები",
@@ -56,6 +40,22 @@ export const categoryData = [
         image: 'https://www.homeis.ge/wp-content/uploads/2021/01/Homeis.ge-1.png',
         url: "/category?category=switches-and-sockets",
         id: 9
+    },
+    {
+        name: "ავტომატური ჩართვის დამცველები",
+        url: "/category?category=circuit-breakers",
+        image: 'https://www.keremont.ge/uploads/products/1588525024_full.jpg',
+        id: 1
+    },
+    {
+        name: "ელ. მაგნიტური გამშვები", url: "/category?category=electric-magnetic-starter",
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuueeBqo0nIB6WiJhTa2u6OjyCE7X_XVDv-Q&s'
+        , id: 2
+    },
+    {
+        name: "ელ. სამონტაჟო ყუთები",
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAnaUxabejtMS_GAIp-gaDT8frCEx-Id8qjg&s',
+        url: "/category?category=electrical-installation-boxes", id: 3
     },
     {
         name: "ძაბვის სტაბილიზატორი",

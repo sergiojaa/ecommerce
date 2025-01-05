@@ -1,64 +1,92 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { categoryData } from '../data'
+import { faChevronLeft, faChevronRight, faList } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Link from 'next/link'
 
 export default function CategorySlider() {
-  const [category, setCategory] = useState(categoryData)
-  const [currentPage, setCurrentPage] = useState(0)
-  const itemsPerPage = 5
+  const [category] = useState(categoryData)
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
+  const isDragging = useRef(false)
+  const startX = useRef(0)
+  const scrollLeft = useRef(0)
 
-  // Handle next page
-  const handleNext = () => {
-    if ((currentPage + 1) * itemsPerPage < category.length) {
-      setCurrentPage(currentPage + 1)
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollContainerRef.current) return
+    isDragging.current = true
+    startX.current = e.pageX - scrollContainerRef.current.offsetLeft
+    scrollLeft.current = scrollContainerRef.current.scrollLeft
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollContainerRef.current) return
+    e.preventDefault()
+    const x = e.pageX - scrollContainerRef.current.offsetLeft
+    const walk = (x - startX.current) * 1.5 // Adjust scroll sensitivity
+    scrollContainerRef.current.scrollLeft = scrollLeft.current - walk
+  }
+
+  const handleMouseUpOrLeave = () => {
+    isDragging.current = false
+  }
+
+  const scrollLeftHandler = () => {
+    if (scrollContainerRef.current) {
+      const itemWidth = 150 + 12 // Item width + gap (adjust if necessary)
+      scrollContainerRef.current.scrollBy({ left: -itemWidth, behavior: 'smooth' })
     }
   }
 
-  // Handle previous page
-  const handlePrevious = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1)
+  const scrollRightHandler = () => {
+    if (scrollContainerRef.current) {
+      const itemWidth = 150 + 12 // Item width + gap (adjust if necessary)
+      scrollContainerRef.current.scrollBy({ left: itemWidth, behavior: 'smooth' })
     }
   }
-
-  // Paginate the category list
-  const displayedCategories = category.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
 
   return (
-    <div className='relative'>
-      {/* Pagination Controls Container */}
-      <div className='flex gap-2 justify-center items-center'>
-        {/* Previous Button */}
-        <div
-          className='bg-primary w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer'
-          onClick={handlePrevious}
-        >
-          <svg width="20" height="15" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6.00016 10.6668L1.3335 6.00016L6.00016 1.3335" stroke="white"></path>
-          </svg>
-        </div>
-
+    <div className='relative flex items-center justify-center mt-5 w-[80%] md:container mx-auto'>
+      {/* Left Button */}
+      <div
+        className='bg-secondary px-5 py-3 rounded-[50%] absolute left-[-1.5rem] z-10 cursor-pointer'
+        onClick={scrollLeftHandler}
+      >
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </div>
+      {/* Scrollable Container */}
+      <div
+        className='flex gap-2 items-center overflow-x-auto'
+        ref={scrollContainerRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUpOrLeave}
+        onMouseLeave={handleMouseUpOrLeave}
+        style={{
+          cursor: isDragging.current ? 'grabbing' : 'grab',
+          scrollbarWidth: 'none', // For Firefox
+        }}
+      >
         {/* Category List */}
-        <ul className='flex justify-center gap-4 mb-4'>
-          {displayedCategories.map((names) => (
-            <li
-              className='text-[13px] text-white bg-primary w-[130px] rounded-xl h-[170px] flex justify-center items-center shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer'
-              key={names.id}
+        <ul className='flex justify-center text-center gap-4 mb-4'>
+          {category.map((names) => (
+            <Link href={names.url} key={names.id}
+
+              className='text-[13px] text-white bg-primary w-[150px] rounded-xl h-[170px] flex flex-col items-center justify-between py-[30px] gap-3 shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer'
+              style={{ userSelect: 'none' }} // Make text non-selectable
             >
-              {names.name}
-            </li>
+              <FontAwesomeIcon className='text-2xl' icon={faList} />
+              <p className='w-[90%]'>{names.name}</p>
+            </Link>
           ))}
         </ul>
-
-        {/* Next Button */}
-        <div
-          className='bg-primary w-[48px] h-[48px] flex items-center justify-center rounded-full cursor-pointer'
-          onClick={handleNext}
-        >
-          <svg width="20" height="15" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.999999 1L5 5L1 9" stroke="white"></path>
-          </svg>
-        </div>
+      </div>
+      {/* Right Button */}
+      <div
+        className='bg-secondary px-5 py-3 rounded-[50%] absolute right-[-1.5rem] z-10 cursor-pointer'
+        onClick={scrollRightHandler}
+      >
+        <FontAwesomeIcon icon={faChevronRight} />
       </div>
     </div>
   )
