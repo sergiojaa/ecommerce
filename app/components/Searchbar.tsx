@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faX } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faX } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
@@ -28,11 +28,11 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (searchbarRef.current && searchbarRef.current.contains(event.target as Node)) {
-                console.log('Clicked inside the div');
+                setSearchPromptOpen(true);
                 return;
+            } else {
+                setSearchPromptOpen(false);
             }
-
-            setSearchPromptOpen(false);
         };
 
         document.addEventListener('mousedown', handleClickOutside);
@@ -87,12 +87,13 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
                 <div>
                     {searchPromptOpen && searchedProducts.map((product: any) => (
                         <Link key={product._id} href={`/products/${product._id}`}>
-                            <div className="w-full h-[40px] bg-white border-b border-gray-200 flex items-center justify-between">
-                                <div className="flex items-center">
-                                    <img src={product.image} alt={product.name} className="w-[40px] h-[40px]" />
-                                    <span className="text-sm">{product.name}</span>
+                            <div className="w-full px-[10px] py-[10px] bg-white border-b border-gray-200 flex items-center justify-between group">
+                                <div className="flex items-center gap-[10px]">
+                                    <div className='w-[28px] h-[28px] bg-[#f5f6f6] flex items-center justify-center rounded-lg transition-all delay-75 group-hover:bg-secondary'>
+                                        <FontAwesomeIcon icon={faSearch} className="text-primary group-hover:text-white transition-all delay-75" />
+                                    </div>
+                                    <span className="text-xs">{product.name}</span>
                                 </div>
-                                <span className="text-sm">{product.price} ₾</span>
                             </div>
                         </Link>
                     ))}
@@ -100,12 +101,14 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
             </div>
 
             <div
+                ref={searchbarRef}
                 className={`w-[100%] h-[40px] text-sm mx-[15px] relative md:hidden ${inputOpen ? 'block' : 'hidden'
                     }`}
             >
                 <input
                     type="text"
                     onChange={handleSearch}
+                    value={search}
                     className="w-full h-full px-3 border-none outline-none bg-[#F8F8F8] rounded-xl"
                     placeholder="რას ეძებთ?"
                 />
@@ -115,6 +118,21 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
                         icon={faMagnifyingGlass}
                         className="absolute right-4 text-[18px] top-[50%] transform translate-y-[-50%] text-gray-500 cursor-pointer"
                     />
+                </div>
+
+                <div>
+                    {searchPromptOpen && searchedProducts.map((product: any) => (
+                        <Link key={product._id} href={`/products/${product._id}`}>
+                            <div className="w-full px-[10px] py-[10px] bg-white border-b border-gray-200 flex items-center justify-between group">
+                                <div className="flex items-center gap-[10px]">
+                                    <div className='w-[28px] h-[28px] bg-[#f5f6f6] flex items-center justify-center rounded-lg transition-all delay-75 group-hover:bg-secondary'>
+                                        <FontAwesomeIcon icon={faSearch} className="text-primary group-hover:text-white transition-all delay-75" />
+                                    </div>
+                                    <span className="text-xs">{product.name}</span>
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
 
             </div>
