@@ -90,7 +90,7 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
                     />
                 </div>
 
-                <div>
+                <div className='mt-[10px]'>
                     {searchPromptOpen && searchedProducts.map((product: any) => (
                         <div key={product._id}>
                             <Link href={`/products/${product._id}`}>
@@ -128,7 +128,7 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
                     />
                 </div>
 
-                <div>
+                <div className='mt-[10px]'>
                     {searchPromptOpen && searchedProducts.map((product: any) => (
                         <Link key={product._id} href={`/products/${product._id}`} >
                             <div className="w-full px-[10px] py-[10px] bg-white border-b border-gray-200 flex items-center justify-between group">

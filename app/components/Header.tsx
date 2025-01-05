@@ -34,7 +34,7 @@ export default function Header({ isOpen, open }: PageProps) {
 
   return (
 
-    <div className='w-full flex items-center justify-center h-[83px] px-[30px]'>
+    <div className='w-full flex items-center justify-center h-[83px] px-[30px] shadow-sm'>
       <div className='container flex items-center justify-between'>
 
         {/* Left Side */}
