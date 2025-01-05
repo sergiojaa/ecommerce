@@ -1,107 +1,99 @@
-'use client'
-import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+'use client';
+import { useEffect, useState } from 'react';
 
-interface IProps {
-  inputOpen: boolean;
-  setInputOpen: React.Dispatch<React.SetStateAction<boolean>>;
+interface Product {
+  id: number;
+  description: string[];
+  image: string;
+  name: string;
+  category: string;
+  price: number;
 }
 
-export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
-  const desktopSearchbarRef = useRef<HTMLDivElement>(null);
-  const mobileSearchbarRef = useRef<HTMLDivElement>(null);
+export default function ProductEditor() {
+  const [products, setProducts] = useState<Product[]>([]); // Array of products
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]); // Filtered products for search
+  const [searchTerm, setSearchTerm] = useState<string>(''); // Search term
+  const [error, setError] = useState<string | null>(null); // Error handling
 
-  const [search, setSearch] = useState<string>('');
-  const [searchedProducts, setSearchedProducts] = useState<any[]>([]);
-  const [searchPromptOpen, setSearchPromptOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    // Reset search state when inputOpen changes
-    setSearchPromptOpen(false);
-    setSearchedProducts([]);
-    setSearch('');
-  }, [inputOpen]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        (desktopSearchbarRef.current && desktopSearchbarRef.current.contains(event.target as Node)) ||
-        (mobileSearchbarRef.current && mobileSearchbarRef.current.contains(event.target as Node))
-      ) {
-        setSearchPromptOpen(true);
-      } else {
-        setSearchPromptOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = e.target.value;
-    setSearch(searchTerm);
-
-    if (searchTerm === '') {
-      setSearchedProducts([]);
-      return;
-    }
-
-    if (searchTerm.length < 3) {
-      return;
-    }
-
+  // Fetch products from the backend
+  const getProducts = async () => {
+    const url = 'http://localhost:3001/products';
     try {
-      const response = await axios.get(`http://localhost:3001/products?name=${searchTerm}`);
-      setSearchPromptOpen(true);
-      setSearchedProducts(response.data.splice(0, 5));
-    } catch (error) {
-      setSearchedProducts([]);
-      setSearchPromptOpen(false);
-      console.error('Error fetching products:', error);
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const json: Product[] = await response.json();
+      setProducts(json);
+      setFilteredProducts(json); // Initialize filtered products
+    } catch (err: any) {
+      setError(err.message);
+      console.error(err);
     }
   };
 
+  // Handle search input change
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const term = e.target.value.toLowerCase();
+    setSearchTerm(term);
+    setFilteredProducts(
+      products.filter((product) =>
+        product.name.toLowerCase().includes(term)
+      )
+    );
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
-    <div className="relative" ref={desktopSearchbarRef}>
+    <div className="flex-[2] p-4">
+      <h1 className="text-lg font-bold mb-4">Product Editor</h1>
+
       {/* Search Input */}
       <input
         type="text"
         placeholder="Search by name..."
-        value={search}
+        value={searchTerm}
         onChange={handleSearch}
         className="border border-gray-300 rounded-md p-2 w-full mb-4"
       />
 
-      {/* Search Results Dropdown */}
-      {searchPromptOpen && searchedProducts.length > 0 && (
-        <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 shadow-lg z-10 mt-1">
-          {searchedProducts.map((product) => (
-            <div
-              key={product.id}
-              className="p-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => {
-                alert(`Selected: ${product.name}`);
-                setSearch('');
-                setSearchPromptOpen(false);
-              }}
-            >
-              <h2 className="text-sm font-medium">{product.name}</h2>
-              <p className="text-xs text-gray-500">{product.category}</p>
-            </div>
-          ))}
-        </div>
-      )}
+      {/* Error Message */}
+      {error && <div className="text-red-500 mb-4">Error: {error}</div>}
 
-      {/* No Results Message */}
-      {searchPromptOpen && searchedProducts.length === 0 && (
-        <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 shadow-lg z-10 mt-1 p-2">
-          <p className="text-gray-500 text-sm">No products found</p>
-        </div>
-      )}
+      {/* Product List */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredProducts.map((product) => (
+          <div
+            key={product.id} // Ensure unique key
+            className="border rounded-md p-4 shadow-md flex flex-col items-center"
+          >
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-32 h-32 object-cover mb-2"
+            />
+            <h2 className="text-sm font-bold">{product.name}</h2>
+            <h3 className="text-xs text-gray-500">{product.category}</h3>
+            {/* Render each description with unique keys */}
+            <p className="text-sm">
+              {product.description.map((desc, index) => (
+                <span key={`${product.id}-${index}`}>{desc}</span>
+              ))}
+            </p>
+            <h4 className="text-green-500 font-bold">${product.price}</h4>
+            <button
+              className="mt-2 bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+              onClick={() => alert(`Edit product: ${product.name}`)}
+            >
+              Edit
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
