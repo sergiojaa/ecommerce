@@ -72,7 +72,7 @@ export default function CategorySlider() {
           {category.map((names) => (
             <Link href={names.url} key={names.id}
 
-              className='text-[13px] text-white bg-primary w-[150px] rounded-xl h-[170px] flex flex-col items-center justify-between py-[30px] gap-3 shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer'
+              className='text-[13px] text-white bg-primary w-[150px] -z-10 rounded-xl h-[170px] flex flex-col items-center justify-between py-[30px] gap-3 shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer'
               style={{ userSelect: 'none' }} // Make text non-selectable
             >
               <FontAwesomeIcon className='text-2xl' icon={faList} />
