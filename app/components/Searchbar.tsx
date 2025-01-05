@@ -13,7 +13,8 @@ interface IProps {
 
 export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
     const pathname = usePathname();
-    const searchbarRef = useRef<HTMLDivElement>(null);
+    const desktopSearchbarRef = useRef<HTMLDivElement>(null);
+    const mobileSearchbarRef = useRef<HTMLDivElement>(null);
 
     const [search, setSearch] = React.useState('');
     const [searchedProducts, setSearchedProducts] = React.useState([]);
@@ -27,7 +28,10 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (searchbarRef.current && searchbarRef.current.contains(event.target as Node)) {
+            if (
+                (desktopSearchbarRef.current && desktopSearchbarRef.current.contains(event.target as Node)) ||
+                (mobileSearchbarRef.current && mobileSearchbarRef.current.contains(event.target as Node))
+            ) {
                 setSearchPromptOpen(true);
                 return;
             } else {
@@ -41,8 +45,6 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
-
-
 
     const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -69,7 +71,11 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
 
     return (
         <>
-            <div className="w-[70%] h-[40px] text-sm mx-[35px] relative md:block hidden" ref={searchbarRef}>
+            {/* Desktop Searchbar */}
+            <div
+                className="w-[70%] h-[40px] text-sm mx-[35px] relative md:block hidden"
+                ref={desktopSearchbarRef}
+            >
                 <input
                     type="text"
                     onChange={handleSearch}
@@ -86,24 +92,26 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
 
                 <div>
                     {searchPromptOpen && searchedProducts.map((product: any) => (
-                        <Link key={product._id} href={`/products/${product._id}`}>
-                            <div className="w-full px-[10px] py-[10px] bg-white border-b border-gray-200 flex items-center justify-between group">
-                                <div className="flex items-center gap-[10px]">
-                                    <div className='w-[28px] h-[28px] bg-[#f5f6f6] flex items-center justify-center rounded-lg transition-all delay-75 group-hover:bg-secondary'>
-                                        <FontAwesomeIcon icon={faSearch} className="text-primary group-hover:text-white transition-all delay-75" />
+                        <div key={product._id}>
+                            <Link href={`/products/${product._id}`}>
+                                <div className="w-full px-[10px] py-[10px] bg-white border-b border-gray-200 flex items-center justify-between group">
+                                    <div className="flex items-center gap-[10px]">
+                                        <div className="w-[28px] h-[28px] bg-[#f5f6f6] flex items-center justify-center rounded-lg transition-all delay-75 group-hover:bg-secondary">
+                                            <FontAwesomeIcon icon={faSearch} className="text-primary group-hover:text-white transition-all delay-75" />
+                                        </div>
+                                        <span className="text-xs">{product.name}</span>
                                     </div>
-                                    <span className="text-xs">{product.name}</span>
                                 </div>
-                            </div>
-                        </Link>
+                            </Link>
+                        </div>
                     ))}
                 </div>
             </div>
 
+            {/* Mobile Searchbar */}
             <div
-                ref={searchbarRef}
-                className={`w-[100%] h-[40px] text-sm mx-[15px] relative md:hidden ${inputOpen ? 'block' : 'hidden'
-                    }`}
+                ref={mobileSearchbarRef}
+                className={`w-[100%] h-[40px] text-sm mx-[15px] relative md:hidden ${inputOpen ? 'block' : 'hidden'}`}
             >
                 <input
                     type="text"
@@ -122,10 +130,10 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
 
                 <div>
                     {searchPromptOpen && searchedProducts.map((product: any) => (
-                        <Link key={product._id} href={`/products/${product._id}`}>
+                        <Link key={product._id} href={`/products/${product._id}`} >
                             <div className="w-full px-[10px] py-[10px] bg-white border-b border-gray-200 flex items-center justify-between group">
                                 <div className="flex items-center gap-[10px]">
-                                    <div className='w-[28px] h-[28px] bg-[#f5f6f6] flex items-center justify-center rounded-lg transition-all delay-75 group-hover:bg-secondary'>
+                                    <div className="w-[28px] h-[28px] bg-[#f5f6f6] flex items-center justify-center rounded-lg transition-all delay-75 group-hover:bg-secondary">
                                         <FontAwesomeIcon icon={faSearch} className="text-primary group-hover:text-white transition-all delay-75" />
                                     </div>
                                     <span className="text-xs">{product.name}</span>
@@ -134,9 +142,9 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
                         </Link>
                     ))}
                 </div>
-
             </div>
 
+            {/* Close Button */}
             <div className={`${inputOpen ? 'block' : 'hidden'}`} onClick={() => setInputOpen(false)}>
                 <FontAwesomeIcon
                     icon={faX}
