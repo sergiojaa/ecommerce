@@ -1,31 +1,19 @@
 'use client'
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import CategoryDropDownMenu from '../components/CategoryDropDownMenu';
+import React, { useEffect } from 'react';
 import useAdminAuth from '../helpers/useAdminAuth';
 import { useRouter } from 'next/navigation';
 import ProductCreator from '../components/admin/ProductCreator';
+import AdminSidebar from '../components/admin/AdminSidebar';
+import AdminLayout from '../components/admin/AdminLayout';
 
 
 export default function Page() {
 
-
-  const router = useRouter()
-
-  useEffect(() => {
-    useAdminAuth()
-      .then((res) => {
-        if (res === false) {
-          router.push('/profile')
-        }
-      })
-      .catch(() => router.push('/profile'))
-
-  }, [router])
-
-
-
   return (
-    <ProductCreator />
+    <AdminLayout>
+      <div className='flex-[2]'>
+        მოგესალმებით ადმინ პანელზე
+      </div>
+    </AdminLayout>
   );
 }
