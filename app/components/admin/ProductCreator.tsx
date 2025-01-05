@@ -1,7 +1,10 @@
+'use client'
 import React, { useState } from 'react'
 import CategoryDropDownMenu from '../CategoryDropDownMenu';
 import axios from 'axios';
-import CategoryList from './DescriptionList';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import AdminSidebar from './AdminSidebar';
 
 export default function ProductCreator() {
     const [image, setImage] = useState<File | null>(null);
@@ -63,8 +66,18 @@ export default function ProductCreator() {
         }
     };
 
+    const router = useRouter()
+   
+       const logOut = () => {
+           localStorage.removeItem('token');
+           router.push('/'); // Redirect to home after logout
+       };
+
     return (
-        <form className='flex gap-[50px] px-[50px] py-[50px]' onSubmit={handleSubmit}>
+        <div>
+            <form className='flex gap-[50px] px-[50px] py-[50px]' onSubmit={handleSubmit}>
+            <AdminSidebar/>
+            
             <div className='flex-[3] flex flex-col gap-[50px]'>
 
                 <div className='flex justify-between'>
@@ -77,7 +90,7 @@ export default function ProductCreator() {
                     </div>
                 </div>
 
-                <CategoryList selectedDescription={selectedDescription} setSelectedDescription={setSelectedDescription} />
+                {/* <CategoryList selectedDescription={selectedDescription} setSelectedDescription={setSelectedDescription} /> */}
 
                 <div className='flex'>
                     <div className='flex-1'>
@@ -156,8 +169,11 @@ export default function ProductCreator() {
                 <p className='text-red-600'>{error}</p>
                 <p className='text-green-400'>{answer}</p>
             </div>
-            <div className='flex-1 bg-red-900 h-screen'>
-            </div>
         </form>
+       
+        </div>
+        
+        
+      
     )
 }
