@@ -49,14 +49,14 @@ export default function CategorySlider() {
     <div className='relative flex items-center justify-center mt-5 w-[80%] md:container xl:max-w-[1000px] mx-auto px-[20px]'>
       {/* Left Button */}
       <div
-        className='bg-secondary px-5 py-3 rounded-[50%] absolute left-[0] z-10 cursor-pointer'
+        className='bg-secondary px-5 py-3 rounded-[50%] absolute left-[0] z-[1] cursor-pointer'
         onClick={scrollLeftHandler}
       >
         <FontAwesomeIcon icon={faChevronLeft} />
       </div>
       {/* Scrollable Container */}
       <div
-        className='flex gap-2 items-center overflow-x-auto'
+        className='flex gap-2 items-center overflow-x-auto z-[-2]'
         ref={scrollContainerRef}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -83,7 +83,7 @@ export default function CategorySlider() {
       </div>
       {/* Right Button */}
       <div
-        className='bg-secondary px-5 py-3 rounded-[50%] absolute right-[-0.5rem] z-10 cursor-pointer'
+        className='bg-secondary px-5 py-3 rounded-[50%] absolute right-[-0.5rem] z-[1] cursor-pointer'
         onClick={scrollRightHandler}
       >
         <FontAwesomeIcon icon={faChevronRight} />

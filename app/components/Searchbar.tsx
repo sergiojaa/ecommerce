@@ -90,12 +90,12 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
                     />
                 </div>
 
-                <div className='mt-[10px]'>
+                <div className='mt-[10px] absolute w-full'>
                     {searchPromptOpen && searchedProducts.map((product: any) => (
                         <div key={product._id} className='z-100'>
                             <Link href={`/products/${product._id}`}>
-                                <div className="w-full px-[10px] py-[10px] bg-white border-b border-gray-200 flex items-center justify-between group">
-                                    <div className="flex items-center gap-[10px]">
+                                <div className="w-full bg-white border-b border-gray-200 flex items-center justify-between">
+                                    <div className="flex items-center gap-[10px] px-[10px] py-[10px] group w-full h-full">
                                         <div className="w-[28px] h-[28px] bg-[#f5f6f6] flex items-center justify-center rounded-lg transition-all delay-75 group-hover:bg-secondary">
                                             <FontAwesomeIcon icon={faSearch} className="text-primary group-hover:text-white transition-all delay-75" />
                                         </div>
@@ -111,7 +111,7 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
             {/* Mobile Searchbar */}
             <div
                 ref={mobileSearchbarRef}
-                className={`w-[100%] h-[40px] text-sm mx-[15px] relative md:hidden ${inputOpen ? 'block' : 'hidden'}`}
+                className={`md:hidden  w-[100%] h-[40px] text-sm mx-[15px] relative ${inputOpen ? 'block' : 'hidden'}`}
             >
                 <input
                     type="text"
