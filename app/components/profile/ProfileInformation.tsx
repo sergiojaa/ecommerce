@@ -23,7 +23,12 @@ export default function ProfileInformation({
     setNumber(userData.mobileNumber)
   }, [userData.mobileNumber])
 
-  const onEdit = () => {
+  const onEdit = (event: React.MouseEvent) => {
+    if (isEditing) {
+      setNumber(userData.mobileNumber)
+      setIsEditing(!isEditing)
+    }
+
     setIsEditing(!isEditing);
     setError(null); // Clear errors on edit
     setMessage(null); // Clear messages on edit
@@ -37,14 +42,14 @@ export default function ProfileInformation({
 
     if (numberChange.error) {
       setError(numberChange.error);
-      setTimeout(()=>{
+      setTimeout(() => {
         setError('')
-      },5000)
+      }, 5000)
     } else {
       setMessage(numberChange.message || "მობილურის ნომერი შეიცვალა");
-      setTimeout(()=>{
+      setTimeout(() => {
         setMessage('')
-      },5000)
+      }, 5000)
       setIsEditing(false); // Exit edit mode on success
 
       // Update userData in the parent state
