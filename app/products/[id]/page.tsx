@@ -8,7 +8,7 @@ type ProductType = {
   _id: string;
   name: string;
   description: string[];
-  price: number;
+  price: number | string;
   image: string;
 };
 
@@ -115,7 +115,7 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
 
         {/* Price and Buttons */}
         <div className="w-full md:flex-[3] flex flex-col justify-between px-4 py-6 rounded-xl shadow-lg border border-gray-200 h-[270px]">
-          <h1 className="font-bold text-2xl">${product.price.toFixed(2)}</h1>
+          <h1 className="font-bold text-2xl">{product.price === 'ფასი შეთანხმებით' ? 'ფასი შეთანხმებით' : `${product.price}₾`}</h1>
           <p className="font-normal text-sm text-gray-500 mt-2">უფასო მიწოდება მაზეგ</p>
           <div className="flex flex-col gap-3">
             <button
