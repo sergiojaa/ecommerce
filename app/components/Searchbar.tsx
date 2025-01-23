@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faX } from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faSearch, faX } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
@@ -73,13 +73,14 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
         <>
             {/* Desktop Searchbar */}
             <div
-                className="w-[70%] h-[40px] text-sm mx-[35px] relative md:block hidden"
+                className=" h-[40px]  text-sm mx-[35px] relative md:block hidden"
                 ref={desktopSearchbarRef}
             >
+
                 <input
                     type="text"
                     onChange={handleSearch}
-                    className="w-full h-full px-3 border-none outline-none bg-[#F8F8F8] rounded-xl"
+                    className="w-[342px] lg:w-[500px] xl:w-[600px] h-full px-3 border-none outline-none bg-[#F8F8F8] rounded-xl"
                     value={search}
                     placeholder="რას ეძებთ?"
                 />
@@ -152,6 +153,8 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
                     className="text-secondary translate-y-[10%] text-xl cursor-pointer md:hidden block"
                 />
             </div >
+
+
         </>
     );
 }
