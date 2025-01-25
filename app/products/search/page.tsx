@@ -1,10 +1,8 @@
 'use client';
-import Products from '@/app/components/products/Products';
 import axios from 'axios';
-import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-type productType = {
+type ProductType = {
   _id: string;
   name: string;
   description: string[];
@@ -12,162 +10,70 @@ type productType = {
   price: number;
 };
 
-export default function Page() {
-  const searchParams = useSearchParams();
-
-  const search = searchParams.get('search');
-  const maxPrice = searchParams.get('maxPrice');
-  const minPrice = searchParams.get('minPrice');
-  const sort = searchParams.get('sort');
-  const category = searchParams.get('category');
-
-  const [products, setProducts] = useState<productType[]>([]);
-  const [plus, setPlus] = useState(false);
-  const [searchPlus ,setSearchPlus] = useState(false)
-
-  useEffect(() => {
-    const fetchedProducts = fetchProducts();
-
-    fetchedProducts.then((data) => {
-      const maxPriceOfProducts = data.reduce((max: number, product: productType) => Math.max(max, product.price), 0)
-      setInputVals((prev) => ({ ...prev, maxPrice: maxPriceOfProducts }))
-    }
-    )
-
-  }, []);
-
-
-  useEffect(() => {
-    console.log('Search queries:', {
-      search,
-      maxPrice,
-      minPrice,
-      sort,
-      category,
-    });
-  }, [search, maxPrice, minPrice, sort, category]);
-
+export default function Search({ setFilteredProducts }: { setFilteredProducts: React.Dispatch<React.SetStateAction<ProductType[]>> }) {
   const [inputVals, setInputVals] = useState({
     minPrice: 0,
     maxPrice: 0,
   });
 
-  const fetchProducts = async () => {
-    const response = await axios.get('http://localhost:3001/products');
-    setProducts(response.data);
-    return response.data;
-  }
-
-  const changeIcon = () => {
-    setPlus(!plus);
-  };
-  const changeSearchIcon = () => {
-    setSearchPlus(!searchPlus);
+  // Handle input changes for minPrice and maxPrice
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, key: string) => {
+    let value = event.target.value;
+    value = value === "" ? "0" : value; // Handle empty input and set to "0"
+    const numericValue = Number(value); // Ensure it's a number
+    setInputVals((prev) => ({
+      ...prev,
+      [key]: isNaN(numericValue) ? 0 : numericValue, // If NaN, set to 0
+    }));
   };
 
-  const handleInputChange = (event: any, key: string) => {
-    setInputVals({
-      ...inputVals,
-      [key]: event.target.value,
-    });
-  }
-  const  filterProductsByPrice = async  () =>{
-    const filteredProducts = (await axios.get(`http://localhost:3001/products?minPrice=${inputVals.minPrice}&maxPrice=${inputVals.maxPrice}`)).data
-
-    setProducts(filteredProducts)
-  }
-
+  // Filter products by price range
+  const filterProductsByPrice = async () => {
+    const response = await axios.get(
+      `http://localhost:3001/products?minPrice=${inputVals.minPrice}&maxPrice=${inputVals.maxPrice}`
+    );
+    setFilteredProducts(response.data); // Update the parent component's filtered products
+  };
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Search Page</h1>
-      <p>Query Parameters:</p>
+      <h1 className="text-xl mb-4">ფილტრაცია ფასის მიხედვით</h1>
       <div>
         <div className="flex gap-20">
           <p className="text-[20px]">ფასი</p>
-          {plus ? (
-            <div onClick={changeIcon} className="text-[20px] cursor-pointer">
-              -
-            </div>
-          ) : (
-            <div onClick={changeIcon} className="text-[20px] cursor-pointer">
-              +
-            </div>
-          )}
         </div>
-        <div className='flex flex-col'>
-        <div className='flex gap-20 '>
-          <h2 className='text-[18px]'>ბრენდი</h2>
-          {searchPlus ? (
-            <div onClick={changeSearchIcon} className="text-[20px] cursor-pointer">
-              -
-            </div>
-          ) : (
-            <div onClick={changeSearchIcon} className="text-[20px] cursor-pointer">
-              +
-            </div>
-          )}
-          {searchPlus && (
-          <div>
+
+        <div>
+          <form className="flex gap-10">
             <div>
-              <form action="">
-                <input 
-                placeholder='ბრენდი'
-                type="text" />
-              </form>
-            </div>
-          </div>
-          )}
-
-        </div>
-        </div>
-       
-
-        {plus && (
-          <div>
-            <div>
-              <form className="flex gap-10">
-                <div>
-                  <input
-                    className="border w-14 h-10"
-                    type="number"
-                    value={inputVals.minPrice}
-                    onChange={(event) => handleInputChange(event, 'minPrice')}
-                  />
-                  <label htmlFor="">ლ</label>
-                </div>
-                <div>
-                  <input
-                    className="border w-14 h-10"
-                    type="number"
-                    value={inputVals.maxPrice}
-                    onChange={(event) => handleInputChange(event, 'maxPrice')}
-
-                  />
-                  <label htmlFor="">ლ</label>
-                </div>
-              
-              </form>
+              <input
+                className="border w-14 h-10"
+                type="number"
+                value={inputVals.minPrice || ""}
+                onChange={(event) => handleInputChange(event, 'minPrice')}
+              />
+              <label>ლ</label>
             </div>
             <div>
-              <h1 
-              onClick={filterProductsByPrice}
-              className="cursor-pointer bg-blue-500 p-2 w-[80px] text-white">
-                ძებნა
-              </h1>
+              <input
+                className="border w-14 h-10"
+                type="number"
+                value={inputVals.maxPrice || ""}
+                onChange={(event) => handleInputChange(event, 'maxPrice')}
+              />
+              <label>ლ</label>
             </div>
-          </div>
-        )}
+          </form>
+        </div>
+        <div>
+          <h1
+            onClick={filterProductsByPrice}
+            className="cursor-pointer bg-blue-500 p-2 w-[80px] text-white"
+          >
+            ძებნა
+          </h1>
+        </div>
       </div>
-      
-
-      {/* <div>
-        {products.slice(0, 25).map((product) => (
-          <div key={product._id}>
-            {product.price} ლარი
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 }
