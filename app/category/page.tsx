@@ -3,24 +3,26 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { productType } from '../components/products/ProductCard';
+import ProductCard, { productType } from '../components/products/ProductCard';
+import { useRouter } from 'next/navigation';
+import { checkTokenValidity } from '../components/utils/checkTokenValidity';
 
 export default function CategoryPage() {
   const [products, setProducts] = useState<productType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [tokenValidity, setTokenValidity] = useState(false);
+  const [loadingProduct, setLoadingProduct] = useState<string | null>(null);
 
+  const router = useRouter();
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
-
-  console.log(category)
 
   useEffect(() => {
     if (category) {
       axios
         .get(`http://localhost:3001/products?category=${category}`)
         .then((response) => {
-          console.log(response)
           setProducts(response.data);
           setLoading(false);
         })
@@ -32,6 +34,49 @@ export default function CategoryPage() {
     }
   }, [category]);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    checkTokenValidity(String(token)).then((isValid) => {
+      setTokenValidity(isValid);
+    });
+  }, []);
+
+  const addtocart = (id: string) => {
+    const token = localStorage.getItem('token');
+
+    if (!tokenValidity) {
+      router.push('/login');
+      return;
+    }
+
+    setLoadingProduct(id);
+
+    const MIN_LOADING_TIME = 1000;
+    const startTime = Date.now();
+
+    axios
+      .post(
+        'http://localhost:3001/cart/add-to-cart',
+        { productId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log('Product added to cart:', res.data);
+      })
+      .catch((err) => {
+        console.error('Error adding product to cart:', err);
+      })
+      .finally(() => {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+        setTimeout(() => setLoadingProduct(null), remainingTime);
+      });
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -40,16 +85,12 @@ export default function CategoryPage() {
       <h1>კატეგორია: {category}</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 mx-[100px] gap-4 mt-4">
         {products.map((product) => (
-          <div key={product._id} className="border p-4 rounded shadow">
-            <img
-              className="w-full h-40 object-cover rounded mb-2"
-              src={product.image}
-              alt={product.name}
-            />
-            <h2 className="text-lg font-bold">{product.name}</h2>
-            <p className="text-gray-700">{product.description}</p>
-            <p className="font-bold">${product.price.toFixed(2)}</p>
-          </div>
+          <ProductCard
+            key={product._id}
+            product={product}
+            addtocart={addtocart}
+            loadingProduct={loadingProduct}
+          />
         ))}
       </div>
     </div>

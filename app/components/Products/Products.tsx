@@ -12,17 +12,14 @@ import { checkTokenValidity } from '../utils/checkTokenValidity';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, } from "@fortawesome/free-solid-svg-icons";
 import ProductCard from './ProductCard';
-import { categoryData } from '@/app/data';
-type ProductsProps = {
-  cartCount: number;
-  setCartCount: React.Dispatch<React.SetStateAction<number>>;
-};
+
+
 export default function Products() {
   const router = useRouter();
 
   const [loadingProduct, setLoadingProduct] = useState<string | null>(null); // Track the loading product
   const [products, setProducts] = useState<
-    { _id: string; image: string; name: string; description: string; price: number; category: string }[]
+    { _id: string; image: string; name: string; description: string; price: string; category: string }[]
   >([]);
   const [tokenValidity, setTokenValidity] = useState(false)
 

@@ -43,13 +43,13 @@ export default function Header({ isOpen, open }: PageProps) {
           <div className='flex items-center gap-3'>
 
             {/* Hamburger Menu */}
-            <div className={`flex flex-col gap-1 cursor-pointer ${isOpen && 'hidden'}`} onClick={handleMenuOpen}>
+            <div className={`flex flex-col gap-1 cursor-pointer md:hidden ${isOpen && 'hidden'}`} onClick={handleMenuOpen}>
               <div className='w-[20px] h-[2px] bg-black'></div>
               <div className='w-[20px] h-[2px] bg-black'></div>
               <div className='w-[20px] h-[2px] bg-black'></div>
             </div>
 
-            <div onClick={handleMenuOpen} className={`${isOpen ? 'block' : 'hidden'} px-[2.5px]`}>
+            <div onClick={handleMenuOpen} className={`px-[2.5px] md:hidden ${isOpen ? 'block' : 'hidden'}`}>
               <FontAwesomeIcon
                 icon={faX}
                 className="text-black text-xl cursor-pointer block"
@@ -57,8 +57,8 @@ export default function Header({ isOpen, open }: PageProps) {
             </div>
 
             {/* Logo */}
-            <Link href={'/'} className={`${inputOpen ? 'hidden' : 'block'}`}>
-              <Image className='xl:ml-10' src={'/logo.png'} alt='logo' width={100} height={100} />
+            <Link href={'/'} className={`xl:ml-10 ${inputOpen ? 'hidden' : 'block'}`}>
+              <Image className='' src={'/logo.png'} alt='logo' width={100} height={100} />
             </Link>
           </div>
 
