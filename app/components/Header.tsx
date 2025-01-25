@@ -43,7 +43,7 @@ export default function Header({ isOpen, open }: PageProps) {
           <div className='flex items-center gap-3'>
 
             {/* Hamburger Menu */}
-            <div className={`flex flex-col gap-1 md:hidden ${isOpen && 'hidden'}`} onClick={handleMenuOpen}>
+            <div className={`flex flex-col gap-1 cursor-pointer ${isOpen && 'hidden'}`} onClick={handleMenuOpen}>
               <div className='w-[20px] h-[2px] bg-black'></div>
               <div className='w-[20px] h-[2px] bg-black'></div>
               <div className='w-[20px] h-[2px] bg-black'></div>
@@ -52,7 +52,7 @@ export default function Header({ isOpen, open }: PageProps) {
             <div onClick={handleMenuOpen} className={`${isOpen ? 'block' : 'hidden'} px-[2.5px]`}>
               <FontAwesomeIcon
                 icon={faX}
-                className="text-black text-xl cursor-pointer md:hidden block"
+                className="text-black text-xl cursor-pointer block"
               />
             </div>
 

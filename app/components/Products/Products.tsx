@@ -93,10 +93,10 @@ export default function Products() {
   return (
     <div className='mt-[50px]'>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mx-[2rem] lg:mx-[6rem] font-[Bebas Neue]"
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mx-[2rem] lg:mx-[6rem] font-[Bebas Neue]"
 
       >
-        {products.slice(0, 10).map((product) => (
+        {products.slice(15, 23).map((product) => (
           <ProductCard key={product._id} product={product} loadingProduct={loadingProduct} addtocart={addtocart} />
         ))}
       </div>
