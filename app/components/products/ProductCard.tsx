@@ -43,7 +43,7 @@ export default function ProductCard({ product, addtocart, loadingProduct }: Prod
           {product.price === 'ფასი შეთანხმებით' && <p className="font-semibold text-xs">{product.price}</p>}
           <button
             onClick={() => addtocart(product._id)}
-            className={`px-4 py-2 rounded ${loadingProduct === product._id ? 'bg-secondary' : 'bg-secondary'
+            className={`px-4 py-2 rounded bg-secondary ${loadingProduct === product._id ? 'opacity-50' : 'opacity-100'
               }`}
             disabled={loadingProduct === product._id}
           >
@@ -51,7 +51,6 @@ export default function ProductCard({ product, addtocart, loadingProduct }: Prod
               icon={faCartShopping}
               className="text-white text-xl cursor-pointer"
             />
-            {loadingProduct === product._id && 'Adding...'}
           </button>
         </div>
       </div>
