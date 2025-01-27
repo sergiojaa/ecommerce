@@ -56,7 +56,7 @@ export default function Page() {
       {error && (<p>Error</p>)}
       <div>
         <div className='flex font-bold  text-[25px] xl:ml-[13rem] justify-start mt-[1rem] ml-[1rem] '>
-          <h1 className='text-primary' >გამარჯობა, {userData.userName}</h1>
+          <h1 className='text-secondary' >გამარჯობა, {userData.userName}</h1>
         </div>
         <div className='flex flex-col items-start md:flex-row ml-[2rem]'>
           <div>
@@ -64,15 +64,15 @@ export default function Page() {
           </div>
           <div className='md:mt-[2rem] w-full flex flex-col gap-7 md:ml-[5rem]'>
             <div >
-              <h2 className='font-bold mb-4 text-[20px] text-primary'>პარამეტრები</h2>
+              <h2 className='font-bold mb-4 text-[20px] text-secondary'>პარამეტრები</h2>
 
               <div className='flex flex-col md:flex-row max-w-max gap-5 '>
-                <button onClick={() => setIsFirstButtonActive(true)} className={`border px-3 py-2 ${isFirstButtonActive ? "text-white" : "text-primary"} rounded-3xl ${isFirstButtonActive ? "bg-primary" : "bg-white"
+                <button onClick={() => setIsFirstButtonActive(true)} className={`border px-3 py-2 ${isFirstButtonActive ? "text-white" : "text-primary"} rounded-3xl ${isFirstButtonActive ? "bg-secondary" : "bg-white"
                   }`}>პირადი ინფორმაცია</button>
                 <button
                   onClick={() => setIsFirstButtonActive(false)}
                   // className='border bg-blue-600 p-3 rounded-2xl'
-                  className={`border px-3 py-2 rounded-3xl  ${isFirstButtonActive ? "text-primary" : "text-white"}  ${!isFirstButtonActive ? "bg-primary" : "bg-white"} `}
+                  className={`border px-3 py-2 rounded-3xl  ${isFirstButtonActive ? "text-secondary" : "text-white"}  ${!isFirstButtonActive ? "bg-secondary" : "bg-white"} `}
                 >
                   პაროლის შეცვლა</button>
 

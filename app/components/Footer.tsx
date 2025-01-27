@@ -22,7 +22,7 @@ const categories = [
 
 export default function Footer() {
   return (
-    <footer className='bg-primary text-white px-[20px] md:px-[100px] py-[70px] mt-[100px]'>
+    <footer className='bg-secondary text-white px-[20px] md:px-[100px] py-[70px] mt-[100px]'>
       <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-[40px] md:gap-[70px] justify-center'>
 
         <div className='w-full'>
