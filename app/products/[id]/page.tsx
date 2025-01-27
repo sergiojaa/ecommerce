@@ -10,6 +10,7 @@ type ProductType = {
   description: string[];
   price: number | string;
   image: string;
+  types: string[]
 };
 
 export default function Product({ params }: { params: Promise<{ id: string }> }) {
@@ -108,6 +109,11 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
             {product.description.map((description) => (
               <li key={description}>
                 <p className="text-sm">{description}</p>
+              </li>
+            ))}
+            {product.types.map((type) => (
+              <li key={type}>
+                <p className="text-sm">{type}</p>
               </li>
             ))}
           </ul>
