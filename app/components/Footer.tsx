@@ -8,9 +8,9 @@ import { IoMail } from "react-icons/io5";
 
 const links = [
   { href: '/', name: 'მთავარი' },
-  { href: '/contact', name: 'კონტაქტი' },
+  { href: '/address', name: 'კონტაქტი' },
   { href: '/about-us', name: 'ჩვენს შესახებ' },
-  { href: '/terms-and-conditions', name: 'წესები და პირობები' },
+  { href: '/rules', name: 'წესები და პირობები' },
 ]
 
 const categories = [
