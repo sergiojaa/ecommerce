@@ -110,7 +110,7 @@ export default function ProfileInformation({
         <div>
           <h4
             onClick={onEdit}
-            className="text-blue-500 cursor-pointer xl:mr-[20rem] mr-[2rem]"
+            className="text-secondary cursor-pointer xl:mr-[20rem] mr-[2rem]"
           >
             {!isEditing ? "შეცვლა" : "გაუქმება"}
           </h4>
