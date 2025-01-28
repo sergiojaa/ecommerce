@@ -8,7 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Slider from 'react-slick';
 import { Main } from 'next/document';
-import CustomSlider from '../Slider';
+import CustomSlider from '../CustomSlider';
 
 type Category = {
   name: string;
@@ -39,6 +39,7 @@ export default function Products() {
       .get("http://localhost:3001/products/categories") // Fetch categories
       .then((res) => {
         setCategoryData(res.data.categories);
+
       })
       .catch((err) => {
         console.error("Error fetching categories:", err);
@@ -73,6 +74,8 @@ export default function Products() {
 
   return (
     <div>
+      <CustomSlider />
+
       <div className="flex items-start justify-end">
         <div className="flex ml-10 flex-col gap-5">
           <div className="bg-[#FFFFFF] mt-50px border border-secondary mt-10 top-[83px] w-[270px] text-black">
@@ -89,9 +92,9 @@ export default function Products() {
               ))}
             </ul>
           </div>
-          <div>
+          {/* <div>
             <Search setFilteredProducts={setFilteredProducts} />
-          </div>
+          </div> */}
         </div>
 
         {/* Display the filtered products in the grid */}
@@ -102,7 +105,6 @@ export default function Products() {
 
         </div>
       </div>
-      <CustomSlider />
 
     </div>
 
