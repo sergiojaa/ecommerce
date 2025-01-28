@@ -2,13 +2,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductCard from './ProductCard';
-import Search from '@/app/products/search/page';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
-import Slider from 'react-slick';
-import { Main } from 'next/document';
-import CustomSlider from '../CustomSlider';
 
 type Category = {
   name: string;
@@ -74,8 +69,6 @@ export default function Products() {
 
   return (
     <div>
-      <CustomSlider />
-
       <div className="flex items-start justify-end">
         <div className="flex ml-10 flex-col gap-5">
           <div className="bg-[#FFFFFF] mt-50px border border-secondary mt-10 top-[83px] w-[270px] text-black">

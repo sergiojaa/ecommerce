@@ -108,7 +108,7 @@ export default function CustomSlider() {
     };
 
     return (
-        <div className="relative my-[30px]">
+        <div className="relative container mx-auto my-[30px]">
             {/* Slider Container */}
             <Slider ref={sliderRef} {...settings}>
                 {products.map((product) => (
