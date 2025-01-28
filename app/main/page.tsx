@@ -1,10 +1,10 @@
 import React from 'react'
-import Slider from '../components/Slider'
+import CustomSlider from '../components/CustomSlider'
 
 export default function page() {
     return (
         <div className='container mx-auto'>
-            <Slider />
+            <CustomSlider />
         </div>
     )
 }
