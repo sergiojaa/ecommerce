@@ -6,6 +6,10 @@ import Search from '@/app/products/search/page';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import Slider from 'react-slick';
+import { Main } from 'next/document';
+import CustomSlider from '../Slider';
+
 type Category = {
   name: string;
   subcategories: string[]
@@ -97,10 +101,8 @@ export default function Products() {
           ))}
 
         </div>
-
-
       </div>
-
+      <CustomSlider />
 
     </div>
 
