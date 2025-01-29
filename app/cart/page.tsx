@@ -210,7 +210,7 @@ export default function Page() {
                 <h1>${price}</h1>
               </span>
               <div className="w-full h-[1px] bg-gray-300"></div>
-              <button className={`px-3 py-5 rounded-md text-sm text-white w-full bg-blue-500 font-bold`}>
+              <button className={`px-3 py-5 rounded-md text-sm text-white w-full bg-secondary font-bold`}>
                 შეკვეთის გაფორმება
               </button>
             </div>

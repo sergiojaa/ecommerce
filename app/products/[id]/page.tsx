@@ -23,7 +23,7 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
   const [id, setId] = useState<string | null>(null);
   const [loadingProduct, setLoadingProduct] = useState<string | null>(null);
   const [tokenValidity, setTokenValidity] = useState(false);
-  const [selectedPrice, setSelectedPrice] = useState<string | number | null>(null); // Add state for selected price
+  const [selectedType, setSelectedType] = useState<TypeDetail | null>(null); // Track selected type
 
   const router = useRouter();
 
@@ -39,11 +39,14 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
         .then((res) => res.json())
         .then((data) => {
           setProduct(data);
-          setSelectedPrice(data.price); // Set the initial price to the product's price
+          // Set default type only if no type has been selected yet
+          if (!selectedType) {
+            setSelectedType({ type: "Default", price: String(data.price) });
+          }
         })
         .catch((err) => console.error("Error fetching product:", err));
     }
-  }, [id]);
+  }, [id, selectedType]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -62,15 +65,25 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
 
     const token = localStorage.getItem("token");
 
+    if (!selectedType) {
+      console.error("No type selected");
+      return;
+    }
+
     setLoadingProduct(id);
 
     const MIN_LOADING_TIME = 1000;
     const startTime = Date.now();
 
+    // Send the selected product type and price to the backend
     axios
       .post(
         "http://localhost:3001/cart/add-to-cart",
-        { productId: id },
+        {
+          productId: id,
+          type: selectedType.type,  // Send the selected type
+          price: selectedType.price,  // Send the selected price
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -90,8 +103,8 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
       });
   };
 
-  const handleTypeSelection = (price: string) => {
-    setSelectedPrice(price); // Update the price when a button is clicked
+  const handleTypeSelection = (type: TypeDetail) => {
+    setSelectedType(type); // Update selected type when a button is clicked
   };
 
   return (
@@ -99,7 +112,6 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
       <h1 className="md:block hidden text-left ml-4">{product.name}</h1>
 
       <div className="flex flex-col md:flex-row mt-12 gap-8">
-        {/* Image */}
         <div className="w-full md:flex-[2] max-w-xs mx-auto md:mx-0">
           <img
             className="w-full h-auto object-contain"
@@ -110,9 +122,8 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
 
         <h1 className="md:hidden block text-left">{product.name}</h1>
 
-        {/* Description List */}
         <div className="w-full flex-[3] xl:flex-[5] flex flex-col md:items-center">
-          <ul className="md:list-disc font-normal space-y-2 ">
+          <ul className="md:list-disc font-normal space-y-2">
             {product.description.map((description) => (
               <li key={description}>
                 <p className="text-sm">{description}</p>
@@ -120,9 +131,10 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
             ))}
             {product.types.map((type, index) => (
               <button
-                className="border flex flex-col"
+                className={`border px-4 py-2 rounded-md ${selectedType?.type === type.type ? "bg-secondary text-white" : "bg-gray-100"
+                  }`}
                 key={index}
-                onClick={() => handleTypeSelection(type.price)} // Handle price selection
+                onClick={() => handleTypeSelection(type)} // Pass type details
               >
                 <p className="text-sm">{`${type.type} ფასი ${type.price}`}</p>
               </button>
@@ -130,12 +142,11 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
           </ul>
         </div>
 
-        {/* Price and Buttons */}
         <div className="w-full md:flex-[3] flex flex-col justify-between px-4 py-6 rounded-xl shadow-lg border border-gray-200 h-[270px]">
           <h1 className="font-bold text-2xl">
-            {selectedPrice === "ფასი შეთანხმებით"
+            {selectedType?.price === "ფასი შეთანხმებით"
               ? "ფასი შეთანხმებით"
-              : `${selectedPrice}₾`}
+              : `${selectedType?.price}₾`}
           </h1>
           <p className="font-normal text-sm text-gray-500 mt-2">
             უფასო მიწოდება მაზეგ
@@ -144,7 +155,7 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
             <button
               onClick={addToCart}
               disabled={loadingProduct === product._id}
-              className={`${loadingProduct === product._id ? "bg-blue-300" : "bg-blue-500"
+              className={`${loadingProduct === product._id ? "bg-red-300" : "bg-secondary"
                 } px-3 py-4 rounded-md text-sm text-white w-full`}
             >
               {loadingProduct === product._id

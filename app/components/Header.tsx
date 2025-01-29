@@ -35,14 +35,12 @@ export default function Header({ isOpen, open }: PageProps) {
   }
 
   return (
-    <div >
-      <div className='w-full flex items-center justify-center h-[83px] px-[30px] md:px-[50px] shadow-sm'>
+    <div  >
+      <div className='w-full flex items-center justify-center h-[60px]  px-[30px] md:px-[50px] shadow-sm'>
         <div className='container flex items-center justify-between'>
 
-          {/* Left Side */}
           <div className='flex items-center gap-3'>
 
-            {/* Hamburger Menu */}
             <div className={`flex flex-col gap-1 cursor-pointer md:hidden ${isOpen && 'hidden'}`} onClick={handleMenuOpen}>
               <div className='w-[20px] h-[2px] bg-black'></div>
               <div className='w-[20px] h-[2px] bg-black'></div>

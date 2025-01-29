@@ -4,7 +4,7 @@ import axios from 'axios';
 import ProductCard from './ProductCard';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-
+import Image from 'next/image';
 type Category = {
   name: string;
   subcategories: string[]
@@ -69,6 +69,7 @@ export default function Products() {
 
   return (
     <div>
+
       <div className="flex items-start justify-end">
         <div className="flex ml-10 flex-col gap-5">
           <div className="bg-[#FFFFFF] mt-50px border border-secondary mt-10 top-[83px] w-[270px] text-black">
