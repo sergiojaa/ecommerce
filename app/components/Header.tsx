@@ -91,7 +91,8 @@ export default function Header({ isOpen, open }: PageProps) {
                 <a href="tel:+995557210626" className="text-secondary">
                   +995 557 210 626
                 </a>
-              </p>            </div>
+              </p>          
+                </div>
           </div>
 
 
