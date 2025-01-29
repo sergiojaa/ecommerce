@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import ProductCard from './products/ProductCard';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -108,34 +110,44 @@ export default function CustomSlider() {
     };
 
     return (
-        <div className="relative container mx-auto my-[30px]">
-            {/* Slider Container */}
-            <Slider ref={sliderRef} {...settings}>
-                {products.map((product) => (
-                    <ProductCard
-                        key={product._id}
-                        addtocart={addtocart}
-                        loadingProduct={loadingProduct}
-                        product={product}
-                    />
-                ))}
-            </Slider>
-
-            {/* Custom Navigation Buttons */}
-            <div className="absolute top-1/2 left-0 right-0 flex justify-between transform -translate-y-1/2 px-4">
+        <div>
+            <div className="flex justify-end pt-5 mb-[-20px]  right-0  z-10 mr-10">
                 <button
-                    className="prev bg-secondary text-white p-2 rounded-[50%] w-[40px] h-[40px] shadow-md focus:outline-none"
+                    className="prev bg-secondary text-white p-2 mr-2  cursor-pointer w-[30px] h-[40px] shadow-md focus:outline-none"
                     onClick={handlePrev}
                 >
-                    {'<'}
+                    <FaArrowLeft />
                 </button>
                 <button
-                    className="next bg-secondary text-white p-2 rounded-[50%] w-[40px] h-[40px] shadow-md focus:outline-none"
+                    className="next bg-secondary text-white p-2  cursor-pointer w-[30px] h-[40px] shadow-md focus:outline-none"
                     onClick={handleNext}
                 >
-                    {'>'}
+                    <FaArrowRight />
                 </button>
             </div>
+            <div className="relative container mx-auto my-[30px]">
+
+
+                {/* Slider Container */}
+                <div className="relative w-full">
+                    <Slider ref={sliderRef} {...settings}>
+                        {products.map((product) => (
+                            <ProductCard
+                                key={product._id}
+                                addtocart={addtocart}
+                                loadingProduct={loadingProduct}
+                                product={product}
+                            />
+                        ))}
+                    </Slider>
+                </div>
+            </div>
         </div>
+
+
+
+
+
+
     );
 }

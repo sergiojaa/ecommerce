@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 const images = [
@@ -11,7 +11,7 @@ const images = [
     '/image7.jpg'
 ];
 
-export default function ImageSlider() {
+export default function ImageSlider({ scrollToTarget }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
@@ -30,8 +30,7 @@ export default function ImageSlider() {
                 {images.map((image, index) => (
                     <div
                         key={index}
-                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'
-                            }`}
+                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
                     >
                         <Image
                             src={image}
@@ -52,15 +51,13 @@ export default function ImageSlider() {
                     <h1 className="text-white text-xl w-[580px]">
                         აღმოაჩინეთ ელექტრომომარაგების ფართო არჩევანი და თქვენთვის შესაფერისი გადაწყვეტილებები, რომლებიც სრულად დააკმაყოფილებს თქვენს მოთხოვნებს.
                     </h1>
-                    <button className='  text-black border max-w-max  text-md bg-white rounded-full px-5 py-3  w-[650px] mt-4'>
+                    <button
+                        onClick={scrollToTarget} // Call scrollToTarget function passed via props
+                        className='text-black border max-w-max text-md bg-white rounded-full px-5 py-3 w-[650px] mt-4'>
                         შეიძინე ახლა
                     </button>
                 </div>
-
-
-
             </div>
         </div>
-
     );
 }

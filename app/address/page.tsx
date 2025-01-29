@@ -62,7 +62,10 @@ export default function page() {
                 <FaPhoneAlt className="text-secondary text-xl" />
                 <div className='flex w-[150px] md:w-[100px] flex-col'>
                   <p className='text-sm'>Phone</p>
-                  <p className='text-sm'>557210626</p>
+                  {/* <p className='text-sm'>557210626</p> */}
+                  <a href="tel:+995557210626" className="text-sm">
+                    +995 557 210 626
+                  </a>
                 </div>
               </div>
               <div className='flex items-center gap-3'>

@@ -14,10 +14,10 @@ const links = [
 ]
 
 const categories = [
-  { href: '/', name: 'ნათურები' },
-  { href: '/', name: 'სადენები' },
-  { href: '/', name: 'ტრანსფორმატორები' },
-  { href: '/', name: 'რელე' },
+  { href: '/category?category=ელექტრო%20სადენები', name: 'ელექტრო სადენები' },
+  { href: '/category?category=ავტომატური%20ამომრთველები%2Cკონტაქტორები', name: 'კონტაქტორები' },
+  { href: '/category?category=ელექტრო%20ფურნიტურა%20', name: 'ელექტრო ფურნიტურა' },
+  { href: '/category?category=სანათი%2Cნათურა%2C%20გარე%20განათება', name: 'განათება' },
 ]
 
 export default function Footer() {
@@ -63,7 +63,9 @@ export default function Footer() {
             </li>
             <li className='flex items-center gap-2'>
               <FaPhoneAlt />
-              <p>+995 557 210 626</p>
+              <a href="tel:+995557210626" className="text-white">
+                +995 557 210 626
+              </a>
             </li>
             <li className='flex items-center gap-2'>
               <IoMail />

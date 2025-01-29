@@ -87,8 +87,11 @@ export default function Header({ isOpen, open }: PageProps) {
                 icon={faPhone}
                 style={{ color: "#a63446" }}
               />
-              <p className=' hidden text-[17px] lg:block text-secondary  '>+995 557 210 626</p>
-            </div>
+              <p className="hidden text-[17px] lg:block text-secondary">
+                <a href="tel:+995557210626" className="text-secondary">
+                  +995 557 210 626
+                </a>
+              </p>            </div>
           </div>
 
 
