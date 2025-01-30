@@ -45,7 +45,7 @@ export default function ImageSlider() {
                 ))}
                 {/* Text Overlay */}
                 <div className="relative w-full h-[600px] flex flex-col justify-center gap-7 items-start  md:ml-10 xl:ml-16 ml-5">
-                    <h1 className="font-bold  text-start text-white text-2xl w-full max-w-[580px]">
+                    <h1 className="font-bold pr-10 text-start text-white text-2xl w-full max-w-[580px]">
                         ყველაფერი, რაც ელექტროენერგიისთვის გჭირდება
                     </h1>
 

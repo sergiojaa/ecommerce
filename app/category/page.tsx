@@ -82,7 +82,10 @@ export default function CategoryPage() {
 
   return (
     <div>
-      <h1>კატეგორია: {category}</h1>
+      <div className='flex items-center  '>
+        <h1 className='font-bold text-secondary text-[20px]'>კატეგორია: {category}</h1>
+
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 mx-[100px] gap-4 mt-4">
         {products.map((product) => (
           <ProductCard

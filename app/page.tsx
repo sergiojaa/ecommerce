@@ -9,7 +9,9 @@ export default function Home() {
       <ImageSlider />
       <CustomSlider />
       <CategoryDisplay />
-      <Products />
+      <CustomSlider />
+
+      {/* <Products /> */}
     </div>
   );
 }

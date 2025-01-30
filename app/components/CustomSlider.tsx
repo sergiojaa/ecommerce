@@ -25,7 +25,6 @@ export default function CustomSlider() {
     const [loadingProduct, setLoadingProduct] = useState<string | null>(null);
     const [products, setProducts] = useState<Product[]>([]);
 
-    // Properly type the ref to avoid null errors
     const sliderRef = useRef<Slider | null>(null);
 
     useEffect(() => {
@@ -65,30 +64,30 @@ export default function CustomSlider() {
     };
 
     const settings = {
-        dots: false,                 // Disable default navigation dots
-        infinite: true,              // Infinite scrolling
-        speed: 500,                  // Transition speed
-        slidesToShow: 4,             // Number of slides visible at once
-        slidesToScroll: 1,           // Number of slides to scroll at a time
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
         responsive: [
             {
-                breakpoint: 1024,        // For screens larger than 1024px
+                breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3,       // Show 3 slides
+                    slidesToShow: 3,
                     slidesToScroll: 1
                 }
             },
             {
-                breakpoint: 768,         // For screens larger than 768px
+                breakpoint: 768,
                 settings: {
-                    slidesToShow: 2,       // Show 2 slides
+                    slidesToShow: 2,
                     slidesToScroll: 1
                 }
             },
             {
-                breakpoint: 480,         // For screens larger than 480px
+                breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,       // Show 1 slide
+                    slidesToShow: 1,
                     slidesToScroll: 1
                 }
             }
@@ -96,14 +95,12 @@ export default function CustomSlider() {
     };
 
     const handlePrev = () => {
-        // Safe access of sliderRef
         if (sliderRef.current) {
             sliderRef.current.slickPrev();
         }
     };
 
     const handleNext = () => {
-        // Safe access of sliderRef
         if (sliderRef.current) {
             sliderRef.current.slickNext();
         }
