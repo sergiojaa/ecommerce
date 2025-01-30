@@ -123,10 +123,10 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
         <h1 className="md:hidden block text-left">{product.name}</h1>
 
         <div className="w-full flex-[3] xl:flex-[5] flex flex-col md:items-center">
-          <ul className="md:list-disc font-normal space-y-2">
+          <ul className="md:list-none  font-normal space-y-2">
             {product.description.map((description) => (
               <li key={description}>
-                <p className="text-sm">{description}</p>
+                <p className="text-lg">{description}</p>
               </li>
             ))}
             {product.types.map((type, index) => (

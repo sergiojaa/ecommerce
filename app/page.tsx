@@ -7,8 +7,9 @@ export default function Home() {
   return (
     <div>
       <ImageSlider />
-      <CustomSlider />
       <CategoryDisplay />
+
+      <CustomSlider />
       <CustomSlider />
 
       {/* <Products /> */}
