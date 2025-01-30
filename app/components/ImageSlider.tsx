@@ -25,7 +25,7 @@ export default function ImageSlider() {
     }, []);
 
     return (
-        <div className="w-full flex justify-center items-center">
+        <div className="w-full  flex justify-center items-center">
             <div className="relative w-full h-[600px]">
                 {images.map((image, index) => (
                     <div
@@ -44,18 +44,21 @@ export default function ImageSlider() {
                     </div>
                 ))}
                 {/* Text Overlay */}
-                <div className="relative w-full h-[600px] flex flex-col justify-center gap-5 items-start px-10">
-                    <h1 className='font-bold text-white text-2xl w-[650px]'>
+                <div className="relative w-full h-[600px] flex flex-col justify-center gap-7 items-start  md:ml-10 xl:ml-16 ml-5">
+                    <h1 className="font-bold  text-start text-white text-2xl w-full max-w-[580px]">
                         ყველაფერი, რაც ელექტროენერგიისთვის გჭირდება
                     </h1>
-                    <h1 className="text-white text-xl w-[580px]">
+
+                    <h1 className="text-white text-start hidden md:block  text-xl w-full max-w-[580px]">
                         აღმოაჩინეთ ელექტრომომარაგების ფართო არჩევანი და თქვენთვის შესაფერისი გადაწყვეტილებები, რომლებიც სრულად დააკმაყოფილებს თქვენს მოთხოვნებს.
                     </h1>
-                    <button
-                        className='text-black border max-w-max text-md bg-white rounded-full px-5 py-3 w-[650px] mt-4'>
+
+                    <button className="text-black border text-md bg-white rounded-full px-5 py-3 w-auto max-w-[180px]">
                         შეიძინე ახლა
                     </button>
                 </div>
+
+
             </div>
         </div>
     );
