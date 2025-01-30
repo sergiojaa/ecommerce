@@ -37,7 +37,7 @@ export default function CategoryDisplay() {
 
     return (
         <div className="flex items-center justify-center">
-            <div className="w-[600px] text-secondary">
+            <div className="w-[850px] text-secondary">
                 <ul className="grid grid-cols-3 gap-6">
                     {categoryData.map((category) => (
                         <div key={category._id} className="bg-[#f7f7f7] p-4 rounded-lg shadow-md">
@@ -47,7 +47,7 @@ export default function CategoryDisplay() {
                                 onClick={() => { }}
                             >
                                 {/* Image First */}
-                                <img className="w-[80px]" src={category.image} alt={category.name} />
+                                <img className="w-[100px]" src={category.image} alt={category.name} />
 
                                 {/* Text Below (Centered) */}
                                 <li className="py-3 px-4 text-[16px] text-center">{category.name}</li>
