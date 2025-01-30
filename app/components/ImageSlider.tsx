@@ -52,7 +52,6 @@ export default function ImageSlider() {
                         აღმოაჩინეთ ელექტრომომარაგების ფართო არჩევანი და თქვენთვის შესაფერისი გადაწყვეტილებები, რომლებიც სრულად დააკმაყოფილებს თქვენს მოთხოვნებს.
                     </h1>
                     <button
-                        // Call scrollToTarget function passed via props
                         className='text-black border max-w-max text-md bg-white rounded-full px-5 py-3 w-[650px] mt-4'>
                         შეიძინე ახლა
                     </button>
