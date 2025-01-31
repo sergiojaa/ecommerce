@@ -67,7 +67,7 @@ export default function Products() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 mt-10 md:grid-cols-3 xl:grid-cols-4 gap-4 mx-[2rem] lg:mx-[6rem] font-[Bebas Neue]">
           {filteredProducts.slice(15, 23).map((product) => (
-            <ProductCard key={product._id} product={product} loadingProduct={loadingProduct} addtocart={addtocart} />
+            <ProductCard key={product._id} product={product} loadingProduct={loadingProduct} setLoadingProduct={setLoadingProduct} />
           ))}
 
         </div>

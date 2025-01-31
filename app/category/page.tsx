@@ -23,7 +23,7 @@ export default function CategoryPage() {
       axios
         .get(`http://localhost:3001/products?category=${category}`)
         .then((response) => {
-          setProducts(response.data);
+          setProducts(response.data.products);
           setLoading(false);
         })
         .catch((err) => {
@@ -91,8 +91,8 @@ export default function CategoryPage() {
           <ProductCard
             key={product._id}
             product={product}
-            addtocart={addtocart}
             loadingProduct={loadingProduct}
+            setLoadingProduct={setLoadingProduct}
           />
         ))}
       </div>

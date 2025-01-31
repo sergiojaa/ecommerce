@@ -26,9 +26,9 @@ export default function Footer() {
       <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-[40px] md:gap-[70px] justify-center'>
 
         <div className='w-full'>
-          <h1 className='font-bold text-[18px]'>E-Commerce</h1>
+          <h1 className='font-bold text-[18px]'>RGR Group</h1>
           <p className='mt-[10px]'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nostrum excepturi ea, id magni vero aperiam laborum nulla odio hic.
+            ელექტროობის მაღაზია საქართველოში,რომელიც გთავაზობთ მაღალი ხარისხის ელექტრო-ტექნიკურ პროდუქციას.
           </p>
         </div>
 

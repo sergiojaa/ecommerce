@@ -30,7 +30,7 @@ export default function CustomSlider() {
     useEffect(() => {
         axios
             .get('http://localhost:3001/products')
-            .then((res) => setProducts(res.data))
+            .then((res) => setProducts(res.data.products))
             .catch((err) => console.error('Error fetching products:', err));
     }, []);
 
@@ -131,9 +131,10 @@ export default function CustomSlider() {
                         {products.map((product) => (
                             <ProductCard
                                 key={product._id}
-                                addtocart={addtocart}
+                                // addtocart={addtocart}
                                 loadingProduct={loadingProduct}
                                 product={product}
+                                setLoadingProduct={setLoadingProduct}
                             />
                         ))}
                     </Slider>
