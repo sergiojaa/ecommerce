@@ -25,14 +25,14 @@ export default function ProfileSidebar() {
                 ჩემი ბარათები
             </li> */}
             {/* <hr className='w-[200px]' /> */}
-            <Link href={'/address'}>
+            {/* <Link href={'/address'}>
                 <li className='flex items-center gap-4 cursor-pointer'>
                     <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.707 8.43652C16.707 14.2699 9.20703 19.2699 9.20703 19.2699C9.20703 19.2699 1.70703 14.2699 1.70703 8.43652C1.70703 6.4474 2.49721 4.53975 3.90373 3.13322C5.31025 1.7267 7.21791 0.936523 9.20703 0.936523C11.1962 0.936523 13.1038 1.7267 14.5103 3.13322C15.9169 4.53975 16.707 6.4474 16.707 8.43652Z" stroke="currentColor" strokeLinejoin="round"></path><path d="M9.20898 10.9365C10.5897 10.9365 11.709 9.81724 11.709 8.43652C11.709 7.05581 10.5897 5.93652 9.20898 5.93652C7.82827 5.93652 6.70898 7.05581 6.70898 8.43652C6.70898 9.81724 7.82827 10.9365 9.20898 10.9365Z" stroke="currentColor" strokeLinejoin="round"></path></svg>
                     მისამართები
                 </li>
             </Link>
 
-            <hr className='w-[200px]' />
+            <hr className='w-[200px]' /> */}
 
 
 
