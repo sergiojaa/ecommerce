@@ -5,14 +5,18 @@ import Products from "./components/products/Products";
 
 export default function Home() {
   return (
-    <div>
-      <ImageSlider />
-      <CategoryDisplay />
+    <>
+      <div>
 
-      <CustomSlider />
-      <CustomSlider />
+        <ImageSlider />
+        <CategoryDisplay />
 
-      {/* <Products /> */}
-    </div>
+        <CustomSlider />
+        <CustomSlider />
+
+        {/* <Products /> */}
+      </div>
+    </>
+
   );
 }

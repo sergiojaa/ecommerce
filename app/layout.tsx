@@ -29,6 +29,8 @@ export default function RootLayout({
     <html lang="en" >
       <head>
         <title>Electro-hub</title>
+        <link rel="icon" href="/logo.png" />
+
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
