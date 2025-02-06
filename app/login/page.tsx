@@ -30,8 +30,7 @@ export default function login() {
         password: user.password,
       })
       .then((res) => {
-        // Save token in a regular cookie (not HTTP-only)
-        document.cookie = `token=${res.data.token}; path=/; max-age=86400`; // expires in 1 day
+        localStorage.setItem('token', res.data)
         router.push("/");
         console.log(res.data);
       })
