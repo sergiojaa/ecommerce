@@ -90,6 +90,7 @@ export default function Page() {
       )
       .then((res) => {
         setProducts(res.data);
+        console.log(res.data)
       })
       .catch((err) => console.log(err))
       .finally(() => {
