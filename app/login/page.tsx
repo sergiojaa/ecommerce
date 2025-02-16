@@ -30,7 +30,7 @@ export default function login() {
         password: user.password,
       })
       .then((res) => {
-        localStorage.setItem('token', res.data)
+        localStorage.setItem("token", res.data)
         router.push("/");
         console.log(res.data);
       })

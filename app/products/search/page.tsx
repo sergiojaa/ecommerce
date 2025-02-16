@@ -1,134 +1,140 @@
 'use client';
-import ProductCard from '@/app/components/products/ProductCard';
+import { useEffect, useState } from 'react';
+import SearchBar from '@/app/components/search/Searchbar';
+import Filters from '@/app/components/search/Filters';
+import SortDropdown from '@/app/components/search/SortDropdown';
+import ProductGrid from '@/app/components/search/ProductGrid';
+import Pagination from '@/app/components/search/Pagination';
+import { useSearchParams } from 'next/navigation';
+import { fetchProducts, FetchProductsParams } from '@/app/utils/fetchProducts';
 import axios from 'axios';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
 
-type ProductType = {
+type Category = {
   _id: string;
   name: string;
-  description: string;
-  category: string;
-  types: string[];
-  price: string;
-  subcategory: string;
-  image: string;
+  subcategories: string[];
 };
 
-export default function Search() {
+type Product = {
+  _id: string;
+  name: string;
+  description: string[];
+  price: number | string;
+  image: string;
+  category: string;
+  types: { type: string; price: string }[];
+};
+
+export default function SearchPage() {
   const searchParams = useSearchParams();
-  const router = useRouter();
-
-  const [products, setProducts] = useState<ProductType[]>([]);
-  const [loadingProduct, setLoadingProduct] = useState<string | null>(null);
-  const [inputVals, setInputVals] = useState<{ minPrice: string; maxPrice: string }>({
-    minPrice: searchParams.get("minPrice") || "0",
-    maxPrice: searchParams.get("maxPrice") || "0",
-  });
-
-  const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) || 1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [highestPrice, setHighestPrice] = useState<number>(1000);
+  const [maxPrice, setMaxPrice] = useState<number>(1000);
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      const params = new URLSearchParams(searchParams);
-      params.set("minPrice", inputVals.minPrice);
-      params.set("maxPrice", inputVals.maxPrice);
-      router.push(`?${params.toString()}`, { scroll: false });
-    }, 500);
-
-    return () => clearTimeout(handler);
-  }, [inputVals, router]);
+    fetchCategories();
+    getQueriesOnLoad();
+  }, []);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        let query = `?minPrice=${inputVals.minPrice}&page=${currentPage}`;
-        if (inputVals.maxPrice !== "0") query += `&maxPrice=${inputVals.maxPrice}`;
+    loadProducts();
+  }, [currentPage, maxPrice]);
 
-        const res = await axios.get(`http://localhost:3001/products${query}`);
-        setProducts(res.data.products);
-        setTotalPages(Math.ceil(res.data.totalProducts / 12));
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
+  useEffect(() => {
+    if (categories.length > 0) {
+      fetchOnCategoryChange();
+    }
+  }, [selectedCategory]);
 
-    fetchProducts();
-  }, [inputVals.minPrice, inputVals.maxPrice, currentPage]);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, key: "minPrice" | "maxPrice") => {
-    const value = event.target.value;
-    if (/^\d*\.?\d*$/.test(value)) {
-      setInputVals((prev) => ({ ...prev, [key]: value }));
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get('http://localhost:3001/products/categories')
+      setCategories(res.data.categories || []);
+    } catch (error) {
+      console.error(error);
     }
   };
 
-  const updatePage = (newPage: number) => {
-    setCurrentPage(newPage);
-    const params = new URLSearchParams(searchParams);
-    params.set("page", newPage.toString());
-    router.push(`?${params.toString()}`, { scroll: false });
+  const fetchOnCategoryChange = async () => {
+    if (!selectedCategory) return;
+
+    const category = categories.find((cat) => cat._id === selectedCategory);
+    const params: FetchProductsParams = { page: currentPage, category: category?.name };
+
+    try {
+      const res = await fetchProducts(params);
+
+      console.log('API Response:', res);
+      console.log('New Highest Price:', res.highestPrice);
+
+      setProducts(res.products);
+      setTotalPages(Math.ceil(res.totalProducts / 12));
+
+      if (res.highestPrice) {
+        setHighestPrice(res.highestPrice);
+        setMaxPrice(res.highestPrice);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
+  const loadProducts = async () => {
+    const params: FetchProductsParams = { page: currentPage, maxPrice };
+    const res = await fetchProducts(params);
+    setProducts(res.products);
+    setTotalPages(Math.ceil(res.totalProducts / 12));
+  };
+
+  const getQueriesOnLoad = () => {
+    const page = Number(searchParams.get('page')) || 1;
+    setCurrentPage(page);
+
+    const categoryQuery = searchParams.get('category');
+    if (categoryQuery) {
+      const foundCategory = categories.find((cat) => cat._id === categoryQuery);
+      setSelectedCategory(foundCategory ? foundCategory._id : null);
+    }
+
+    const maxPriceQuery = Number(searchParams.get('maxPrice'));
+    if (maxPriceQuery) setMaxPrice(maxPriceQuery);
   };
 
   return (
-    <>
-      <div className='flex'>
-        <div className="flex-1 py-4 h-screen flex items-center flex-col">
-          <h1 className="text-xl">ფილტრაცია</h1>
-          <div className='flex flex-col'>
-            <div className="flex gap-20">
-              <p className="text-[14px] mt-[20px]">ფასი</p>
+    <div className='min-h-screen bg-background font-sans'>
+      <div className='container mx-auto px-4 py-8'>
+        <h1 className='text-4xl font-bold mb-8 text-text-primary'>Discover Products</h1>
+        <SearchBar />
+        <div className='flex flex-col lg:flex-row gap-8'>
+          <aside className='w-full lg:w-1/3'>
+            <Filters
+              setCurrentPage={setCurrentPage}
+              categories={categories}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              highestPrice={highestPrice}
+              setHighestPrice={setHighestPrice}
+              maxPrice={maxPrice}
+              setMaxPrice={setMaxPrice}
+            />
+          </aside>
+          <main className='w-full lg:w-3/4'>
+            <div className='flex justify-end mb-6'>
+              <SortDropdown />
             </div>
-            <div className='mt-[10px] flex items-center justify-between w-[170px] gap-[20px]'>
-              <div className='flex items-center gap-1'>
-                <input
-                  className="border w-full py-1 px-[2px] outline-none"
-                  type="text"
-                  value={inputVals.minPrice}
-                  onChange={(event) => handleInputChange(event, 'minPrice')}
-                />
-                <label>ლ</label>
-              </div>
-              <div className='flex items-center gap-1'>
-                <input
-                  className="border w-full py-1 px-[2px] outline-none"
-                  type="text"
-                  value={inputVals.maxPrice}
-                  onChange={(event) => handleInputChange(event, 'maxPrice')}
-                />
-                <label>ლ</label>
-              </div>
+            <ProductGrid products={products} setProducts={setProducts} currentPage={currentPage} />
+            <div className='mt-12'>
+              <Pagination setCurrentPage={setCurrentPage} totalPages={totalPages} currentPage={currentPage} />
             </div>
-          </div>
-        </div>
-        <div className='flex-[6] min-h-screen'>
-          <div className='grid grid-cols-4 gap-y-6'>
-            {products.map((product) => (
-              <div key={product._id}>
-                <ProductCard loadingProduct={loadingProduct} setLoadingProduct={setLoadingProduct} product={product} />
-              </div>
-            ))}
-          </div>
+          </main>
         </div>
       </div>
-      <div className="flex justify-center gap-4 items-center pt-[95px]">
-        <button
-          className="px-4 py-2 bg-secondary text-white hover:opacity-50 transition ease-in-out rounded disabled:opacity-50"
-          onClick={() => updatePage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          წინა გვერდი
-        </button>
-        <p className='text-xl'>{currentPage}</p>
-        <button
-          className="px-4 py-2 bg-secondary text-white hover:opacity-50 transition ease-in-out rounded disabled:opacity-50"
-          onClick={() => updatePage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          მომდევნო გვერდი
-        </button>
-      </div>
-    </>
+    </div>
   );
 }

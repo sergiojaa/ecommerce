@@ -3,7 +3,7 @@ import { faSearch, faX, faMagnifyingGlass } from '@fortawesome/free-solid-svg-ic
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface IProps {
     inputOpen: boolean;
@@ -12,6 +12,8 @@ interface IProps {
 
 export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
     const pathname = usePathname();
+    const router = useRouter();
+
     const desktopSearchbarRef = useRef<HTMLDivElement>(null);
     const mobileSearchbarRef = useRef<HTMLDivElement>(null);
 
@@ -62,7 +64,7 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
         searchTimeout.current = setTimeout(async () => {
             try {
                 const response = await axios.get(`http://localhost:3001/products?name=${value}`);
-                setSearchedProducts(response.data.slice(0, 5));
+                setSearchedProducts(response.data.products.slice(0, 5));
                 setSearchPromptOpen(true);
             } catch (error) {
                 console.error(error);
@@ -72,6 +74,10 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
             }
         }, 1000);
     };
+
+    const redirectToSearch = () => {
+        router.push(`/products/search?name=${search}`)
+    }
 
     return (
         <>
@@ -86,6 +92,7 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
                 />
                 <FontAwesomeIcon
                     icon={faMagnifyingGlass}
+                    onClick={redirectToSearch}
                     className="absolute right-4 text-[18px] top-[50%] transform -translate-y-1/2 text-gray-500 cursor-pointer"
                 />
 
@@ -99,7 +106,7 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
                             searchedProducts.map((product) => (
                                 <Link key={product._id} href={`/products/${product._id}`} className="block">
                                     <div className="w-full border-gray-200 flex items-center px-4 py-2 hover:bg-gray-100">
-                                        <div className="w-[28px] h-[28px] bg-[#f5f6f6] flex items-center justify-center rounded-lg group-hover:bg-secondary">
+                                        <div onClick={redirectToSearch} className="w-[28px] h-[28px] bg-[#f5f6f6] flex items-center justify-center rounded-lg group-hover:bg-secondary">
                                             <FontAwesomeIcon icon={faSearch} className="text-primary group-hover:text-white" />
                                         </div>
                                         <span className="text-xs ml-3">{product.name}</span>
