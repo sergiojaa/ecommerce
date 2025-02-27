@@ -82,7 +82,7 @@ export default function CategoryPage() {
 
   return (
     <div>
-      <div className='flex items-center  '>
+      <div className='flex cursor items-center  '>
         <h1 className='font-bold text-secondary text-[20px]'>კატეგორია: {category}</h1>
 
       </div>

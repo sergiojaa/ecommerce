@@ -22,7 +22,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, addToCart, isLoading }: ProductCardProps) {
   return (
-    <Card className="h-full overflow-hidden transition-all duration-200 hover:shadow-lg">
+    <Card className="h-full cursor-pointer overflow-hidden transition-all duration-200 hover:shadow-lg">
       <div className="relative aspect-square overflow-hidden bg-muted">
         <Image
           src={product.image || "/placeholder.svg?height=300&width=300"}

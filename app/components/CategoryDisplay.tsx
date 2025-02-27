@@ -36,8 +36,8 @@ export default function CategoryDisplay() {
     }, []);
 
     return (
-        <div className="max-w-[1280px] mt-10 px-[40px] mx-auto">
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="max-w-[1280px]  mt-10 px-[40px] mx-auto">
+            <ul className="grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {categoryData.map((category) => (
                     <Link
                         key={category._id}

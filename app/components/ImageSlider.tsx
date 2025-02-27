@@ -25,7 +25,7 @@ export default function ImageSlider() {
     }, []);
 
     return (
-        <div className="w-full  flex justify-center items-center">
+        <div className="w-full   flex justify-center items-center">
             <div className="relative w-full h-[600px]">
                 {images.map((image, index) => (
                     <div
