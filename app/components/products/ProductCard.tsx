@@ -1,108 +1,57 @@
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons/faCartShopping';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React from 'react'
-import { checkTokenValidity } from '../utils/checkTokenValidity';
+import Image from "next/image"
+import { ShoppingCart, Loader2 } from "lucide-react"
 
+import { Button } from "@/app/components/Button"
+import { Card, CardContent, CardFooter } from "@/app/components/Card"
+import { Badge } from "@/app/components/Badge"
 
-export type productType = {
-  _id: string;
-  image: string;
-  name: string;
-  description: string;
-  price: string;
-  category: string;
+interface Product {
+  _id: string
+  image: string
+  name: string
+  description: string
+  price: string
+  category: string
 }
 
-type ProductCardProps = {
-  product: productType;
-  loadingProduct: string | null; // Assumes loadingProduct is either a string (the ID of a product) or null
-  setLoadingProduct: (id: string | null) => void
+interface ProductCardProps {
+  product: Product
+  addToCart: (id: string) => void
+  isLoading: boolean
 }
 
-export default function ProductCard({ product, loadingProduct, setLoadingProduct }: ProductCardProps) {
-  const router = useRouter()
-
-  const addtocart = async (id: string) => {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      const tokenValidity = await checkTokenValidity(token)
-      console.log(tokenValidity)
-
-      if (!tokenValidity) {
-        router.push('/login');
-        return;
-      }
-    } else {
-      return router.push('/login')
-    }
-
-
-    setLoadingProduct(id);
-
-    const MIN_LOADING_TIME = 1000;
-    const startTime = Date.now();
-
-    axios
-      .post(
-        'http://localhost:3001/cart/add-to-cart',
-        { productId: id },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log('Product added to cart:', res.data);
-      })
-      .catch((err) => {
-        console.error('Error adding product to cart:', err);
-      })
-      .finally(() => {
-        const elapsedTime = Date.now() - startTime;
-        const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
-        setTimeout(() => setLoadingProduct(null), remainingTime);
-      });
-  };
-
+export default function ProductCard({ product, addToCart, isLoading }: ProductCardProps) {
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="border w-[250px] p-4 rounded shadow  flex flex-col justify-between">
-        <Link href={`/products/${product._id}`}>
-          <div className="flex justify-center items-center">
-            <img
-              className="h-[200px] w-[200px] object-contain object-center rounded"
-              src={product.image}
-              alt={product.name}
-            />
-          </div>
-          <h2 className="font-bold text-gray-500 text-[15px] mt-[0.5rem] w-full truncate overflow-hidden text-ellipsis">
-            {product.name}
-          </h2>
-          <p className="text-sm  text-green-500 mt-[0.5rem] line-clamp-2">
-            მარაგშია
-          </p>
-        </Link>
-        <div className="flex items-center justify-between">
-          {product.price !== 'ფასი შეთანხმებით' && <p className="font-semibold">{product.price} ₾</p>}
-          {product.price === 'ფასი შეთანხმებით' && <p className="font-semibold text-xs">{product.price}</p>}
-          <button
-            onClick={() => addtocart(product._id)}
-            className={`px-4 py-2 rounded bg-secondary ${loadingProduct === product._id ? 'opacity-50' : 'opacity-100'
-              }`}
-            disabled={loadingProduct === product._id}
-          >
-            <FontAwesomeIcon
-              icon={faCartShopping}
-              className="text-white text-xl cursor-pointer"
-            />
-          </button>
-        </div>
+    <Card className="h-full overflow-hidden transition-all duration-200 hover:shadow-lg">
+      <div className="relative aspect-square overflow-hidden bg-muted">
+        <Image
+          src={product.image || "/placeholder.svg?height=300&width=300"}
+          alt={product.name}
+          fill
+          className="object-cover transition-transform duration-300 hover:scale-105"
+        />
+        <Badge className="absolute top-2 right-2 bg-secondary text-white">{product.category}</Badge>
       </div>
-    </div>
+      <CardContent className="p-4">
+        <h3 className="font-semibold text-lg line-clamp-1">{product.name}</h3>
+        <p className="text-muted-foreground text-sm mt-1 line-clamp-2 h-[40px]">{product.description}</p>
+        <p className="text-primary font-bold text-lg mt-2">${product.price}</p>
+      </CardContent>
+      <CardFooter className="p-4 pt-0">
+        <Button className="w-full" onClick={() => addToCart(product._id)} disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Adding...
+            </>
+          ) : (
+            <>
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              Add to Cart
+            </>
+          )}
+        </Button>
+      </CardFooter>
+    </Card>
   )
 }

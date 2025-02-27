@@ -8,6 +8,7 @@ import Pagination from '@/app/components/search/Pagination';
 import { useSearchParams } from 'next/navigation';
 import { fetchProducts, FetchProductsParams } from '@/app/utils/fetchProducts';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 type Category = {
   _id: string;
@@ -27,6 +28,8 @@ type Product = {
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
+  const router = useRouter()
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -37,18 +40,40 @@ export default function SearchPage() {
 
   useEffect(() => {
     fetchCategories();
-    getQueriesOnLoad();
   }, []);
 
   useEffect(() => {
-    loadProducts();
-  }, [currentPage, maxPrice]);
+    getQueriesOnLoad();
+  }, [categories])
+
+  // useEffect(() => {
+  //   loadProducts();
+  // }, [currentPage, maxPrice]);
 
   useEffect(() => {
     if (categories.length > 0) {
       fetchOnCategoryChange();
     }
   }, [selectedCategory]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (selectedCategory) {
+      params.set("category", selectedCategory);
+    } else {
+      params.delete("category");
+    }
+
+    if (maxPrice) {
+      params.set("maxPrice", maxPrice.toString());
+    } else {
+      params.delete("maxPrice")
+    }
+
+    router.push(`?${params.toString()}`);
+    setCurrentPage(1);
+  }, [selectedCategory, maxPrice]);
 
   const fetchCategories = async () => {
     try {
@@ -83,16 +108,16 @@ export default function SearchPage() {
     }
   };
 
-
-
   const loadProducts = async () => {
-    const params: FetchProductsParams = { page: currentPage, maxPrice };
+    const params: FetchProductsParams = { page: currentPage, maxPrice, category: selectedCategory || '' };
     const res = await fetchProducts(params);
     setProducts(res.products);
     setTotalPages(Math.ceil(res.totalProducts / 12));
   };
 
   const getQueriesOnLoad = () => {
+    if (!categories) return
+
     const page = Number(searchParams.get('page')) || 1;
     setCurrentPage(page);
 
@@ -104,6 +129,7 @@ export default function SearchPage() {
 
     const maxPriceQuery = Number(searchParams.get('maxPrice'));
     if (maxPriceQuery) setMaxPrice(maxPriceQuery);
+
   };
 
   return (

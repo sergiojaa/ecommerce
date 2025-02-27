@@ -33,20 +33,6 @@ export default function Filters({
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
 
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        if (selectedCategory) {
-            params.set("category", selectedCategory);
-        } else {
-            params.delete("category");
-        }
-        params.set("maxPrice", maxPrice.toString());
-
-
-        router.push(`?${params.toString()}`);
-        setCurrentPage(1);
-    }, [selectedCategory, maxPrice]);
-
     return (
         <div className="bg-surface p-6 rounded-lg shadow-sm mb-6 lg:mb-0">
             <div className="flex justify-between items-center cursor-pointer lg:cursor-default" onClick={() => setIsOpen(!isOpen)}>
