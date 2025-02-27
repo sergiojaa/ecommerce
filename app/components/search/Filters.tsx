@@ -1,6 +1,6 @@
 'use client'
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Category = {
@@ -10,28 +10,43 @@ type Category = {
 }
 
 type Props = {
-    categories: Category[];
-    selectedCategory: string | null;
-    setSelectedCategory: React.Dispatch<React.SetStateAction<string | null>>;
-    setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+    maxPrice: string;
+    setMaxPrice: React.Dispatch<React.SetStateAction<string>>;
+    category: string;
+    setCategory: React.Dispatch<React.SetStateAction<string>>
+    categories: Category[]
     highestPrice: number;
-    maxPrice: number;
-    setMaxPrice: React.Dispatch<React.SetStateAction<number>>;
-    setHighestPrice: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function Filters({
-    categories,
-    selectedCategory,
-    setSelectedCategory,
-    setCurrentPage,
-    highestPrice,
-    maxPrice,
-    setMaxPrice,
-    setHighestPrice
-}: Props) {
+export default function Filters({ maxPrice, setMaxPrice, category, setCategory, categories, highestPrice }: Props) {
     const router = useRouter();
+    const pathname = usePathname();
+
     const [isOpen, setIsOpen] = useState(false);
+
+    const handleCategoryChange = (name: string) => {
+        const searchParams = new URLSearchParams(window.location.search);
+
+        setCategory(name)
+
+        if (name !== category) {
+            searchParams.set("category", name);
+            router.push(`${pathname}?${searchParams.toString()}`);
+        } else {
+            setCategory('')
+            searchParams.delete("category")
+            router.push(`${pathname}?${searchParams.toString()}`)
+        }
+
+    }
+
+    const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const searchParams = new URLSearchParams(window.location.search);
+
+        setMaxPrice(event.target.value)
+        searchParams.set("maxPrice", event.target.value);
+        router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
+    }
 
     return (
         <div className="bg-surface p-6 rounded-lg shadow-sm mb-6 lg:mb-0">
@@ -48,12 +63,9 @@ export default function Filters({
                         <input
                             type="checkbox"
                             id={_id}
+                            checked={category === name}
                             className="mr-3 form-checkbox text-primary rounded"
-                            checked={selectedCategory === _id}
-                            onChange={() => {
-                                setSelectedCategory(selectedCategory === _id ? null : _id);
-                                setCurrentPage(1);
-                            }}
+                            onChange={() => handleCategoryChange(name)}
                         />
                         <label htmlFor={_id} className="text-text-secondary">{name}</label>
                     </div>
@@ -63,14 +75,15 @@ export default function Filters({
                     type="range"
                     min="0"
                     max={highestPrice}
-                    value={maxPrice}
-                    onChange={(e) => setMaxPrice(Number(e.target.value))}
                     className="w-full"
+                    value={maxPrice}
+                    onChange={(event) => handlePriceChange(event)}
                 />
                 <div className="flex justify-between mt-2 text-text-secondary">
-                    <span>$0</span>
-                    <span>${maxPrice}</span>
+                    <span>{0} ₾</span>
+                    <span>{highestPrice} ₾</span>
                 </div>
+                {category}
             </div>
         </div>
     );

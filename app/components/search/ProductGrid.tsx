@@ -18,19 +18,11 @@ type Product = {
 
 type Props = {
   products: Product[]
-  setProducts: React.Dispatch<Product[]>
-  currentPage: number
+  // setProducts: React.Dispatch<Product[]>
+  // currentPage: number
 }
 
-export default function ProductGrid({ products, setProducts, currentPage }: Props) {
-
-  useEffect(() => {
-    axios.get(`http://localhost:3001/products?page=${currentPage}`)
-      .then((res) => {
-        setProducts(res.data.products)
-      })
-      .catch((err) => console.log(err))
-  }, [currentPage])
+export default function ProductGrid({ products }: Props) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
