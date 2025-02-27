@@ -125,7 +125,7 @@ export default function CustomSlider() {
   }
 
   return (
-    <div className="py-12 px-4 md:px-6 bg-background">
+    <div className="py-12 cursor-pointer px-4 md:px-6 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold tracking-tight">Featured Products</h2>

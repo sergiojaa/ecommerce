@@ -42,12 +42,12 @@ export default function ProductCard({ product, addToCart, isLoading }: ProductCa
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Adding...
+              ემატება
             </>
           ) : (
             <>
               <ShoppingCart className="mr-2 h-4 w-4" />
-              Add to Cart
+              კალათაში დამატება
             </>
           )}
         </Button>
