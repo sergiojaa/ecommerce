@@ -34,6 +34,9 @@ export default function page() {
     const searchParams = useSearchParams()
 
     const [categories, setCategories] = useState<Category[]>([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+
     const [products, setProducts] = useState<Product[]>([])
     const [highestPrice, setHighestPrice] = useState(100)
 
@@ -56,6 +59,14 @@ export default function page() {
 
     }, [searchParams])
 
+    useEffect(() => {
+        fetchOnChange()
+    }, [currentPage])
+
+    useEffect(() => {
+        fetchOnCategoryChange()
+    }, [category, maxPrice])
+
     const getCategories = async () => {
         try {
             const res = await axios.get('http://localhost:3001/products/categories')
@@ -69,6 +80,35 @@ export default function page() {
         const response = await axios.get('http://localhost:3001/products');
         setProducts(response.data.products)
         setHighestPrice(response.data.highestPrice)
+        setTotalPages(Math.ceil(response.data.totalProducts / 12))
+    }
+
+    const fetchOnChange = async () => {
+        const params = {
+            page: currentPage,
+            category,
+            maxPrice
+        }
+
+        const response = await axios.get('http://localhost:3001/products', { params });
+        setProducts(response.data.products)
+        setHighestPrice(response.data.highestPrice)
+        setTotalPages(Math.ceil(response.data.totalProducts / 12))
+    }
+
+    const fetchOnCategoryChange = async () => {
+        setCurrentPage(1)
+
+        const params = {
+            page: currentPage,
+            category,
+            maxPrice
+        }
+
+        const response = await axios.get('http://localhost:3001/products', { params });
+        setProducts(response.data.products)
+        setHighestPrice(response.data.highestPrice)
+        setTotalPages(Math.ceil(response.data.totalProducts / 12))
     }
 
     return (
@@ -86,7 +126,7 @@ export default function page() {
                         </div>
                         <ProductGrid products={products} />
                         <div className='mt-12'>
-                            {/* <Pagination setCurrentPage={setCurrentPage} totalPages={totalPages} currentPage={currentPage} /> */}
+                            <Pagination setCurrentPage={setCurrentPage} totalPages={totalPages} currentPage={currentPage} />
                         </div>
                     </main>
                 </div>

@@ -13,9 +13,24 @@ export default function Pagination({ totalPages, currentPage, setCurrentPage }: 
     const searchParams = useSearchParams();
 
     useEffect(() => {
+        const pageQuery = searchParams.get('page')
+
+        if (!pageQuery) {
+            return
+        }
+
+        if (Number(pageQuery) > totalPages) {
+            setCurrentPage(1)
+        } else {
+            setCurrentPage(Number(pageQuery))
+        }
+
+    }, [searchParams])
+
+    useEffect(() => {
         const params = new URLSearchParams(searchParams);
         params.set("page", currentPage.toString());
-        router.push(`?${params.toString()}`);
+        router.push(`?${params.toString()}`, { scroll: false });
     }, [currentPage]);
 
     const getPageNumbers = () => {

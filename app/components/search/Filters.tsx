@@ -31,11 +31,11 @@ export default function Filters({ maxPrice, setMaxPrice, category, setCategory, 
 
         if (name !== category) {
             searchParams.set("category", name);
-            router.push(`${pathname}?${searchParams.toString()}`);
+            router.push(`${pathname}?${searchParams.toString()}`, { scroll: false });
         } else {
             setCategory('')
             searchParams.delete("category")
-            router.push(`${pathname}?${searchParams.toString()}`)
+            router.push(`${pathname}?${searchParams.toString()}`, { scroll: false })
         }
 
     }
