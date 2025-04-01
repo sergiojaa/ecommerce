@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { FaArrowRight } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
-
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -125,7 +124,8 @@ export default function CustomSlider() {
   }
 
   return (
-    <div className="py-12 cursor-pointer px-4 md:px-6 bg-background">
+    <div
+      className="py-12 cursor-pointer px-4 md:px-6 bg-background">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold tracking-tight">Featured Products</h2>
@@ -165,6 +165,7 @@ export default function CustomSlider() {
             <Slider ref={sliderRef} {...settings} className="product-slider">
               {products.map((product) => (
                 <div key={product._id} className="px-2">
+
                   <ProductCard product={product} addToCart={addToCart} isLoading={isLoading} />
                 </div>
               ))}
