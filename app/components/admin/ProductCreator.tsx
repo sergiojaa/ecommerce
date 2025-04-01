@@ -51,7 +51,7 @@ export default function ProductCreator() {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-
+            console.log(response)
             setAnswer('File uploaded successfully')
             setTimeout(() => { setAnswer('') }, 3000)
         } catch (error: any) {
@@ -66,10 +66,10 @@ export default function ProductCreator() {
 
     const router = useRouter()
 
-    const logOut = () => {
-        localStorage.removeItem('token');
-        router.push('/'); // Redirect to home after logout
-    };
+    // const logOut = () => {
+    //     localStorage.removeItem('token');
+    //     router.push('/'); // Redirect to home after logout
+    // };
 
     return (
         <div className='flex-[2]'>

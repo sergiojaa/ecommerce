@@ -1,11 +1,8 @@
 'use client'
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import Header from "./components/Header";
 import { useState } from "react";
 // import Footer from "./components/Footer";
-import { Bebas_Neue, Inter } from 'next/font/google'
 import Footer from "./components/Footer";
 import MobileMenu from "./components/MobileMenu";
 export type Category = {

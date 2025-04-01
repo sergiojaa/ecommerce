@@ -41,41 +41,41 @@ export default function CategoryPage() {
     });
   }, []);
 
-  const addtocart = (id: string) => {
-    const token = localStorage.getItem('token');
+  // const addtocart = (id: string) => {
+  //   const token = localStorage.getItem('token');
 
-    if (!tokenValidity) {
-      router.push('/login');
-      return;
-    }
+  //   if (!tokenValidity) {
+  //     router.push('/login');
+  //     return;
+  //   }
 
-    setLoadingProduct(id);
+  //   setLoadingProduct(id);
 
-    const MIN_LOADING_TIME = 1000;
-    const startTime = Date.now();
+  //   const MIN_LOADING_TIME = 1000;
+  //   const startTime = Date.now();
 
-    axios
-      .post(
-        'http://localhost:3001/cart/add-to-cart',
-        { productId: id },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log('Product added to cart:', res.data);
-      })
-      .catch((err) => {
-        console.error('Error adding product to cart:', err);
-      })
-      .finally(() => {
-        const elapsedTime = Date.now() - startTime;
-        const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
-        setTimeout(() => setLoadingProduct(null), remainingTime);
-      });
-  };
+  //   axios
+  //     .post(
+  //       'http://localhost:3001/cart/add-to-cart',
+  //       { productId: id },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       console.log('Product added to cart:', res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.error('Error adding product to cart:', err);
+  //     })
+  //     .finally(() => {
+  //       const elapsedTime = Date.now() - startTime;
+  //       const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+  //       setTimeout(() => setLoadingProduct(null), remainingTime);
+  //     });
+  // };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
