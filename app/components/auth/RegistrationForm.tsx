@@ -143,14 +143,14 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                         />
                     </div>
                     <button
-                        className="cursor-pointer text-white font-bold bg-blue-500 px-[16px] py-[12px] rounder-xl w-full sm:w-[396px]"
+                        className="cursor-pointer text-white font-bold bg-secondary px-[16px] py-[12px] rounder-xl w-full sm:w-[396px]"
 
                         type="submit">რეგისტრაცია</button>
                 </form>
                 <div className="w-full sm:w-[396px]">
                     {error && <p className="text-red-600 text-sm font-[300]">{error}</p>} {/* Display error message */}
                 </div>
-                <Link className="text-right text-sm font-[300]" href={'/login'}>უკვე გაქვთ ანგარიში?</Link>
+                <Link className="w-full text-right text-sm underline" href={'/login'}>უკვე გაქვთ ანგარიში?</Link>
             </div>
         </div>
     )
