@@ -55,7 +55,7 @@ export default function Page() {
     <div>
       {error && (<p>Error</p>)}
       <div>
-        <div className='flex font-bold  text-[25px] xl:ml-[13rem] justify-start mt-[1rem] ml-[1rem] '>
+        <div className='flex font-bold  text-[25px] lg:ml-[13rem] justify-start mt-[1rem] ml-[1rem] '>
           <h1 className='text-secondary' >გამარჯობა, {userData.userName}</h1>
         </div>
         <div className='flex flex-col items-start md:flex-row ml-[2rem]'>

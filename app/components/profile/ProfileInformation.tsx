@@ -65,7 +65,7 @@ export default function ProfileInformation({
           <h4 className="text-md mt-[0.5rem]">{userData.email}</h4>
         </div>
       </div>
-      <hr className="w-[270px] mt-[1rem] mb-[1rem] md:w-[450px] lg:w-[700px] xl:w-[800px]" />
+      <hr className="w-[270px] mt-[1rem] mb-[1rem] md:w-[450px] lg:w-[700px] " />
 
       <div className="flex justify-between items-center">
         <div>
@@ -73,9 +73,8 @@ export default function ProfileInformation({
           <h2 className="text-md mt-[0.5rem]">{userData.userName}</h2>
         </div>
       </div>
-      <hr className="w-[270px] mt-[1rem] mb-[1rem] md:w-[450px] lg:w-[700px] xl:w-[800px]" />
+      <hr className="w-[270px] mt-[1rem] mb-[1rem] md:w-[450px] lg:w-[700px] " />
 
-      {/* Mobile Number Section */}
       <div className="flex justify-between items-center">
         <div>
           <h3 className="text-xl">მობილურის ნომერი</h3>
@@ -98,25 +97,23 @@ export default function ProfileInformation({
                 </button>
               </>
             ) : (
-              <h4 className="mt-[0.5rem]">{number}</h4> // Display Updated Number
+              <h4 className="mt-[0.5rem]">{number}</h4>
             )}
-            {/* Display Message and Error */}
             {message && <p className="text-green-500 mt-2">{message}</p>}
             {error && <p className="text-red-500 mt-2">{error}</p>}
           </div>
         </div>
 
-        {/* Edit/Cancel Button */}
         <div>
           <h4
             onClick={onEdit}
-            className="text-secondary cursor-pointer xl:mr-[20rem] mr-[2rem]"
+            className="text-secondary cursor-pointer lg:mr-[10rem] mr-[2rem]"
           >
             {!isEditing ? "შეცვლა" : "გაუქმება"}
           </h4>
         </div>
       </div>
-      <hr className="w-[270px] mt-[1rem] mb-[1rem] md:w-[450px] lg:w-[700px] xl:w-[800px]" />
+      <hr className="w-[270px] mt-[1rem] mb-[1rem] md:w-[450px] lg:w-[700px] " />
     </>
   );
 }
