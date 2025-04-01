@@ -8,7 +8,6 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FaRegUserCircle } from 'react-icons/fa';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
-import MobileMenu from './MobileMenu';
 
 export interface Product {
   _id: number | string;
@@ -91,8 +90,8 @@ export default function Header({ isOpen, open }: PageProps) {
                 <a href="tel:+995557210626" className="text-secondary">
                   +995 557 210 626
                 </a>
-              </p>          
-                </div>
+              </p>
+            </div>
           </div>
 
 

@@ -3,10 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation'; // Correct import
 import React, { useEffect, useState } from 'react';
 import { checkTokenValidity } from '../components/utils/checkTokenValidity';
-import { HiH1 } from 'react-icons/hi2';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEyeLowVision } from '@fortawesome/free-solid-svg-icons';
-import { faEye } from "@fortawesome/free-regular-svg-icons";
+
 import ProfileSidebar from '../components/profile/ProfileSidebar';
 import ProfileInformation from '../components/profile/ProfileInformation';
 import PasswordForm from '../components/profile/PasswordForm';

@@ -91,6 +91,7 @@ export default function PasswordForm() {
             setTimeout(() => {
                 setAnswer('')
             }, 3000)
+            console.log(res)
         }).catch((err) => {
             console.log(err)
             setPasswordError('არასწორი პაროლია!')

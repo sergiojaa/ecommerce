@@ -19,6 +19,7 @@ export default function CategoryDisplay() {
             .then((res) => {
                 setProducts(res.data); // Set all products
                 setFilteredProducts(res.data); // Initially display all products
+                console.log(products)
             })
             .catch((err) => {
                 console.error("Error fetching products:", err);

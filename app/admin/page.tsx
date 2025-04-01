@@ -1,9 +1,6 @@
 'use client'
-import React, { useEffect } from 'react';
-import useAdminAuth from '../helpers/useAdminAuth';
-import { useRouter } from 'next/navigation';
-import ProductCreator from '../components/admin/ProductCreator';
-import AdminSidebar from '../components/admin/AdminSidebar';
+import React from 'react';
+
 import AdminLayout from '../components/admin/AdminLayout';
 
 

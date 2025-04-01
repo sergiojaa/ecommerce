@@ -2,9 +2,7 @@
 import React, { useState } from 'react'
 import CategoryDropDownMenu from '../CategoryDropDownMenu';
 import axios from 'axios';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import AdminSidebar from './AdminSidebar';
 
 export default function ProductCreator() {
     const [image, setImage] = useState<File | null>(null);

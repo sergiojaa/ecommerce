@@ -1,7 +1,7 @@
 'use client'
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Category = {
     _id: string;

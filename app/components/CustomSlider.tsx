@@ -3,8 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import ProductCard from "./products/ProductCard";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { FaArrowRight } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

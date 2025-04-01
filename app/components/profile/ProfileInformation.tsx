@@ -23,7 +23,7 @@ export default function ProfileInformation({
     setNumber(userData.mobileNumber)
   }, [userData.mobileNumber])
 
-  const onEdit = (event: React.MouseEvent) => {
+  const onEdit = () => {
     if (isEditing) {
       setNumber(userData.mobileNumber)
       setIsEditing(!isEditing)

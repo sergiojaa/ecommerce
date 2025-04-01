@@ -2,7 +2,6 @@
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FaPlus } from 'react-icons/fa'
 export default function AdminSidebar() {
     const router = useRouter()
