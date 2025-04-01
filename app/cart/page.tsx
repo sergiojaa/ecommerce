@@ -149,7 +149,7 @@ export default function Page() {
 
       <h1 className="mx-[20px] text-3xl font-bold my-[50px]">შენს კალათაში {totalItems} ნივთია</h1>
 
-      <div className="flex w-full h-screen-minus-header gap-[50px] flex-col xl:flex-row">
+      <div className="flex w-full h-screen-minus-header gap-[50px] flex-col lg:flex-row">
 
         {/* Left side */}
 
