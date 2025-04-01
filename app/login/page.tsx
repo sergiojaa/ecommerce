@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 export default function login() {
   const router = useRouter();
@@ -51,7 +52,7 @@ export default function login() {
               onChange={inputValue}
               value={user.email}
               type="text"
-              placeholder="Enter email"
+              placeholder="შეიყვანეთ ელ. ფოსტა"
               className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
             />
           </div>
@@ -62,12 +63,12 @@ export default function login() {
               onChange={inputValue}
               value={user.password}
               type="password"
-              placeholder="Enter password"
+              placeholder="შეიყვანეთ პაროლი"
               className="border-solid border-2 border-[D0D5DD] px-[16px] py-[10px] rounder-xl w-full sm:w-[396px] mt-[3px]"
             />
           </div>
           <button
-            className="cursor-pointer text-white font-bold bg-blue-500 px-[16px] py-[14px] rounder-xl w-full sm:w-[396px]"
+            className="cursor-pointer text-white font-bold bg-secondary px-[16px] py-[14px] rounder-xl w-full sm:w-[396px]"
             type="submit"
           >
             შესვლა
@@ -76,6 +77,9 @@ export default function login() {
         <div className="w-full sm:w-[396px]">
           {error && <p className="text-red-600 text-sm font-[300]">{error}</p>}
         </div>
+        <Link href={'/registration'}>
+          <p className="w-full text-right text-sm underline">არ გაქვთ ანგარიში?</p>
+        </Link>
       </div>
     </div>
   );
