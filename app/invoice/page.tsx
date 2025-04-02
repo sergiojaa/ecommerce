@@ -51,15 +51,15 @@ export default function InvoicePage() {
             <div className="border rounded-lg p-6 shadow-md">
                 <div className="flex justify-between mb-6">
                     <div>
-                        <h2 className="text-2xl font-semibold">Invoice</h2>
-                        <p className="text-gray-500">Invoice #INV-2024-0042</p>
+                        <h2 className="text-2xl font-semibold">ინვოისი</h2>
+                        {/* <p className="text-gray-500">Invoice #INV-2024-0042</p> */}
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="h-10 w-10 bg-blue-600 text-white flex items-center justify-center rounded-full">
                             <CreditCard className="h-5 w-5" />
                         </div>
                         <div>
-                            <p className="font-semibold">Your Store</p>
+                            <p className="font-semibold">თარიღი</p>
                             <p className="text-gray-500 text-sm">{new Date().toLocaleDateString()}</p>
                         </div>
                     </div>
@@ -69,18 +69,15 @@ export default function InvoicePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <h3 className="font-semibold">Bill To:</h3>
+                        <h3 className="font-semibold">ვინ უკვეთავს:</h3>
                         <p>John Smith</p>
                         <p>123 Main Street, Anytown, CA 12345</p>
                         <p>United States</p>
                         <p className="mt-2">john.smith@example.com</p>
                     </div>
                     <div className="text-right">
-                        <h3 className="font-semibold">Payment Details:</h3>
-                        <p>Payment Method: Credit Card</p>
-                        <p>Card ending in: **** 4242</p>
-                        <p>Order Date: April 2, 2024</p>
-                        <p>Order ID: #ORD-2024-0042</p>
+                        <h3 className="font-semibold">გადახდის დეტალები:</h3>
+                        <p>შეკვეთის დღე: {new Date().toLocaleDateString()} </p>
                     </div>
                 </div>
 
@@ -88,11 +85,11 @@ export default function InvoicePage() {
                     <table className="w-full border-collapse border text-left">
                         <thead className="bg-gray-200">
                             <tr>
-                                <th className="p-3">Product</th>
-                                <th className="p-3">Description</th>
-                                <th className="p-3 text-right">Qty</th>
-                                <th className="p-3 text-right">Price</th>
-                                <th className="p-3 text-right">Total</th>
+                                <th className="p-3">პროდუქტები</th>
+                                <th className="p-3">აღწერა</th>
+                                <th className="p-3 text-right">რაოდენობა</th>
+                                <th className="p-3 text-right">ფასი</th>
+                                <th className="p-3 text-right">ჯამი</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -122,8 +119,8 @@ export default function InvoicePage() {
                 <hr className="my-6" />
 
                 <div className="flex flex-col md:flex-row justify-between items-center">
-                    <p className="text-sm text-gray-500">Thank you for your purchase! If you have any questions, please contact support@yourstore.com</p>
-                    <button className="mt-4 md:mt-0 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Complete Payment</button>
+                    <p className="text-sm text-gray-500">გმადლობთ შეძენისთვის! თუ  გაქვთ რაიმე შეკითხვა, გთხოვთ, დაუკავშირდეთ +995557210626</p>
+                    <button className="mt-4 md:mt-0 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"> შესყიდვა</button>
                 </div>
             </div>
         </div>
