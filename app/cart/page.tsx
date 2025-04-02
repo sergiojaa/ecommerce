@@ -223,9 +223,17 @@ export default function Page() {
                 <h1>${price}</h1>
               </span>
               <div className="w-full h-[1px] bg-gray-300"></div>
-              <button className={`px-3 py-5 rounded-md text-sm text-white w-full bg-secondary font-bold`}>
+              <button
+                onClick={() => {
+                  localStorage.setItem("invoiceData", JSON.stringify(products));
+                  localStorage.setItem("invoiceTotal", JSON.stringify(price));
+                  router.push("/invoice");
+                }}
+                className="px-3 py-5 rounded-md text-sm text-white w-full bg-secondary font-bold"
+              >
                 შეკვეთის გაფორმება
               </button>
+
             </div>
           </div>
         </div>

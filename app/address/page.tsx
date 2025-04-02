@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdMailOutline } from 'react-icons/md';
 

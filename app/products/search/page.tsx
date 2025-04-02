@@ -2,7 +2,6 @@
 import Filters from '@/app/components/search/Filters'
 import Pagination from '@/app/components/search/Pagination'
 import ProductGrid from '@/app/components/search/ProductGrid'
-import SearchBar from '@/app/components/search/Searchbar'
 import SortDropdown from '@/app/components/search/SortDropdown'
 import axios from 'axios'
 import { useSearchParams } from 'next/navigation'
