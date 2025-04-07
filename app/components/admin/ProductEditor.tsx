@@ -1,98 +1,147 @@
-'use client';
-import { useEffect, useState } from 'react';
+'use client'
+import React, { useState } from 'react';
 
 interface Product {
-  _id: number;
-  description: string[];
-  image: string;
-  name: string;
-  category: string;
+  title: string;
+  description: string;
   price: number;
+  imageUrl: string;
+  category: string;
 }
 
-export default function ProductEditor() {
-  const [products, setProducts] = useState<Product[]>([]); 
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]); 
-  const [searchTerm, setSearchTerm] = useState<string>(''); 
-  const [error, setError] = useState<string | null>(null); 
+function App() {
+  const [product, setProduct] = useState<Product>({
+    title: 'გოფრე',
+    description: 'სერი320ბიტონიაარაალებადი',
+    price: 0.8,
+    imageUrl: 'https://example.com/product-image.jpg', // Replace with actual image URL
+    category: 'სამშენტალო მოწყობილობები'
+  });
 
-  const getProducts = async () => {
-    const url = 'http://localhost:3001/products';
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-      const json: Product[] = await response.json();
-      setProducts(json);
-      setFilteredProducts(json); 
-    } catch (err: any) {
-      setError(err.message);
-      console.error(err);
-    }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setProduct(prev => ({
+      ...prev,
+      [name]: name === 'price' ? parseFloat(value) || 0 : value
+    }));
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const term = e.target.value.toLowerCase();
-    setSearchTerm(term);
-    setFilteredProducts(
-      products.filter((product) =>
-        product.name.toLowerCase().includes(term)
-      )
-    );
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission here
+    console.log('Saving product:', product);
   };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   return (
-    <div className="flex-[2] p-4">
-      <h1 className="text-lg font-bold mb-4">Product Editor</h1>
+    <div className="min-h-screen bg-gray-100 py-8 px-4">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Edit Form */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold mb-6">პროდუქტის რედაქტირება</h2>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                სათაური
+              </label>
+              <input
+                type="text"
+                name="title"
+                value={product.title}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-      <input
-        type="text"
-        placeholder="Search by name..."
-        value={searchTerm}
-        onChange={handleSearch}
-        className="border border-gray-300 rounded-md p-2 w-full mb-4"
-      />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                აღწერა
+              </label>
+              <textarea
+                name="description"
+                value={product.description}
+                onChange={handleInputChange}
+                rows={3}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-      {error && <div className="text-red-500 mb-4">Error: {error}</div>}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                ფასი
+              </label>
+              <input
+                type="number"
+                name="price"
+                value={product.price}
+                onChange={handleInputChange}
+                step="0.01"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredProducts.map((product) => (
-          <div
-            key={product._id} 
-            className="border rounded-md p-4 shadow-md flex flex-col items-center"
-          >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-32 h-32 object-cover mb-2"
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                სურათის URL
+              </label>
+              <input
+                type="text"
+                name="imageUrl"
+                value={product.imageUrl}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-            <h2 className="text-sm font-bold">{product.name}</h2>
-
-            <h3 className="text-xs text-gray-500">{product.category}</h3>
-
-            <p className="text-sm">
-              {product.description.map((desc, index) => (
-                <span key={`${product._id}-desc-${index}`}>{desc}</span> 
-              ))}
-            </p>
-
-            <h4 className="text-green-500 font-bold">${product.price}</h4>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                კატეგორია
+              </label>
+              <input
+                type="text"
+                name="category"
+                value={product.category}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
             <button
-              className="mt-2 bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
-              onClick={() => alert(`Edit product: ${product.name}`)}
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
             >
-              Edit
+              შენახვა
             </button>
+          </form>
+        </div>
+
+        {/* Preview Card */}
+        <div className="flex items-start justify-center pt-8">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden max-w-sm w-full">
+            <div className="relative pb-[100%]">
+              <img
+                src={product.imageUrl}
+                alt={product.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-4">
+              <div className="bg-red-700 text-white px-3 py-1 rounded-md text-sm inline-block mb-2">
+                {product.category}
+              </div>
+              <h3 className="text-xl font-bold mb-2">{product.title}</h3>
+              <p className="text-gray-600 mb-4">{product.description}</p>
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-bold">${product.price}</span>
+                <button className="bg-red-700 text-white px-6 py-2 rounded-md hover:bg-red-800 transition-colors">
+                  კალათაში დამატება
+                </button>
+              </div>
+            </div>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
 }
+
+export default App;

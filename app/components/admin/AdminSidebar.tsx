@@ -28,24 +28,20 @@ export default function AdminSidebar() {
                     <hr className='w-[200px]' />
                     <li className='flex items-center gap-4 cursor-pointer'>
                         <svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.5812 1.16992H2.94484C2.10804 1.16992 1.42969 1.85393 1.42969 2.6977V11.8644C1.42969 12.7081 2.10804 13.3921 2.94484 13.3921H16.5812C17.418 13.3921 18.0964 12.7081 18.0964 11.8644V2.6977C18.0964 1.85393 17.418 1.16992 16.5812 1.16992Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"></path><path d="M1.42969 5.61426H18.0964" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                        მომხმარებელი
+                        რედაქტირება
                     </li>
                     <hr className='w-[200px]' />
-                    <Link href={'/address'}>
+                    {/* <Link href={'/address'}>
                         <li className='flex items-center gap-4 cursor-pointer'>
                             <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.707 8.43652C16.707 14.2699 9.20703 19.2699 9.20703 19.2699C9.20703 19.2699 1.70703 14.2699 1.70703 8.43652C1.70703 6.4474 2.49721 4.53975 3.90373 3.13322C5.31025 1.7267 7.21791 0.936523 9.20703 0.936523C11.1962 0.936523 13.1038 1.7267 14.5103 3.13322C15.9169 4.53975 16.707 6.4474 16.707 8.43652Z" stroke="currentColor" strokeLinejoin="round"></path><path d="M9.20898 10.9365C10.5897 10.9365 11.709 9.81724 11.709 8.43652C11.709 7.05581 10.5897 5.93652 9.20898 5.93652C7.82827 5.93652 6.70898 7.05581 6.70898 8.43652C6.70898 9.81724 7.82827 10.9365 9.20898 10.9365Z" stroke="currentColor" strokeLinejoin="round"></path></svg>
                             მისამართები
                         </li>
-                    </Link>
+                    </Link> */}
 
-                    <hr className='w-[200px]' />
+                    {/* <hr className='w-[200px]' /> */}
 
 
 
-                    <li onClick={logOut} className='cursor-pointer gap-4 flex items-center'>
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 16.3613H3.16667C2.72464 16.3613 2.30072 16.1857 1.98816 15.8732C1.67559 15.5606 1.5 15.1367 1.5 14.6947V3.02799C1.5 2.58597 1.67559 2.16204 1.98816 1.84948C2.30072 1.53692 2.72464 1.36133 3.16667 1.36133H6.5" stroke="currentColor" strokeLinejoin="round"></path><path d="M12.334 13.0296L16.5007 8.86296L12.334 4.69629" stroke="currentColor" strokeLinejoin="round"></path><path d="M16.5 8.8623H6.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                        გამოსვლა</li>
-                    <hr className='w-[200px]' />
                 </ul>
             </div>
         </div>
