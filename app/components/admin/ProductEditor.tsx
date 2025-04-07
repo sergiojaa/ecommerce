@@ -16,7 +16,6 @@ function App({ id }: { id: string | string[] | undefined }) {
     description: '',
     price: 0,
     image: 'https://metalgroup.ge/public/uploads/all/sy58bA6BEf6UyKmiauOM5JDYlZBoarNhpJy0lAS7.jpg',
-    category: ''
   });
 
   useEffect(() => {
@@ -51,6 +50,7 @@ function App({ id }: { id: string | string[] | undefined }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     const token = localStorage.getItem('token');
+    console.log(token)
     e.preventDefault();
 
     // Check if token exists
@@ -60,11 +60,18 @@ function App({ id }: { id: string | string[] | undefined }) {
     }
 
     try {
+
       const response = await axios.patch(
         `http://localhost:3001/products/${id}`,
         {
-          ...product, // Send the updated product data
-          token,      // Include the token in the request body
+          name: product.name,
+          description: product.description,
+          image: product.image
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
         }
       );
       console.log('Product updated successfully:', response.data);
@@ -72,6 +79,7 @@ function App({ id }: { id: string | string[] | undefined }) {
       console.error('Error saving product:', error);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
@@ -85,7 +93,7 @@ function App({ id }: { id: string | string[] | undefined }) {
               </label>
               <input
                 type="text"
-                name="title"
+                name="name"
                 value={product.name}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -127,19 +135,6 @@ function App({ id }: { id: string | string[] | undefined }) {
                 type="text"
                 name="image"
                 value={product.image}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                კატეგორია
-              </label>
-              <input
-                type="text"
-                name="category"
-                value={product.category}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
