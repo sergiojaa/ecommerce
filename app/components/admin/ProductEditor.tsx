@@ -1,22 +1,45 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 interface Product {
-  title: string;
+  name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  image: string;
   category: string;
 }
 
-function App() {
+function App({ id }: { id: string | string[] | undefined }) {
   const [product, setProduct] = useState<Product>({
-    title: 'გოფრე',
-    description: 'სერი320ბიტონიაარაალებადი',
-    price: 0.8,
-    imageUrl: 'https://example.com/product-image.jpg', // Replace with actual image URL
-    category: 'სამშენტალო მოწყობილობები'
+    name: '',
+    description: '',
+    price: 0,
+    image: 'https://metalgroup.ge/public/uploads/all/sy58bA6BEf6UyKmiauOM5JDYlZBoarNhpJy0lAS7.jpg',
+    category: ''
   });
+
+  useEffect(() => {
+    if (id) {
+      const fetchProduct = async () => {
+        try {
+          const response = await fetch(`http://localhost:3001/products/${id}`);
+          const data: Product = await response.json();
+          setProduct({
+            name: data.name || '', // Default empty string if undefined
+            description: data.description || '', // Default empty string if undefined
+            price: data.price || 0, // Default to 0 if undefined
+            image: data.image || 'https://metalgroup.ge/public/uploads/all/sy58bA6BEf6UyKmiauOM5JDYlZBoarNhpJy0lAS7.jpg', // Default image URL if undefined
+            category: data.category || '' // Default empty string if undefined
+          });
+        } catch (error) {
+          console.error('Error fetching product:', error);
+        }
+      };
+
+      fetchProduct();
+    }
+  }, [id]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -26,16 +49,33 @@ function App() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    const token = localStorage.getItem('token');
     e.preventDefault();
-    // Handle form submission here
-    console.log('Saving product:', product);
+
+    // Check if token exists
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    try {
+      const response = await axios.patch(
+        `http://localhost:3001/products/${id}`,
+        {
+          ...product, // Send the updated product data
+          token,      // Include the token in the request body
+        }
+      );
+      console.log('Product updated successfully:', response.data);
+    } catch (error) {
+      console.error('Error saving product:', error);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Edit Form */}
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold mb-6">პროდუქტის რედაქტირება</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -46,7 +86,7 @@ function App() {
               <input
                 type="text"
                 name="title"
-                value={product.title}
+                value={product.name}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -85,8 +125,8 @@ function App() {
               </label>
               <input
                 type="text"
-                name="imageUrl"
-                value={product.imageUrl}
+                name="image"
+                value={product.image}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -109,18 +149,17 @@ function App() {
               type="submit"
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
             >
-              შენახვა
+              რედაქტირება
             </button>
           </form>
         </div>
 
-        {/* Preview Card */}
         <div className="flex items-start justify-center pt-8">
           <div className="bg-white rounded-lg shadow-md overflow-hidden max-w-sm w-full">
             <div className="relative pb-[100%]">
               <img
-                src={product.imageUrl}
-                alt={product.title}
+                src={product.image}
+                alt={product.name}
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
@@ -128,7 +167,7 @@ function App() {
               <div className="bg-red-700 text-white px-3 py-1 rounded-md text-sm inline-block mb-2">
                 {product.category}
               </div>
-              <h3 className="text-xl font-bold mb-2">{product.title}</h3>
+              <h3 className="text-xl font-bold mb-2">{product.name}</h3>
               <p className="text-gray-600 mb-4">{product.description}</p>
               <div className="flex items-center justify-between">
                 <span className="text-2xl font-bold">${product.price}</span>
