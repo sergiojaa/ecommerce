@@ -7,7 +7,6 @@ interface Product {
   description: string;
   price: number;
   image: string;
-  category: string;
 }
 
 function App({ id }: { id: string | string[] | undefined }) {
@@ -15,7 +14,7 @@ function App({ id }: { id: string | string[] | undefined }) {
     name: '',
     description: '',
     price: 0,
-    image: 'https://metalgroup.ge/public/uploads/all/sy58bA6BEf6UyKmiauOM5JDYlZBoarNhpJy0lAS7.jpg',
+    image: 'https://metalgroup.ge/public/uploads/all/sy58bA6BEf6UyKmiauOM5JDYlZBoarNhpJy0lAS7.jpg'
   });
 
   useEffect(() => {
@@ -29,7 +28,6 @@ function App({ id }: { id: string | string[] | undefined }) {
             description: data.description || '', // Default empty string if undefined
             price: data.price || 0, // Default to 0 if undefined
             image: data.image || 'https://metalgroup.ge/public/uploads/all/sy58bA6BEf6UyKmiauOM5JDYlZBoarNhpJy0lAS7.jpg', // Default image URL if undefined
-            category: data.category || '' // Default empty string if undefined
           });
         } catch (error) {
           console.error('Error fetching product:', error);
@@ -159,9 +157,7 @@ function App({ id }: { id: string | string[] | undefined }) {
               />
             </div>
             <div className="p-4">
-              <div className="bg-red-700 text-white px-3 py-1 rounded-md text-sm inline-block mb-2">
-                {product.category}
-              </div>
+
               <h3 className="text-xl font-bold mb-2">{product.name}</h3>
               <p className="text-gray-600 mb-4">{product.description}</p>
               <div className="flex items-center justify-between">
