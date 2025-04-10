@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 
 
 export default function Products() {
-  const [products, setProducts] = useState<any[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<[]>([]);
   const [loadingProduct, setLoadingProduct] = useState<string | null>(null);
   const router = useRouter();
 
@@ -17,6 +17,7 @@ export default function Products() {
       .get("http://localhost:3001/products")
       .then((res) => {
         setProducts(res.data); // Set all products
+        console.log(products)
         setFilteredProducts(res.data); // Initially display all products
       })
       .catch((err) => {
@@ -35,30 +36,30 @@ export default function Products() {
   }, []);
 
   // Function to add product to cart
-  const addtocart = (id: string) => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      // Redirect to login if not authenticated
-      router.push('/login');
-    }
+  // const addtocart = (id: string) => {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) {
+  //     // Redirect to login if not authenticated
+  //     router.push('/login');
+  //   }
 
-    setLoadingProduct(id);
-    axios
-      .post("http://localhost:3001/cart/add-to-cart", { productId: id }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log("Product added to cart:", res.data);
-      })
-      .catch((err) => {
-        console.error("Error adding product to cart:", err);
-      })
-      .finally(() => {
-        setLoadingProduct(null);
-      });
-  };
+  //   setLoadingProduct(id);
+  //   axios
+  //     .post("http://localhost:3001/cart/add-to-cart", { productId: id }, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log("Product added to cart:", res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error adding product to cart:", err);
+  //     })
+  //     .finally(() => {
+  //       setLoadingProduct(null);
+  //     });
+  // };
 
   return (
     <div>

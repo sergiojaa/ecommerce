@@ -10,23 +10,24 @@ type Category = {
 }
 export default function CategoryDisplay() {
     const [categoryData, setCategoryData] = useState<Category[]>([]);
-    const [products, setProducts] = useState<any[]>([]);
-    const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+    const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState<[]>([]);
 
     useEffect(() => {
         axios
             .get("http://localhost:3001/products")
             .then((res) => {
-                setProducts(res.data); // Set all products
-                setFilteredProducts(res.data); // Initially display all products
+                setProducts(res.data);
+                setFilteredProducts(res.data);
                 console.log(products)
+                console.log(filteredProducts)
             })
             .catch((err) => {
                 console.error("Error fetching products:", err);
             });
 
         axios
-            .get("http://localhost:3001/products/categories") // Fetch categories
+            .get("http://localhost:3001/products/categories")
             .then((res) => {
                 setCategoryData(res.data.categories);
 
@@ -46,10 +47,8 @@ export default function CategoryDisplay() {
                         className="flex justify-center"
                     >
                         <div className="bg-[#f7f7f7] w-full max-w-[300px] h-[250px] px-4 py-5 rounded-lg shadow-md flex flex-col items-center justify-between">
-                            {/* Image First */}
                             <img className="w-[120px]" src={category.image} alt={category.name} />
 
-                            {/* Text Below (Centered) */}
                             <li className="text-[16px] text-black text-center">{category.name}</li>
                         </div>
                     </Link>

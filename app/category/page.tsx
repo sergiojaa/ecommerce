@@ -14,7 +14,6 @@ export default function CategoryPage() {
   const [tokenValidity, setTokenValidity] = useState(false);
   const [loadingProduct, setLoadingProduct] = useState<string | null>(null);
 
-  const router = useRouter();
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
 

@@ -35,6 +35,7 @@ export default function CustomSlider() {
       .then((res) => {
         setProducts(res.data.products)
         setError(false)
+        console.log(loadingProduct)
       })
       .catch((err) => {
         console.error("Error fetching products:", err)

@@ -3,7 +3,7 @@ interface Props {
     setSortBy: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function SortDropdown({ sortBy, setSortBy }: Props) {
+export default function SortDropdown({ setSortBy }: Props) {
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSortBy(e.target.value)
     }
