@@ -24,11 +24,14 @@ export default function InvoicePage() {
         userName: '', email: '', mobileNumber: ""
     });
     const [invoiceItems, setInvoiceItems] = useState<CartItem[]>([]);
-    const [error, setError] = useState<string>('')
     const [totalPrice, setTotalPrice] = useState(0);
     const [order, setOrder] = useState(false)
-    const [phoneNumber, setPhoneNumber] = useState({ number: '' })
+
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
+
     const router = useRouter()
+
     useEffect(() => {
         const token = localStorage.getItem('token');
 
@@ -55,43 +58,9 @@ export default function InvoicePage() {
                 });
             })
             .catch((err) => {
-                setError(err.message);
+                console.log(err)
             });
     }, [router]);
-    const sendInvoice = () => {
-        const token = localStorage.getItem('token')
-        if (phoneNumber.number.length !== 9) {
-            setError("ნომერი უნდა შედგებოდეს 9 ციფრისგან");
-
-            setTimeout(() => {
-                setError("");
-
-            }, 3000)
-            return;
-        }
-        axios.post('YOUR_ENDPOINT_URL_HERE', {
-            phoneNumber: phoneNumber.number
-        },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        )
-            .then((res) => {
-                console.log('Invoice sent:', res.data);
-            })
-            .catch((err) => {
-                console.error('Error sending invoice:', err);
-            });
-    }
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        sendInvoice();
-    }
-
-
 
     useEffect(() => {
         const storedItems = localStorage.getItem("invoiceData");
@@ -102,6 +71,34 @@ export default function InvoicePage() {
             setTotalPrice(JSON.parse(storedTotal));
         }
     }, []);
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        setError('');
+        setSuccess('')
+
+        try {
+            const token = localStorage.getItem('token');
+
+            await axios.post('http://localhost:3001/products/invoice', {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setSuccess('გაიგზავნა ინვოისი, დაგიკავშირდებით მალევე')
+            setTimeout(() => {
+                setSuccess('');
+                setOrder(false);
+            }, 3000);
+        } catch (err) {
+            setError('ხარვეზი გაგზავნის დროს');
+            setTimeout(() => {
+                setError('');
+                setOrder(false);
+            }, 1500);
+        }
+    };
+
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -182,10 +179,9 @@ export default function InvoicePage() {
 
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <p className="text-sm text-gray-500">გმადლობთ შეძენისთვის! თუ  გაქვთ რაიმე შეკითხვა, გთხოვთ, დაუკავშირდეთ +995557210626</p>
-                    <Link href={''}>
-                        <button onClick={(() => setOrder(!order))} className="mt-4 md:mt-0 bg-secondary text-white px-6 py-2 rounded-xl"> შესყიდვა</button>
+                    <button onClick={(() => setOrder(!order))} className="mt-4 md:mt-0 bg-secondary text-white px-6 py-2 rounded-xl"> შესყიდვა</button>
 
-                    </Link>
+
                 </div>
             </div>
             {order && (
@@ -200,39 +196,23 @@ export default function InvoicePage() {
 
                         <h2 className="text-xl font-semibold text-secondary mb-2">შეკვეთის დადასტურება!</h2>
                         <p className="text-primary mb-6">
-                            შეკვეთის დასადასტურებლად გთხოვთ ჩაწეროთ თქვენი ნომერი!
+                            შეკვეთის დასადასტურებლად გთხოვთ დააჭირეთ ღილაკს!
                         </p>
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                            <div className="flex  text-primary flex-col">
-                                <label htmlFor="phone-number" className="mb-1 font-medium text-md">
-                                    ტელეფონის ნომერი:
-                                </label>
-
-                                <input
-                                    id="phone-number"
-                                    type="number"
-
-                                    placeholder="5XX XXX XXX"
-                                    className="border mt-3 border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-secondary"
-                                    required
-                                    value={phoneNumber.number}
-                                    onChange={(e) =>
-                                        setPhoneNumber({ number: e.target.value })
-                                    }
-                                />
-
-                            </div>
-                            {error && <p className="text-red-500">{error}</p>}
+                        <form className="space-y-4">
                             <div className="pt-4">
                                 <button
                                     type="submit"
+                                    onClick={handleSubmit}
                                     className="w-full bg-secondary text-white py-2 rounded transition-colors"
                                 >
                                     დადასტურება
                                 </button>
+                                <p className="text-sm text-secondary mt-[10px] mx-auto">{error}</p>
+                                <p className="text-sm text-green-500 mt-[10px] mx-auto">{success}</p>
                             </div>
                         </form>
+
                     </div>
                 </div>
             )}
