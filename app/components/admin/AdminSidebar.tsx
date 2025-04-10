@@ -1,15 +1,9 @@
 'use client'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 import Link from 'next/link'
 import { FaPlus } from 'react-icons/fa'
 export default function AdminSidebar() {
-    const router = useRouter()
 
-    const logOut = () => {
-        localStorage.removeItem('token');
-        router.push('/'); // Redirect to home after logout
-    };
     return (
         <div className='flex-1 flex justify-center'>
             <div>
