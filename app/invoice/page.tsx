@@ -137,42 +137,29 @@ export default function InvoicePage() {
                             ✕
                         </button>
 
-                        <h2 className="text-xl font-semibold mb-2">შეკვეთის დადასტურება</h2>
-                        <p className="text-gray-600 mb-6">
+                        <h2 className="text-xl font-semibold text-secondary mb-2">შეკვეთის დადასტურება!</h2>
+                        <p className="text-primary mb-6">
                             გმადლობთ შეკვეთისთვის! ჩვენი ოპერატორი დაგიკავშირდებათ უახლოეს დროში. გთხოვთ, მიუთითოთ თქვენი ტელეფონის
                             ნომერი.
                         </p>
 
                         <form className="space-y-4">
-                            <div className="flex flex-col">
-                                <label htmlFor="phone-number" className="mb-1 font-medium text-sm">
+                            <div className="flex  text-primary flex-col">
+                                <label htmlFor="phone-number" className="mb-1 font-medium text-md">
                                     ტელეფონის ნომერი
                                 </label>
                                 <input
                                     id="phone-number"
                                     type="number"
-                                    inputMode="numeric"
                                     placeholder=" 5XX XXX XXX"
-                                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="border mt-3 border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-secondary"
                                     required
                                 />
                             </div>
-
-                            <div className="flex flex-col">
-                                <label htmlFor="notes" className="mb-1 font-medium text-sm">
-                                    დამატებითი შენიშვნები (არასავალდებულო)
-                                </label>
-                                <textarea
-                                    id="notes"
-                                    placeholder="მიუთითეთ ნებისმიერი დამატებითი ინფორმაცია..."
-                                    className="border border-gray-300 rounded px-3 py-2 min-h-[80px] resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                ></textarea>
-                            </div>
-
                             <div className="pt-4">
                                 <button
                                     type="submit"
-                                    className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
+                                    className="w-full bg-secondary text-white py-2 rounded transition-colors"
                                 >
                                     დადასტურება
                                 </button>
