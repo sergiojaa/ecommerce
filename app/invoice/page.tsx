@@ -5,6 +5,7 @@ import { ArrowLeft, CreditCard, Download, Printer } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import axios from "axios"
 interface Product {
     _id: string;
     image: string;
@@ -19,8 +20,44 @@ interface CartItem {
 }
 export default function InvoicePage() {
     const [invoiceItems, setInvoiceItems] = useState<CartItem[]>([]);
+    const [error, setError] = useState<string>('')
     const [totalPrice, setTotalPrice] = useState(0);
     const [order, setOrder] = useState(false)
+    const [phoneNumber, setPhoneNumber] = useState({ number: '' })
+    const sendInvoice = () => {
+        const token = localStorage.getItem('token')
+        if (phoneNumber.number.length !== 9) {
+            setError("ნომერი უნდა შედგებოდეს 9 ციფრისგან");
+
+            setTimeout(() => {
+                setError("");
+
+            }, 3000)
+            return;
+        }
+        axios.post('YOUR_ENDPOINT_URL_HERE', {
+            phoneNumber: phoneNumber.number
+        },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+            .then((res) => {
+                console.log('Invoice sent:', res.data);
+            })
+            .catch((err) => {
+                console.error('Error sending invoice:', err);
+            });
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // prevent page refresh
+        sendInvoice();
+    }
+
+
     const router = useRouter();
 
     useEffect(() => {
@@ -143,19 +180,27 @@ export default function InvoicePage() {
                             ნომერი.
                         </p>
 
-                        <form className="space-y-4">
+                        <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="flex  text-primary flex-col">
                                 <label htmlFor="phone-number" className="mb-1 font-medium text-md">
                                     ტელეფონის ნომერი
                                 </label>
+
                                 <input
                                     id="phone-number"
                                     type="number"
-                                    placeholder=" 5XX XXX XXX"
+
+                                    placeholder="5XX XXX XXX"
                                     className="border mt-3 border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-secondary"
                                     required
+                                    value={phoneNumber.number}
+                                    onChange={(e) =>
+                                        setPhoneNumber({ number: e.target.value })
+                                    }
                                 />
+
                             </div>
+                            {error && <p className="text-red-500">{error}</p>}
                             <div className="pt-4">
                                 <button
                                     type="submit"
