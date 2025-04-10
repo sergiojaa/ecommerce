@@ -4,7 +4,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ProductCard, { productType } from '../components/products/ProductCard';
-import { useRouter } from 'next/navigation';
 import { checkTokenValidity } from '../components/utils/checkTokenValidity';
 
 export default function CategoryPage() {
@@ -16,7 +15,7 @@ export default function CategoryPage() {
 
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
-
+  console.log(tokenValidity)
   useEffect(() => {
     if (category) {
       axios
