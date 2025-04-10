@@ -8,6 +8,7 @@ const useAdminAuth = async (): Promise<boolean> => {
 
         return response.data.admin;
     } catch (err) {
+        console.log(err)
         return false
     }
 }

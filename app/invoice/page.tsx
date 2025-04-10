@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { ArrowLeft, CreditCard, Download, Printer } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import axios from "axios"
 interface Product {
     _id: string;
@@ -53,12 +52,11 @@ export default function InvoicePage() {
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // prevent page refresh
+        e.preventDefault();
         sendInvoice();
     }
 
 
-    const router = useRouter();
 
     useEffect(() => {
         const storedItems = localStorage.getItem("invoiceData");
@@ -90,7 +88,6 @@ export default function InvoicePage() {
                 <div className="flex justify-between mb-6">
                     <div>
                         <h2 className="text-2xl font-semibold">ინვოისი</h2>
-                        {/* <p className="text-gray-500">Invoice #INV-2024-0042</p> */}
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="h-10 w-10 bg-blue-600 text-white flex items-center justify-center rounded-full">
@@ -213,9 +210,7 @@ export default function InvoicePage() {
                 </div>
             )}
             <div>
-                {/* <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    ss
-                </div> */}
+
 
             </div>
 
