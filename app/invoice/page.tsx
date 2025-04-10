@@ -20,6 +20,7 @@ interface CartItem {
 export default function InvoicePage() {
     const [invoiceItems, setInvoiceItems] = useState<CartItem[]>([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [order, setOrder] = useState(false)
     const router = useRouter();
 
     useEffect(() => {
@@ -120,9 +121,68 @@ export default function InvoicePage() {
 
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <p className="text-sm text-gray-500">გმადლობთ შეძენისთვის! თუ  გაქვთ რაიმე შეკითხვა, გთხოვთ, დაუკავშირდეთ +995557210626</p>
-                    <button className="mt-4 md:mt-0 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"> შესყიდვა</button>
+                    <Link href={''}>
+                        <button onClick={(() => setOrder(!order))} className="mt-4 md:mt-0 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"> შესყიდვა</button>
+
+                    </Link>
                 </div>
             </div>
+            {order && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white p-6 rounded-lg shadow-xl max-w-[425px] w-full relative">
+                        <button
+                            onClick={() => setOrder(false)}
+                            className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+                        >
+                            ✕
+                        </button>
+
+                        <h2 className="text-xl font-semibold mb-2">შეკვეთის დადასტურება</h2>
+                        <p className="text-gray-600 mb-6">
+                            გმადლობთ შეკვეთისთვის! ჩვენი ოპერატორი დაგიკავშირდებათ უახლოეს დროში. გთხოვთ, მიუთითოთ თქვენი ტელეფონის
+                            ნომერი.
+                        </p>
+
+                        <form className="space-y-4">
+                            <div className="flex flex-col">
+                                <label htmlFor="phone-number" className="mb-1 font-medium text-sm">
+                                    ტელეფონის ნომერი
+                                </label>
+                                <input
+                                    id="phone-number"
+                                    type="number"
+                                    inputMode="numeric"
+                                    placeholder=" 5XX XXX XXX"
+                                    className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required
+                                />
+                            </div>
+
+                            <div className="flex flex-col">
+                                <label htmlFor="notes" className="mb-1 font-medium text-sm">
+                                    დამატებითი შენიშვნები (არასავალდებულო)
+                                </label>
+                                <textarea
+                                    id="notes"
+                                    placeholder="მიუთითეთ ნებისმიერი დამატებითი ინფორმაცია..."
+                                    className="border border-gray-300 rounded px-3 py-2 min-h-[80px] resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                ></textarea>
+                            </div>
+
+                            <div className="pt-4">
+                                <button
+                                    type="submit"
+                                    className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
+                                >
+                                    დადასტურება
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+
         </div>
     )
 }
