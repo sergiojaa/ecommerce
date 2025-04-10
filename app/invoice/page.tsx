@@ -5,6 +5,8 @@ import { ArrowLeft, CreditCard, Download, Printer } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import axios from "axios"
+import { checkTokenValidity } from "../components/utils/checkTokenValidity"
+import { useRouter } from "next/navigation"
 interface Product {
     _id: string;
     image: string;
@@ -18,11 +20,44 @@ interface CartItem {
     totalPrice: number;
 }
 export default function InvoicePage() {
+    const [userData, setUserData] = useState({
+        userName: '', email: '', mobileNumber: ""
+    });
     const [invoiceItems, setInvoiceItems] = useState<CartItem[]>([]);
     const [error, setError] = useState<string>('')
     const [totalPrice, setTotalPrice] = useState(0);
     const [order, setOrder] = useState(false)
     const [phoneNumber, setPhoneNumber] = useState({ number: '' })
+    const router = useRouter()
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        checkTokenValidity(String(token)).then((isValid) => {
+            if (!isValid) {
+                router.push('/login')
+            }
+        });
+
+        axios
+            .get('http://localhost:3001/account', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+                    'Pragma': 'no-cache',
+                    'Expires': '0',
+                },
+            })
+            .then((res) => {
+                setUserData({
+                    userName: res.data.username,
+                    email: res.data.email,
+                    mobileNumber: res.data.mobileNumber,
+                });
+            })
+            .catch((err) => {
+                setError(err.message);
+            });
+    }, [router]);
     const sendInvoice = () => {
         const token = localStorage.getItem('token')
         if (phoneNumber.number.length !== 9) {
@@ -105,10 +140,10 @@ export default function InvoicePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <h3 className="font-semibold">ვინ უკვეთავს:</h3>
-                        <p>John Smith</p>
-                        <p>123 Main Street, Anytown, CA 12345</p>
-                        <p>United States</p>
-                        <p className="mt-2">john.smith@example.com</p>
+                        <p className="mt-2">{userData.userName}</p>
+                        <p className="mt-2">{userData.email}</p>
+
+                        <p className="mt-2">{userData.mobileNumber}</p>
                     </div>
                     <div className="text-right">
                         <h3 className="font-semibold">გადახდის დეტალები:</h3>
