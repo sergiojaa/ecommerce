@@ -36,30 +36,30 @@ export default function Products() {
   }, []);
 
   // Function to add product to cart
-  // const addtocart = (id: string) => {
-  //   const token = localStorage.getItem('token');
-  //   if (!token) {
-  //     // Redirect to login if not authenticated
-  //     router.push('/login');
-  //   }
+  const addtocart = (id: string) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // Redirect to login if not authenticated
+      router.push('/login');
+    }
 
-  //   setLoadingProduct(id);
-  //   axios
-  //     .post("http://localhost:3001/cart/add-to-cart", { productId: id }, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log("Product added to cart:", res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.error("Error adding product to cart:", err);
-  //     })
-  //     .finally(() => {
-  //       setLoadingProduct(null);
-  //     });
-  // };
+    setLoadingProduct(id);
+    axios
+      .post("http://localhost:3001/cart/add-to-cart", { productId: id }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("Product added to cart:", res.data);
+      })
+      .catch((err) => {
+        console.error("Error adding product to cart:", err);
+      })
+      .finally(() => {
+        setLoadingProduct(null);
+      });
+  };
 
   return (
     <div>
