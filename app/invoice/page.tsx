@@ -176,14 +176,13 @@ export default function InvoicePage() {
 
                         <h2 className="text-xl font-semibold text-secondary mb-2">შეკვეთის დადასტურება!</h2>
                         <p className="text-primary mb-6">
-                            გმადლობთ შეკვეთისთვის! ჩვენი ოპერატორი დაგიკავშირდებათ უახლოეს დროში. გთხოვთ, მიუთითოთ თქვენი ტელეფონის
-                            ნომერი.
+                            შეკვეთის დასადასტურებლად გთხოვთ ჩაწეროთ თქვენი ნომერი!
                         </p>
 
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="flex  text-primary flex-col">
                                 <label htmlFor="phone-number" className="mb-1 font-medium text-md">
-                                    ტელეფონის ნომერი
+                                    ტელეფონის ნომერი:
                                 </label>
 
                                 <input
@@ -213,6 +212,12 @@ export default function InvoicePage() {
                     </div>
                 </div>
             )}
+            <div>
+                {/* <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    ss
+                </div> */}
+
+            </div>
 
 
         </div>
