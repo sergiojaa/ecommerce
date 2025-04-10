@@ -109,27 +109,19 @@ export default function InvoicePage() {
                 <Link href="/cart" className="text-sm font-medium text-gray-600 hover:text-black flex items-center">
                     <ArrowLeft className="h-4 w-4 mr-2" /> Back to cart
                 </Link>
-                <div className="flex gap-2">
-                    <button className="hidden md:flex items-center border px-3 py-1.5 rounded-md text-gray-700 hover:bg-gray-100">
-                        <Printer className="h-4 w-4 mr-2" /> Print
-                    </button>
-                    <button className="flex items-center border px-3 py-1.5 rounded-md text-gray-700 hover:bg-gray-100">
-                        <Download className="h-4 w-4 mr-2" /> Download
-                    </button>
-                </div>
             </div>
 
             <div className="border rounded-lg p-6 shadow-md">
                 <div className="flex justify-between mb-6">
                     <div>
-                        <h2 className="text-2xl font-semibold">ინვოისი</h2>
+                        <h2 className="text-2xl text-secondary font-semibold">ინვოისი</h2>
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="h-10 w-10 bg-blue-600 text-white flex items-center justify-center rounded-full">
+                        <div className="h-10 w-10 bg-secondary text-white flex items-center justify-center rounded-full">
                             <CreditCard className="h-5 w-5" />
                         </div>
                         <div>
-                            <p className="font-semibold">თარიღი</p>
+                            <p className="font-semibold text-primary">თარიღი</p>
                             <p className="text-gray-500 text-sm">{new Date().toLocaleDateString()}</p>
                         </div>
                     </div>
@@ -139,15 +131,15 @@ export default function InvoicePage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <h3 className="font-semibold">ვინ უკვეთავს:</h3>
-                        <p className="mt-2">{userData.userName}</p>
-                        <p className="mt-2">{userData.email}</p>
+                        <h3 className="font-semibold text-secondary">ვინ უკვეთავს:</h3>
+                        <p className="mt-2 text-primary">{userData.userName}</p>
+                        <p className="mt-2 text-primary">{userData.email}</p>
 
-                        <p className="mt-2">{userData.mobileNumber}</p>
+                        <p className="mt-2 text-primary">{userData.mobileNumber}</p>
                     </div>
                     <div className="text-right">
-                        <h3 className="font-semibold">გადახდის დეტალები:</h3>
-                        <p>შეკვეთის დღე: {new Date().toLocaleDateString()} </p>
+                        <h3 className="font-semibold text-secondary">გადახდის დეტალები:</h3>
+                        <p className="text-primary">შეკვეთის დღე: {new Date().toLocaleDateString()} </p>
                     </div>
                 </div>
 
@@ -155,11 +147,11 @@ export default function InvoicePage() {
                     <table className="w-full border-collapse border text-left">
                         <thead className="bg-gray-200">
                             <tr>
-                                <th className="p-3">პროდუქტები</th>
-                                <th className="p-3">აღწერა</th>
-                                <th className="p-3 text-right">რაოდენობა</th>
-                                <th className="p-3 text-right">ფასი</th>
-                                <th className="p-3 text-right">ჯამი</th>
+                                <th className="p-3 text-secondary">პროდუქტები</th>
+                                <th className="p-3 text-secondary">აღწერა</th>
+                                <th className="p-3 text-secondary text-right">რაოდენობა</th>
+                                <th className="p-3 text-secondary text-right">ფასი</th>
+                                <th className="p-3 text-secondary text-right">ჯამი</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -168,18 +160,18 @@ export default function InvoicePage() {
                                     <td className="p-3">
                                         <Image src={item.product.image} alt={item.product.name} width={80} height={80} className="rounded-md" />
                                     </td>
-                                    <td className="p-3 font-medium">{item.product.name}</td>
-                                    <td className="p-3 text-right">{item.quantity}</td>
-                                    <td className="p-3 text-right">{item.product.price.toFixed(2)}</td>
-                                    <td className="p-3 text-right">{(item.product.price * item.quantity).toFixed(2)}</td>
+                                    <td className="p-3 font-medium text-primary">{item.product.name}</td>
+                                    <td className="p-3 text-right text-primary">{item.quantity}</td>
+                                    <td className="p-3 text-right text-primary">{item.product.price.toFixed(2)}</td>
+                                    <td className="p-3 text-right text-primary">{(item.product.price * item.quantity).toFixed(2)}</td>
                                 </tr>
                             ))}
                         </tbody>
                         <tfoot>
                             <tr className="border-t">
                                 <td colSpan={3}></td>
-                                <td className="p-3 text-right font-semibold">ჯამური ღირებულება:</td>
-                                <td className="p-3 text-right">{totalPrice} ლარი</td>
+                                <td className="p-3 text-right font-semibold text-secondary">ჯამური ღირებულება:</td>
+                                <td className="p-3 text-right text-primary">{totalPrice} ლარი</td>
                             </tr>
 
                         </tfoot>
@@ -191,7 +183,7 @@ export default function InvoicePage() {
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <p className="text-sm text-gray-500">გმადლობთ შეძენისთვის! თუ  გაქვთ რაიმე შეკითხვა, გთხოვთ, დაუკავშირდეთ +995557210626</p>
                     <Link href={''}>
-                        <button onClick={(() => setOrder(!order))} className="mt-4 md:mt-0 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"> შესყიდვა</button>
+                        <button onClick={(() => setOrder(!order))} className="mt-4 md:mt-0 bg-secondary text-white px-6 py-2 rounded-xl"> შესყიდვა</button>
 
                     </Link>
                 </div>
