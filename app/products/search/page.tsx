@@ -5,7 +5,7 @@ import ProductGrid from '@/app/components/search/ProductGrid'
 import SortDropdown from '@/app/components/search/SortDropdown'
 import axios from 'axios'
 import { useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 
 
 type Category = {
@@ -29,7 +29,7 @@ type Product = {
     types: Types[];
 };
 
-export default function page() {
+function SearchPageContent() {
     const searchParams = useSearchParams()
 
     const [categories, setCategories] = useState<Category[]>([])
@@ -57,7 +57,7 @@ export default function page() {
             setCategory(categoryQuery)
         }
 
-    }, [searchParams])
+    }, [searchParams, categories])
 
     useEffect(() => {
         fetchOnChange()
@@ -136,5 +136,13 @@ export default function page() {
                 </div>
             </div>
         </div>
+    )
+}
+
+export default function Page() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+            <SearchPageContent />
+        </Suspense>
     )
 }
