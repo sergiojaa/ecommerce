@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
-import ProductCard from "./Products/ProductCard";
+import ProductCard from "./products/ProductCard";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Slider from 'react-slick';
