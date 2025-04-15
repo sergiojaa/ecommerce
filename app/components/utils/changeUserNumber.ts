@@ -19,7 +19,7 @@ const changeUserNumber = async (mobileNumber: string) => {
 
   try {
     const response = await axios.patch(
-      "http://localhost:3001/account/edit",
+      "https://trulaila-api-production.up.railway.app/account/edit",
       {
         change: "mobile number",
         changeTo: mobileNumber,

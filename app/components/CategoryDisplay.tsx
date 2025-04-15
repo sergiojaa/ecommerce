@@ -15,7 +15,7 @@ export default function CategoryDisplay() {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3001/products")
+            .get("https://trulaila-api-production.up.railway.app/products")
             .then((res) => {
                 setProducts(res.data);
                 setFilteredProducts(res.data);
@@ -27,7 +27,7 @@ export default function CategoryDisplay() {
             });
 
         axios
-            .get("http://localhost:3001/products/categories")
+            .get("https://trulaila-api-production.up.railway.app/products/categories")
             .then((res) => {
                 setCategoryData(res.data.categories);
 

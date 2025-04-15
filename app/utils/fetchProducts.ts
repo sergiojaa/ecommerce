@@ -9,7 +9,7 @@ export type FetchProductsParams = {
 
 export const fetchProducts = async (params: FetchProductsParams) => {
     try {
-        const response = await axios.get('http://localhost:3001/products', { params });
+        const response = await axios.get('https://trulaila-api-production.up.railway.app/products', { params });
         return response.data;
     } catch (error) {
         console.error('Error fetching products:', error);

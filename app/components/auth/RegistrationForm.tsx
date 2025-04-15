@@ -73,7 +73,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
         }
 
         if (error === '') {
-            axios.post("http://localhost:3001/auth/sign-up", {
+            axios.post("https://trulaila-api-production.up.railway.app/auth/sign-up", {
                 email: user.email,
                 username: user.userName,
                 mobileNumber: user.mobileNumber,

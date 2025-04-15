@@ -42,7 +42,7 @@ export default function InvoicePage() {
         });
 
         axios
-            .get('http://localhost:3001/account', {
+            .get('https://trulaila-api-production.up.railway.app/account', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
@@ -80,7 +80,7 @@ export default function InvoicePage() {
         try {
             const token = localStorage.getItem('token');
 
-            await axios.post('http://localhost:3001/products/invoice', {}, {
+            await axios.post('https://trulaila-api-production.up.railway.app/products/invoice', {}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

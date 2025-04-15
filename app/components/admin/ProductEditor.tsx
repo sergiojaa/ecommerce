@@ -21,7 +21,7 @@ function App({ id }: { id: string | string[] | undefined }) {
     if (id) {
       const fetchProduct = async () => {
         try {
-          const response = await fetch(`http://localhost:3001/products/${id}`);
+          const response = await fetch(`https://trulaila-api-production.up.railway.app/products/${id}`);
           const data: Product = await response.json();
           setProduct({
             name: data.name || '', // Default empty string if undefined
@@ -60,7 +60,7 @@ function App({ id }: { id: string | string[] | undefined }) {
     try {
 
       const response = await axios.patch(
-        `http://localhost:3001/products/${id}`,
+        `https://trulaila-api-production.up.railway.app/products/${id}`,
         {
           name: product.name,
           description: product.description,

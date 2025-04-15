@@ -69,7 +69,7 @@ function SearchPageContent() {
 
     const getCategories = async () => {
         try {
-            const res = await axios.get('http://localhost:3001/products/categories')
+            const res = await axios.get('https://trulaila-api-production.up.railway.app/products/categories')
             setCategories(res.data.categories || []);
         } catch (error) {
             console.error(error);
@@ -77,7 +77,7 @@ function SearchPageContent() {
     }
 
     const getProducts = async () => {
-        const response = await axios.get('http://localhost:3001/products');
+        const response = await axios.get('https://trulaila-api-production.up.railway.app/products');
         setProducts(response.data.products)
         setHighestPrice(response.data.highestPrice)
         setTotalPages(Math.ceil(response.data.totalProducts / 12))
@@ -93,7 +93,7 @@ function SearchPageContent() {
             sortBy: sort
         }
 
-        const response = await axios.get('http://localhost:3001/products', { params });
+        const response = await axios.get('https://trulaila-api-production.up.railway.app/products', { params });
         setProducts(response.data.products)
         setHighestPrice(response.data.highestPrice)
         setTotalPages(Math.ceil(response.data.totalProducts / 12))
@@ -110,7 +110,7 @@ function SearchPageContent() {
             sortBy: sort
         }
 
-        const response = await axios.get('http://localhost:3001/products', { params });
+        const response = await axios.get('https://trulaila-api-production.up.railway.app/products', { params });
         setProducts(response.data.products)
         setHighestPrice(response.data.highestPrice)
         setTotalPages(Math.ceil(response.data.totalProducts / 12))

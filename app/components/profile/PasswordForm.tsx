@@ -79,7 +79,7 @@ export default function PasswordForm() {
             return;
         }
 
-        axios.patch('http://localhost:3001/account/edit ',
+        axios.patch('https://trulaila-api-production.up.railway.app/account/edit ',
             {
                 change: "password",
                 changeTo: passwords.newPassword,

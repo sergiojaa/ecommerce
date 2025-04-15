@@ -45,7 +45,7 @@ export default function ProductCreator() {
         formData.append('category', selectedCategory);
 
         try {
-            const response = await axios.post('http://localhost:3001/products/create', formData, {
+            const response = await axios.post('https://trulaila-api-production.up.railway.app/products/create', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`,

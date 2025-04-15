@@ -28,7 +28,7 @@ export default function Page() {
     });
 
     axios
-      .get('http://localhost:3001/account', {
+      .get('https://trulaila-api-production.up.railway.app/account', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',

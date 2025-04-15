@@ -24,7 +24,7 @@ export default function Products() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/products")
+      .get("https://trulaila-api-production.up.railway.app/products")
       .then((res) => {
         setProducts(res.data);
         setFilteredProducts(res.data);
@@ -34,7 +34,7 @@ export default function Products() {
       });
 
     axios
-      .get("http://localhost:3001/products/categories")
+      .get("https://trulaila-api-production.up.railway.app/products/categories")
       .then((res) => {
         setCategoryData(res.data.categories);
       })
@@ -52,7 +52,7 @@ export default function Products() {
 
     setLoadingProduct(id);
     axios
-      .post("http://localhost:3001/cart/add-to-cart", { productId: id }, {
+      .post("https://trulaila-api-production.up.railway.app/cart/add-to-cart", { productId: id }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -37,7 +37,7 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:3001/products/${id}`)
+      fetch(`https://trulaila-api-production.up.railway.app/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           setProduct(data);
@@ -87,7 +87,7 @@ export default function Product({ params }: { params: Promise<{ id: string }> })
 
     axios
       .post(
-        "http://localhost:3001/cart/add-to-cart",
+        "https://trulaila-api-production.up.railway.app/cart/add-to-cart",
         requestData,
         {
           headers: {

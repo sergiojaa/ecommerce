@@ -26,7 +26,7 @@ export default function login() {
     setError("");
 
     axios
-      .post("http://localhost:3001/auth/sign-in", {
+      .post("https://trulaila-api-production.up.railway.app/auth/sign-in", {
         email: user.email,
         password: user.password,
       })
