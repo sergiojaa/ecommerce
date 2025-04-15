@@ -31,7 +31,7 @@ export default function CustomSlider() {
   useEffect(() => {
     setIsLoading(true)
     axios
-      .get("http://localhost:3001/products")
+      .get("https://trulaila-api-production.up.railway.app/products")
       .then((res) => {
         setProducts(res.data.products)
         setError(false)
@@ -56,7 +56,7 @@ export default function CustomSlider() {
     setLoadingProduct(id)
     axios
       .post(
-        "http://localhost:3001/cart/add-to-cart",
+        "https://trulaila-api-production.up.railway.app/cart/add-to-cart",
         { productId: id },
         {
           headers: {

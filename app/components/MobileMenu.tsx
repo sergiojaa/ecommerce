@@ -13,7 +13,7 @@ export default function MobileMenu({ open }: { open: () => void }) {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3001/products/categories")
+            .get("https://trulaila-api-production.up.railway.app/products/categories")
             .then((res) => {
                 setCategoryData(res.data.categories);
             })

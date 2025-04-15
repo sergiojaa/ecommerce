@@ -63,7 +63,7 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
 
         searchTimeout.current = setTimeout(async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/products?name=${value}`);
+                const response = await axios.get(`https://trulaila-api-production.up.railway.app//products?name=${value}`);
                 setSearchedProducts(response.data.products.slice(0, 5));
                 setSearchPromptOpen(true);
             } catch (error) {
