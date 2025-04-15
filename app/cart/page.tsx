@@ -49,7 +49,7 @@ export default function Page() {
     const token = localStorage.getItem('token');
 
     axios
-      .get<CartResponse>("http://localhost:3001/cart", {
+      .get<CartResponse>("https://trulaila-api-production.up.railway.app/cart", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -82,7 +82,7 @@ export default function Page() {
 
     axios
       .post(
-        "http://localhost:3001/cart/change-quantity",
+        "https://trulaila-api-production.up.railway.app/cart/change-quantity",
         { productId, typeId, operation },
         {
           headers: {
@@ -111,7 +111,7 @@ export default function Page() {
 
     axios
       .post(
-        "http://localhost:3001/cart/remove-from-cart",
+        "https://trulaila-api-production.up.railway.app/cart/remove-from-cart",
         { productId, typeId },
         {
           headers: {
