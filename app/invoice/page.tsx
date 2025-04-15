@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ArrowLeft, CreditCard, Download, Printer } from "lucide-react"
+import { ArrowLeft, CreditCard } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import axios from "axios"

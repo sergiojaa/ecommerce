@@ -43,7 +43,7 @@ export default function CategoryDisplay() {
                 {categoryData.map((category) => (
                     <Link
                         key={category._id}
-                        href={`/category?category=${encodeURIComponent(category.name)}`}
+                        href={`/products/search?category=${encodeURIComponent(category.name)}`}
                         className="flex justify-center"
                     >
                         <div className="bg-[#f7f7f7] w-full max-w-[300px] h-[250px] px-4 py-5 rounded-lg shadow-md flex flex-col items-center justify-between">
