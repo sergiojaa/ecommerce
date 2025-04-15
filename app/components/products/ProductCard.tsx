@@ -5,7 +5,7 @@ import { Button } from "@/app/components/Button"
 import { Card, CardContent, CardFooter } from "@/app/components/Card"
 import { Badge } from "@/app/components/Badge"
 import Link from "next/link"
-
+// fix errors
 interface Product {
   _id: string
   image: string
