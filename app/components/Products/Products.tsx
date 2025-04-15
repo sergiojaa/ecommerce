@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ProductCard from './ProductCard';
+import ProductCard from '../ProductCard';
 import { useRouter } from 'next/navigation';
 
 interface Product {
