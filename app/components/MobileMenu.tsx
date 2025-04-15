@@ -21,7 +21,7 @@ export default function MobileMenu({ open }: { open: () => void }) {
     }, []);
 
     return (
-        <div className="bg-[#FFFFFF] top-[83px] w-full text-black  h-[100vh] right-0 fixed">
+        <div className="bg-[#FFFFFF] top-[83px] w-full text-black  h-[100vh] right-0 ">
             <ul className="flex gap-1 font-bold cursor-pointer w-full flex-col items-start justify-center">
                 {categoryData.map((category) => (
                     <Link
