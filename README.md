@@ -1,33 +1,46 @@
-# ელექტროობის მაღაზია
+⚡ RGR Group – Electricity Company Website
+RGR Group is an electricity company based in Georgia with a physical store located in Tbilisi. This project is a dynamic e-commerce-style website built to showcase their wide range of electrical products, facilitate customer interaction, and streamline invoice generation for both users and company management.
 
-ეს არის ელექტროობის მაღაზიის ვებ-პლატფორმა, რომელიც შექმნილია **Next.js**-ზე. საიტზე შეგიძლიათ  დაათვალიეროთ ელექტროობის ნივთები , რომელიც კატეგორიებად არის დაყოფილი,რაც კიდევ უფრო აადვილებს სასურველი ნივთის პოვნას.
+⚠️ Note: This project is still in progress. Only image URLs remain to be updated, and the website will be hosted soon.
 
-## მახასიათებლები
+🌐 Live Website
+🔗 Coming soon
 
-- **დარეგისტრირება და შესვლა**: შეგიძლიათ შექმნათ ანგარიში და გაიაროთ ავტორიზაცია. 
-- **პირადი ინფორმაცია**: ნახეთ და შეცვალეთ თქვენი პირადი მონაცემები.
-- **მაღაზია**: ელექტროობის მაღაზია, რომელიც შეიცავს სხვადასხვა პროდუქციის კატეგორიებს.
-- **ძებნა**: პროდუქციის მოძებნა საძიებო ველის საშუალებით.
-- **ფილტრაცია**: პროდუქციის ფილტრაცია ფასის მიხედვით.
-- **ინვოისი**: როდესაც იუზერი აირჩევს პროდუქტებს, შეუძლია ინვოისი გაუგზავნოს მეპატრონეს. გადახდის სისტემა არ არის გაშვებული, რადგან დამკვეთმა მოისურვა ამ ეტაპზე მხოლოდ ინვოისის გაგზავნა.
+⚙️ Tech Stack
+Next.js – React framework for scalable web applications
 
-## ადმინისტრატორი
+TypeScript – For a type-safe and maintainable codebase
 
-მაღაზიის **ადმინ პანელი** საშუალებას აძლევს დამკვეთს:
-- დაამატოს, განაახლოს ან წაშალოს პროდუქცია.
-- მართოს კატეგორიები და სხვადასხვა კონტენტი საიტზე.
+CSS Modules – Scoped and modular styling
 
-## მიმდინარე მდგომარეობა
+Nodemailer (planned/implemented) – For sending invoices via email
 
-საიტი ჯერ არ არის სრულად დასრულებული. დარჩენილია შემდეგი ფუნქციონალები:
-- **ლამაზი დიზაინი**: ვმუშაობთ საიტის ვიზუალური დიზაინის გაუმჯობესებაზე, რათა შევქმნათ უფრო მიმზიდველი და თანამედროვე იერი.
-- **ინვოისის გაგზავნის ფუნქციონალი**: ამ ეტაპზე ეს ფუნქცია გაუაქტიურებულია.
-- **ადმინ პანელი**: ფუნქციების გაფართოება, რათა ადმინს შეეძლოს უფრო მარტივად მართოს პროდუქცია, კატეგორიები და სხვა განყოფილებები.
+📬 Features
+Responsive design for all screen sizes
 
-## ტექნოლოგიები
+User Authentication – Sign in / Sign up functionality
 
-- **Next.js**: ვებ აპლიკაციის შექმნისთვის.
-- **Tailwind CSS**: საიტის სტილიზაციისთვის.
-- **JavaScript/TypeScript**: ფუნქციონალისთვის და ინტერაქტიულობისთვის.
-- **React**: საიტის კომპონენტების გასაშუქებლად.
-- **Git/GitHub**: ვერსიების მართვა.
+Mobile Number Management – Users can update their phone numbers
+
+Product Basket – Users can add items to their basket
+
+Invoice Generator – Automatically creates and sends invoices to both the user and the company
+
+Search Functionality – Real-time input and dedicated search results page
+
+Product Categorization – Browse products by categories
+
+Clean and modern UI – Optimized for user experience
+
+Component-based architecture – Designed for scalability and maintainability
+
+🚀 Getting Started (Optional for Developers)
+Clone the project and install dependencies:
+
+bash
+Copy
+Edit
+git clone https://github.com/sergiojaa/RGR_Electricity_Company
+cd rgr
+npm install
+npm run dev
