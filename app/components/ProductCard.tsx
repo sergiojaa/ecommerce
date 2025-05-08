@@ -23,7 +23,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, addToCart, isLoading }: ProductCardProps) {
   return (
-    <Link href={`/products/${product._id}`}>
+    <Link href={`/Products/${product._id}`}>
       <Card className="h-full cursor-pointer overflow-hidden transition-all duration-200 hover:shadow-lg">
         <div className="relative aspect-square overflow-hidden bg-muted">
           <Image
