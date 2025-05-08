@@ -6,7 +6,7 @@ RGR Group is an electricity company based in Georgia with a physical store locat
 
 ## 🌐 Live Website
 
-🔗 coming soon...
+🔗 https://rgr-group.vercel.app/
 
 ---
 
