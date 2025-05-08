@@ -31,7 +31,7 @@ function App({ id }: { id: string | string[] | undefined }) {
             image: data.image || 'https://metalgroup.ge/public/uploads/all/sy58bA6BEf6UyKmiauOM5JDYlZBoarNhpJy0lAS7.jpg', // Default image URL if undefined
           });
         } catch (error) {
-          console.log(error)
+          // console.log(error)
         }
       };
 
@@ -65,7 +65,6 @@ function App({ id }: { id: string | string[] | undefined }) {
           description: product.description,
           image: product.image,
           price: product.price
-
         },
         {
           headers: {
@@ -75,7 +74,7 @@ function App({ id }: { id: string | string[] | undefined }) {
       );
       console.log('Product updated successfully:', response.data);
     } catch (error) {
-      console.error('Error saving product:', error);
+      // console.error('Error saving product:', error);
     }
   };
 
