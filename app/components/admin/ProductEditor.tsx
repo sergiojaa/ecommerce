@@ -31,6 +31,7 @@ function App({ id }: { id: string | string[] | undefined }) {
             image: data.image || 'https://metalgroup.ge/public/uploads/all/sy58bA6BEf6UyKmiauOM5JDYlZBoarNhpJy0lAS7.jpg', // Default image URL if undefined
           });
         } catch (error) {
+          console.log(error)
         }
       };
 
