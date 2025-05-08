@@ -18,6 +18,7 @@ function App({ id }: { id: string | string[] | undefined }) {
   });
 
   useEffect(() => {
+    console.log(id)
     if (id) {
       const fetchProduct = async () => {
         try {
@@ -30,7 +31,6 @@ function App({ id }: { id: string | string[] | undefined }) {
             image: data.image || 'https://metalgroup.ge/public/uploads/all/sy58bA6BEf6UyKmiauOM5JDYlZBoarNhpJy0lAS7.jpg', // Default image URL if undefined
           });
         } catch (error) {
-          console.error('Error fetching product:', error);
         }
       };
 
@@ -50,8 +50,6 @@ function App({ id }: { id: string | string[] | undefined }) {
     const token = localStorage.getItem('token');
     console.log(token)
     e.preventDefault();
-
-    // Check if token exists
     if (!token) {
       console.error('No token found');
       return;
@@ -64,7 +62,9 @@ function App({ id }: { id: string | string[] | undefined }) {
         {
           name: product.name,
           description: product.description,
-          image: product.image
+          image: product.image,
+          price: product.price
+
         },
         {
           headers: {
@@ -151,8 +151,8 @@ function App({ id }: { id: string | string[] | undefined }) {
           <div className="bg-white rounded-lg shadow-md overflow-hidden max-w-sm w-full">
             <div className="relative pb-[100%]">
               <img
-                src={product.image}
-                alt={product.name}
+                src={product?.image}
+                alt={product?.name}
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
