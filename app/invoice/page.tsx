@@ -67,9 +67,20 @@ export default function InvoicePage() {
         const storedTotal = localStorage.getItem("invoiceTotal");
 
         if (storedItems && storedTotal) {
-            setInvoiceItems(JSON.parse(storedItems));
-            setTotalPrice(JSON.parse(storedTotal));
+            const parsedItems: CartItem[] = JSON.parse(storedItems).map((item: any) => ({
+                ...item,
+                product: {
+                    ...item.product,
+                    price: Number(item.product.price), // Convert to number
+                },
+                quantity: Number(item.quantity),
+                totalPrice: Number(item.totalPrice),
+            }));
+
+            setInvoiceItems(parsedItems);
+            setTotalPrice(Number(storedTotal));
         }
+
     }, []);
 
     const handleSubmit = async (e: any) => {

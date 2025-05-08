@@ -23,8 +23,9 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, addToCart, isLoading }: ProductCardProps) {
   return (
-    <Link href={`/Products/${product._id}`}>
-      <Card className="h-full cursor-pointer overflow-hidden transition-all duration-200 hover:shadow-lg">
+    <Card className="h-full cursor-pointer overflow-hidden transition-all duration-200 hover:shadow-lg">
+      <Link href={`/Products/${product._id}`}>
+
         <div className="relative aspect-square overflow-hidden bg-muted">
           <Image
             src={product.image || "/placeholder.svg?height=300&width=300"}
@@ -39,23 +40,24 @@ export default function ProductCard({ product, addToCart, isLoading }: ProductCa
           <p className="text-muted-foreground text-sm mt-1 line-clamp-2 h-[40px]">{product.description}</p>
           <p className="text-primary font-bold text-lg mt-2">${product.price}</p>
         </CardContent>
-        <CardFooter className="p-4 pt-0">
-          <Button className="w-full" onClick={() => addToCart(product._id)} disabled={isLoading}>
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ემატება
-              </>
-            ) : (
-              <>
-                <ShoppingCart className="mr-2 h-4 w-4" />
-                კალათაში დამატება
-              </>
-            )}
-          </Button>
-        </CardFooter>
-      </Card>
-    </Link>
+      </Link>
+
+      <CardFooter className="p-4 pt-0">
+        <Button className="w-full" onClick={() => addToCart(product._id)} disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ემატება
+            </>
+          ) : (
+            <>
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              კალათაში დამატება
+            </>
+          )}
+        </Button>
+      </CardFooter>
+    </Card>
 
   )
 }
