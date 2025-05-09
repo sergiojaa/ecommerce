@@ -116,7 +116,7 @@ function App({ id }: { id: string | string[] | undefined }) {
                 ფასი
               </label>
               <input
-                type="number"
+                type="text"
                 name="price"
                 value={product.price}
                 onChange={handleInputChange}
