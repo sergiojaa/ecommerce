@@ -13,7 +13,6 @@ interface IProps {
 export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
     const pathname = usePathname();
     const router = useRouter();
-
     const desktopSearchbarRef = useRef<HTMLDivElement>(null);
     const mobileSearchbarRef = useRef<HTMLDivElement>(null);
 
@@ -63,7 +62,7 @@ export default function Searchbar({ inputOpen, setInputOpen }: IProps) {
 
         searchTimeout.current = setTimeout(async () => {
             try {
-                const response = await axios.get(`https://trulaila-api-production.up.railway.app//products?name=${value}`);
+                const response = await axios.get(`https://trulaila-api-production.up.railway.app/products?name=${value}`);
                 setSearchedProducts(response.data.products.slice(0, 5));
                 setSearchPromptOpen(true);
             } catch (error) {
